@@ -59,7 +59,7 @@ else:
         cur.execute(sql_copy)
         conn.commit()
 
-        os.system("rm -rf /var/lib/postgresql/benchmark/tempt.csv")
+        #os.system("rm -rf /var/lib/postgresql/benchmark/tempt.csv")
 
     cur.execute(sql_select)
     conn.commit()
