@@ -58,7 +58,7 @@ else:
     # Copy the s3 files into PostgresqlDB
     for i in range(0, len(s3_files)):
         state = os.system("aws s3 cp s3://csfyp2023/benchmark/%s ../benchmark/tempt.csv"%(s3_files[i]))
-        sql_copy = "COPY %s from '/var/lib/postgresql/benchmark/tempt.csv' DELIMITER ',' CSV HEADER;" %(s3_tables)
+        sql_copy = "COPY %s from '/var/lib/postgresql/benchmark/tempt.csv' DELIMITER ',' CSV HEADER;" %(s3_tables[i])
         cur.execute(sql_copy)
         conn.commit()
 
