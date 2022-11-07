@@ -20,6 +20,7 @@ def s3_files(query_type):
         s3_files.append(readings_file)
         tags_file = tags_table + '_' + format + str(begin) + '.csv'
         s3_files.append(tags_file)
+        begin += 1
 
     return s3_files
 
