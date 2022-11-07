@@ -10,14 +10,16 @@ import pandas as pd
 def s3_files(query_type):
     days = int(query_type)
     format = '2022-10-0'
-    table_name = 'benchmark'
-
+    readings_table = 'benchmark_readings'
+    tags_table = 'benchmark_tags'
     s3_files = []
 
     begin = 2
     while begin <= days:
-        file = table_name + '_' + format + str(begin) + '.csv'
-        s3_files.append(file)
+        readings_file = readings_table + '_' + format + str(begin) + '.csv'
+        s3_files.append(readings_file)
+        tags_file = tags_table + '_' + format + str(begin) + '.csv'
+        s3_files.append(tags_file)
 
     return s3_files
 
@@ -67,7 +69,8 @@ else:
     print("The query cost %f seconds"%(begin_time - finish_time))
 
     # drop the data that was inserted
-    sql_drop = "SELECT drop_chunks('benchmark',newer_than => DATE '2022-10-01');"
+    sql_drop = "SELECT drop_chunks('readings',newer_than => DATE '2022-10-01');"
+    sql_drop = "SELECT drop_chunks('tags',newer_than => DATE '2022-10-01');"
     cur.execute(sql_drop)
     conn.commit()
     print(cur.fetchall())
