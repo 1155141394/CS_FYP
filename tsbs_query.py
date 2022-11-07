@@ -10,19 +10,23 @@ import pandas as pd
 def s3_files(query_type):
     days = int(query_type)
     format = '2022-10-0'
-    readings_table = 'benchmark_readings'
-    tags_table = 'benchmark_tags'
+    database = 'benchmark'
+    readings_table = 'readings'
+    tags_table = 'tags'
     s3_files = []
-
+    s3_tables = []
     begin = 2
     while begin <= days:
-        readings_file = readings_table + '_' + format + str(begin) + '.csv'
+        readings_file = database + readings_table + '_' + format + str(begin) + '.csv'
         s3_files.append(readings_file)
-        tags_file = tags_table + '_' + format + str(begin) + '.csv'
+        s3_tables.append(readings_table)
+
+        tags_file = database + tags_table + '_' + format + str(begin) + '.csv'
         s3_files.append(tags_file)
+        s3_tables.append(tags_table)
         begin += 1
 
-    return s3_files
+    return s3_files,s3_tables
 
 query_type = input("Please enter your query type: ")
 
@@ -50,11 +54,11 @@ if query_type == '1':
 
 
 else:
-    s3 = s3_files(query_type)
+    s3_files,s3_tables = s3_files(query_type)
     # Copy the s3 files into PostgresqlDB
-    for i in range(0, len(s3)):
-        state = os.system("aws s3 cp s3://csfyp2023/benchmark/%s ../benchmark/tempt.csv"%(s3[i]))
-        sql_copy = "COPY benchmark from '/var/lib/postgresql/benchmark/tempt.csv' DELIMITER ',' CSV HEADER;" 
+    for i in range(0, len(s3_files)):
+        state = os.system("aws s3 cp s3://csfyp2023/benchmark/%s ../benchmark/tempt.csv"%(s3_files[i]))
+        sql_copy = "COPY %s from '/var/lib/postgresql/benchmark/tempt.csv' DELIMITER ',' CSV HEADER;" %(s3_tables)
         cur.execute(sql_copy)
         conn.commit()
 
