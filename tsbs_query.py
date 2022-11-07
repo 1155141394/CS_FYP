@@ -10,7 +10,7 @@ import pandas as pd
 def s3_files(query_type):
     days = int(query_type)
     format = '2022-10-0'
-    database = 'benchmark'
+    database = 'benchmark_'
     readings_table = 'readings'
     tags_table = 'tags'
     s3_files = []
