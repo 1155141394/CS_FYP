@@ -43,7 +43,7 @@ if query_type == '1':
     conn.commit()
     data = cur.fetchall()
     finish_time = time.time()
-    print("The query cost %f seconds"%(begin_time - finish_time))
+    print("The query cost %f seconds"%(finish_time-begin_time))
     # Data in database
     print(data)
 
@@ -66,7 +66,7 @@ else:
 
     finish_time = time.time()
     print(data)
-    print("The query cost %f seconds"%(begin_time - finish_time))
+    print("The query cost %f seconds"%(finish_time-begin_time))
 
     # drop the data that was inserted
     sql_drop = "SELECT drop_chunks('readings',newer_than => DATE '2022-10-01');"
