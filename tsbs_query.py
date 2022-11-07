@@ -61,6 +61,8 @@ else:
 
         #os.system("rm -rf /var/lib/postgresql/benchmark/tempt.csv")
 
+    transfer_time = time.time()
+
     cur.execute(sql_select)
     conn.commit()
     data = cur.fetchall()
@@ -68,7 +70,8 @@ else:
 
     finish_time = time.time()
     print(data)
-    print("The query cost %f seconds"%(finish_time-begin_time))
+    print("The total query costs %f seconds"%(finish_time-begin_time))
+    print("The transfer process costs %f seconds"%(transfer_time-begin_time))
 
     # drop the data that was inserted
     sql_drop = "SELECT drop_chunks('readings',newer_than => DATE '2022-10-02');"
