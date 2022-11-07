@@ -10,20 +10,17 @@ import pandas as pd
 def s3_files(query_type):
     days = int(query_type)
     format = '2022-10-0'
-    database = 'benchmark_'
+    
     readings_table = 'readings'
-    tags_table = 'tags'
+
     s3_files = []
     s3_tables = []
     begin = 2
     while begin <= days:
-        readings_file = database + readings_table + '_' + format + str(begin) + '.csv'
+        readings_file = readings_table + '_' + format + str(begin) + '.csv'
         s3_files.append(readings_file)
         s3_tables.append(readings_table)
 
-        tags_file = database + tags_table + '_' + format + str(begin) + '.csv'
-        s3_files.append(tags_file)
-        s3_tables.append(tags_table)
         begin += 1
 
     return s3_files,s3_tables
@@ -75,7 +72,6 @@ else:
 
     # drop the data that was inserted
     sql_drop = "SELECT drop_chunks('readings',newer_than => DATE '2022-10-01');"
-    sql_drop = "SELECT drop_chunks('tags',newer_than => DATE '2022-10-01');"
     cur.execute(sql_drop)
     conn.commit()
     print(cur.fetchall())
