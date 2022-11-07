@@ -71,7 +71,7 @@ else:
     print("The query cost %f seconds"%(finish_time-begin_time))
 
     # drop the data that was inserted
-    sql_drop = "SELECT drop_chunks('readings',newer_than => DATE '2022-10-01');"
+    sql_drop = "SELECT drop_chunks('readings',newer_than => DATE '2022-10-02');"
     cur.execute(sql_drop)
     conn.commit()
     print(cur.fetchall())
