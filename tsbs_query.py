@@ -37,9 +37,9 @@ sql_select = """SELECT t.name AS name, t.driver AS driver, r.*
                         ORDER BY time DESC LIMIT 1)  r ON true
                 WHERE t.name IS NOT NULL
                 AND t.fleet = 'South';"""
-begin_time = time.time()
-cur = conn.cursor()
 
+cur = conn.cursor()
+begin_time = time.time()
 if query_type == '1':
     cur.execute(sql_select)
     conn.commit()
