@@ -25,8 +25,8 @@ def s3(query_type):
 
     return s3_files,s3_tables
 
-query_type = input("Please enter your query type: ")
-
+query_type = input('Query type: ')
+query_number = input('Number of queries: ')
 conn = psycopg2.connect(database="benchmark", user="postgres", password="1234", host="localhost", port="5432")
 
 
@@ -35,7 +35,7 @@ time_cost = []
 
 cur = conn.cursor()
 freq = 1
-while freq <= 3:
+while freq <= int(query_number):
     freq += 1
 
     location = random.choice(['South', 'West', 'East','North'])
