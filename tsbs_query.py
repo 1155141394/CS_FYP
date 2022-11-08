@@ -1,11 +1,11 @@
 import re
-import datetime
 import psycopg2
 import os
 import time
 import datetime
 from datetime import date, datetime, timedelta
 import pandas as pd
+import random
 
 def s3_files(query_type):
     days = int(query_type)
@@ -29,54 +29,68 @@ query_type = input("Please enter your query type: ")
 
 conn = psycopg2.connect(database="benchmark", user="postgres", password="1234", host="localhost", port="5432")
 
-sql_select = """SELECT t.name AS name, t.driver AS driver, r.*
+
+
+time_cost = []
+
+cur = conn.cursor()
+freq = 1
+while freq <= 3:
+    freq += 1
+
+    location = random.choice(['South', 'West', 'East','North'])
+    sql_select = """SELECT t.name AS name, t.driver AS driver, r.*
                 FROM tags t INNER JOIN LATERAL
                         (SELECT longitude, latitude
                         FROM readings r
                         WHERE r.tags_id=t.id
                         ORDER BY time DESC LIMIT 1)  r ON true
                 WHERE t.name IS NOT NULL
-                AND t.fleet = 'South';"""
+                AND t.fleet = '%s';"""%(location)
 
-cur = conn.cursor()
-begin_time = time.time()
-if query_type == '1':
-    cur.execute(sql_select)
-    conn.commit()
-    data = cur.fetchall()
-    finish_time = time.time()
-    print("The query cost %f seconds"%(finish_time-begin_time))
-    # Data in database
-    print(data)
-
-
-else:
-    s3_files,s3_tables = s3_files(query_type)
-    # Copy the s3 files into PostgresqlDB
-    for i in range(0, len(s3_files)):
-        state = os.system("aws s3 cp s3://csfyp2023/benchmark/%s ../benchmark/tempt.csv"%(s3_files[i]))
-        sql_copy = "COPY %s from '/var/lib/postgresql/benchmark/tempt.csv' DELIMITER ',' CSV HEADER;" %(s3_tables[i])
-        cur.execute(sql_copy)
+    begin_time = time.time()
+    if query_type == '1':
+        cur.execute(sql_select)
         conn.commit()
+        data = cur.fetchall()
+        finish_time = time.time()
+        cost = finish_time - begin_time
+        print("The query cost %f seconds"%(cost))
+        # Data in database
+        #print(data)
+        time_cost.append(cost)
 
-        #os.system("rm -rf /var/lib/postgresql/benchmark/tempt.csv")
 
-    transfer_time = time.time()
+    else:
+        s3_files,s3_tables = s3_files(query_type)
+        # Copy the s3 files into PostgresqlDB
+        for i in range(0, len(s3_files)):
+            state = os.system("aws s3 cp s3://csfyp2023/benchmark/%s ../benchmark/tempt.csv"%(s3_files[i]))
+            sql_copy = "COPY %s from '/var/lib/postgresql/benchmark/tempt.csv' DELIMITER ',' CSV HEADER;" %(s3_tables[i])
+            cur.execute(sql_copy)
+            conn.commit()
 
-    cur.execute(sql_select)
-    conn.commit()
-    data = cur.fetchall()
+            #os.system("rm -rf /var/lib/postgresql/benchmark/tempt.csv")
+
+        transfer_time = time.time()
+
+        cur.execute(sql_select)
+        conn.commit()
+        data = cur.fetchall()
 
 
-    finish_time = time.time()
-    print(data)
-    print("The total query costs %f seconds"%(finish_time-begin_time))
-    print("The transfer process costs %f seconds"%(transfer_time-begin_time))
+        finish_time = time.time()
+        cost = finish_time - begin_time
+        time_cost.append(cost)
+        #print(data)
+        print("The total query costs %f seconds"%(cost))
+        #print("The transfer process costs %f seconds"%(transfer_time-begin_time))
 
-    # drop the data that was inserted
-    sql_drop = "SELECT drop_chunks('readings',newer_than => DATE '2022-10-02');"
-    cur.execute(sql_drop)
-    conn.commit()
-    print(cur.fetchall())
+        # drop the data that was inserted
+        sql_drop = "SELECT drop_chunks('readings',newer_than => DATE '2022-10-02');"
+        cur.execute(sql_drop)
+        conn.commit()
+        #print(cur.fetchall())
 
+print(time_cost)
 
