@@ -6,8 +6,8 @@ import datetime
 from datetime import date, datetime, timedelta
 import pandas as pd
 import random
-
-def s3_files(query_type):
+import numpy as np
+def s3(query_type):
     days = int(query_type)
     format = '2022-10-0'
     
@@ -62,7 +62,7 @@ while freq <= 3:
 
 
     else:
-        s3_files,s3_tables = s3_files(query_type)
+        s3_files,s3_tables = s3(query_type)
         # Copy the s3 files into PostgresqlDB
         for i in range(0, len(s3_files)):
             state = os.system("aws s3 cp s3://csfyp2023/benchmark/%s ../benchmark/tempt.csv"%(s3_files[i]))
@@ -93,4 +93,5 @@ while freq <= 3:
         #print(cur.fetchall())
 
 print(time_cost)
-
+print('The mean is %s'%(np.average(time_cost)))
+print('The var is %s'%(np.var(time_cost)))
