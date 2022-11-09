@@ -49,21 +49,20 @@ def generate_query(query_type):
                     AND t.fleet = '%s'
                     GROUP BY 1, 2
                     HAVING avg(r.velocity) < 1"""%(location))
+
     return sql_query[int(query_type)-1]
 
-def s3(query_day):
+def s3(query_day, table):
     days = int(query_day)
     format = '2022-10-0'
-    
-    readings_table = 'readings'
 
     s3_files = []
     s3_tables = []
     begin = 2
     while begin <= days:
-        readings_file = readings_table + '_' + format + str(begin) + '.csv'
-        s3_files.append(readings_file)
-        s3_tables.append(readings_table)
+        file = table + '_' + format + str(begin) + '.csv'
+        s3_files.append(file)
+        s3_tables.append(table)
 
         begin += 1
 
@@ -88,8 +87,12 @@ cur = conn.cursor()
 freq = 1
 while freq <= int(query_number):
     freq += 1
-
+    table = ''
     sql_select = generate_query(query_type)
+    if sql_select.find("readings") != -1:
+        table = 'readings'
+    else:
+        table = 'diagnostics'
 
     begin_time = time.time()
     if query_day == '1':
@@ -105,7 +108,7 @@ while freq <= int(query_number):
 
 
     else:
-        s3_files,s3_tables = s3(query_day)
+        s3_files,s3_tables = s3(query_day, table)
         # Copy the s3 files into PostgresqlDB
         for i in range(0, len(s3_files)):
             state = os.system("aws s3 cp s3://csfyp2023/benchmark/%s ../benchmark/tempt.csv"%(s3_files[i]))
