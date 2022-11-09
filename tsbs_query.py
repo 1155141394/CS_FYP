@@ -2,13 +2,37 @@ import re
 import psycopg2
 import os
 import time
-import datetime
 from datetime import date, datetime, timedelta
 import pandas as pd
 import random
 import numpy as np
-def s3(query_type):
-    days = int(query_type)
+
+def generate_query(query_type):
+
+    location = random.choice(['South', 'West', 'East','North'])
+
+    sql_query = []
+    sql_query.append("""SELECT t.name AS name, t.driver AS driver, r.*
+                    FROM tags t INNER JOIN LATERAL
+                            (SELECT longitude, latitude
+                            FROM readings r
+                            WHERE r.tags_id=t.id
+                            ORDER BY time DESC LIMIT 1)  r ON true
+                    WHERE t.name IS NOT NULL
+                    AND t.fleet = '%s';"""%(location))
+    sql_query.append("""SELECT t.name AS name, t.driver AS driver, d.*
+                    FROM tags t INNER JOIN LATERAL
+                            (SELECT fuel_state
+                            FROM diagnostics d
+                            WHERE d.tags_id=t.id
+                            ORDER BY time DESC LIMIT 1) d ON true
+                    WHERE t.name IS NOT NULL
+                    AND d.fuel_state < 0.1
+                    AND t.fleet = '%s';"""%(location))
+    return sql_query[query_type-1]
+
+def s3(query_day):
+    days = int(query_day)
     format = '2022-10-0'
     
     readings_table = 'readings'
@@ -25,11 +49,15 @@ def s3(query_type):
 
     return s3_files,s3_tables
 
-query_type = input('Query type: ')
+print('The query types:')
+print('1.last-loc')
+print('2.low-fuel')
+
+query_type = input('Please enter the query type code: ')
+query_day = input('Query type: ')
 query_number = input('Number of queries: ')
+
 conn = psycopg2.connect(database="benchmark", user="postgres", password="1234", host="localhost", port="5432")
-
-
 
 time_cost = []
 
@@ -38,18 +66,10 @@ freq = 1
 while freq <= int(query_number):
     freq += 1
 
-    location = random.choice(['South', 'West', 'East','North'])
-    sql_select = """SELECT t.name AS name, t.driver AS driver, r.*
-                FROM tags t INNER JOIN LATERAL
-                        (SELECT longitude, latitude
-                        FROM readings r
-                        WHERE r.tags_id=t.id
-                        ORDER BY time DESC LIMIT 1)  r ON true
-                WHERE t.name IS NOT NULL
-                AND t.fleet = '%s';"""%(location)
+    sql_select = generate_query(query_type)
 
     begin_time = time.time()
-    if query_type == '1':
+    if query_day == '1':
         cur.execute(sql_select)
         conn.commit()
         data = cur.fetchall()
@@ -62,7 +82,7 @@ while freq <= int(query_number):
 
 
     else:
-        s3_files,s3_tables = s3(query_type)
+        s3_files,s3_tables = s3(query_day)
         # Copy the s3 files into PostgresqlDB
         for i in range(0, len(s3_files)):
             state = os.system("aws s3 cp s3://csfyp2023/benchmark/%s ../benchmark/tempt.csv"%(s3_files[i]))
