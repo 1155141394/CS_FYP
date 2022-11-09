@@ -29,7 +29,7 @@ def generate_query(query_type):
                     WHERE t.name IS NOT NULL
                     AND d.fuel_state < 0.1
                     AND t.fleet = '%s';"""%(location))
-    return sql_query[query_type-1]
+    return sql_query[int(query_type)-1]
 
 def s3(query_day):
     days = int(query_day)
@@ -54,7 +54,7 @@ print('1.last-loc')
 print('2.low-fuel')
 
 query_type = input('Please enter the query type code: ')
-query_day = input('Query type: ')
+query_day = input('Query day: ')
 query_number = input('Number of queries: ')
 
 conn = psycopg2.connect(database="benchmark", user="postgres", password="1234", host="localhost", port="5432")
