@@ -58,7 +58,7 @@ def s3(query_day, table):
 
     s3_files = []
     s3_tables = []
-    begin = 2
+    begin = 1
     while begin <= days:
         file = table + '_' + format + str(begin) + '.csv'
         s3_files.append(file)
@@ -133,7 +133,7 @@ while freq <= int(query_number):
         #print("The transfer process costs %f seconds"%(transfer_time-begin_time))
 
         # drop the data that was inserted
-        sql_drop = "SELECT drop_chunks('readings',newer_than => DATE '2022-10-02');"
+        sql_drop = "SELECT drop_chunks('%s',newer_than => DATE '2022-10-02');"%(table)
         cur.execute(sql_drop)
         conn.commit()
         #print(cur.fetchall())
