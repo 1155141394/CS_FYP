@@ -58,7 +58,7 @@ def s3(query_day, table):
 
     s3_files = []
     s3_tables = []
-    begin = 1
+    begin = 2
     while begin <= days:
         file = table + '_' + format + str(begin) + '.csv'
         s3_files.append(file)
