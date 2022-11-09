@@ -20,6 +20,7 @@ def generate_query(query_type):
                             ORDER BY time DESC LIMIT 1)  r ON true
                     WHERE t.name IS NOT NULL
                     AND t.fleet = '%s';"""%(location))
+
     sql_query.append("""SELECT t.name AS name, t.driver AS driver, d.*
                     FROM tags t INNER JOIN LATERAL
                             (SELECT fuel_state
@@ -29,6 +30,25 @@ def generate_query(query_type):
                     WHERE t.name IS NOT NULL
                     AND d.fuel_state < 0.1
                     AND t.fleet = '%s';"""%(location))
+
+    sql_query.append("""SELECT t.name AS name, t.driver AS driver, d.*
+                    FROM tags t INNER JOIN LATERAL
+                            (SELECT current_load
+                            FROM diagnostics d
+                            WHERE d.tags_id=t.id
+                            ORDER BY time DESC LIMIT 1) d ON true
+                    WHERE t.name IS NOT NULL
+                    AND d.current_load/t.load_capacity > 0.9
+                    AND t.fleet = '%s';"""%(location))
+
+    sql_query.append("""SELECT t.name AS name, t.driver AS driver
+                    FROM tags t
+                    INNER JOIN readings r ON r.tags_id = t.id
+                    WHERE time >= '2022-10-01 20:54:25.222186 +0000' AND time < '2022-10-01 21:04:25.222186 +0000'
+                    AND t.name IS NOT NULL
+                    AND t.fleet = '%s'
+                    GROUP BY 1, 2
+                    HAVING avg(r.velocity) < 1"""%(location))
     return sql_query[int(query_type)-1]
 
 def s3(query_day):
@@ -52,6 +72,9 @@ def s3(query_day):
 print('The query types:')
 print('1.last-loc')
 print('2.low-fuel')
+print('3.high-load')
+print('4.stationary-trucks')
+
 
 query_type = input('Please enter the query type code: ')
 query_day = input('Query day: ')
