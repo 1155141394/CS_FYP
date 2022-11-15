@@ -1,4 +1,6 @@
 import re
+from io import StringIO
+import boto3
 import psycopg2
 import os
 import time
@@ -48,7 +50,7 @@ def s3_select_gen_csv(days):
     start_date = start_date.date()
     frames = []
     return_path = "/var/lib/postgresql/benchmark/tmp.csv"
-    if len(days == 1):
+    if len(days) == 1:
         filename = basic_filename + "diagnostics_" + str(start_date) + ".csv"
         #  return CSV of unpacked data
         file_str = query_csv_s3(s3, bucket_name, filename, sql_exp, use_header)
@@ -178,9 +180,9 @@ if __name__ == "__main__":
 
 
         else:
-            if query_type == 2 and use_s3select:
+            if query_type == "2" and use_s3select:
                 file_path = s3_select_gen_csv(query_day)
-                sql_copy = "COPY diagnostics from " + file_path + " DELIMITER ',' CSV HEADER;"
+                sql_copy = "COPY diagnostics from '" + file_path + "' DELIMITER ',' CSV HEADER;"
                 cur.execute(sql_copy)
                 conn.commit()
             else:
