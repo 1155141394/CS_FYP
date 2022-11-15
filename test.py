@@ -34,10 +34,9 @@ def query_csv_s3(s3, bucket_name, filename, sql_exp, use_header):
     file_str = ''.join(req.decode('utf-8') for req in records)
     return file_str
 
-
-def s3_select_gen_csv(days):
+def s3_select_gen_csv(days, table):
     s3 = boto3.client('s3')
-
+    days = int(days) - 1
     bucket_name = 'csfyp2023'
     basic_filename = 'benchmark/'
 
@@ -49,15 +48,26 @@ def s3_select_gen_csv(days):
     start_date = datetime.strptime("2022-10-01 00:00:00", '%Y-%m-%d %H:%M:%S')
     start_date = start_date.date()
     frames = []
-    for i in range(days):
+    return_path = "/var/lib/postgresql/benchmark/tmp.csv"
+    if len(days) == 1:
         filename = basic_filename + "diagnostics_" + str(start_date) + ".csv"
         #  return CSV of unpacked data
         file_str = query_csv_s3(s3, bucket_name, filename, sql_exp, use_header)
         #  read CSV to dataframe
         df = pd.read_csv(StringIO(file_str))
         df.columns = ['time', 'tags_id', 'name', 'fuel_state', 'current_load', 'status', 'additional_tags']
-        frames.append(df)
-        start_date = start_date + timedelta(days=1)
-    res = pd.concat(frames)
-    res.to_csv("/var/lib/postgresql/benchmark/tmp.csv", index=False)
-s3_select_gen_csv(2)
+        df.to_csv(return_path, index=False)
+
+    else:
+        for i in range(days):
+            filename = basic_filename + "diagnostics_" + str(start_date) + ".csv"
+            #  return CSV of unpacked data
+            file_str = query_csv_s3(s3, bucket_name, filename, sql_exp, use_header)
+            #  read CSV to dataframe
+            df = pd.read_csv(StringIO(file_str))
+            df.columns = ['time', 'tags_id', 'name', 'fuel_state', 'current_load', 'status', 'additional_tags']
+            frames.append(df)
+            start_date = start_date + timedelta(days=1)
+        res = pd.concat(frames)
+        res.to_csv(return_path, index=False)
+    return return_path

@@ -35,9 +35,9 @@ def query_csv_s3(s3, bucket_name, filename, sql_exp, use_header):
     return file_str
 
 
-def s3_select_gen_csv(days):
+def s3_select_gen_csv(days, table):
     s3 = boto3.client('s3')
-
+    days = int(days) - 1
     bucket_name = 'csfyp2023'
     basic_filename = 'benchmark/'
 
@@ -46,7 +46,7 @@ def s3_select_gen_csv(days):
 
     #  should we use header names to filter
     use_header = False
-    start_date = datetime.strptime("2022-10-01 00:00:00", '%Y-%m-%d %H:%M:%S')
+    start_date = datetime.strptime("2022-10-02 00:00:00", '%Y-%m-%d %H:%M:%S')
     start_date = start_date.date()
     frames = []
     return_path = "/var/lib/postgresql/benchmark/tmp.csv"
@@ -110,7 +110,7 @@ def generate_query(query_type):
     sql_query.append("""SELECT t.name AS name, t.driver AS driver
                     FROM tags t
                     INNER JOIN readings r ON r.tags_id = t.id
-                    WHERE time >= '2022-10-01 20:54:25.222186 +0000' AND time < '2022-10-01 21:04:25.222186 +0000'
+                    WHERE time >= '2022-01-03 13:09:14.823888 +0000' AND time < '2022-01-03 13:19:14.823888 +0000'
                     AND t.name IS NOT NULL
                     AND t.fleet = '%s'
                     GROUP BY 1, 2
@@ -181,7 +181,7 @@ if __name__ == "__main__":
 
         else:
             if query_type == "2" and use_s3select:
-                file_path = s3_select_gen_csv(query_day)
+                file_path = s3_select_gen_csv(query_day, table)
                 sql_copy = "COPY diagnostics from '" + file_path + "' DELIMITER ',' CSV HEADER;"
                 cur.execute(sql_copy)
                 conn.commit()
