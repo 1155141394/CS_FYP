@@ -48,14 +48,16 @@ def s3_select_gen_csv(days):
     use_header = False
     start_date = datetime.strptime("2022-10-01 00:00:00", '%Y-%m-%d %H:%M:%S')
     start_date = start_date.date()
+    frames = []
     for i in range(days):
         filename = basic_filename + "diagnostics_" + str(start_date) + ".csv"
         #  return CSV of unpacked data
         file_str = query_csv_s3(s3, bucket_name, filename, sql_exp, use_header)
-
         #  read CSV to dataframe
         df = pd.read_csv(StringIO(file_str))
-        df.to_csv(filename, index=False, header=False)
+        frames.append(df)
         start_date = start_date + timedelta(days=1)
-
+    res = pd.concat(frames)
+    res.columns = ['time', 'tags_id', 'name', 'fuel_state', 'current_load', 'status', 'additional_tags']
+    res.to_csv("../benchmark/", index=False, header=False)
 s3_select_gen_csv(2)
