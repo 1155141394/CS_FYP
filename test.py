@@ -55,9 +55,10 @@ def s3_select_gen_csv(days):
         file_str = query_csv_s3(s3, bucket_name, filename, sql_exp, use_header)
         #  read CSV to dataframe
         df = pd.read_csv(StringIO(file_str))
+        df.columns = ['time', 'tags_id', 'name', 'fuel_state', 'current_load', 'status', 'additional_tags']
         frames.append(df)
         start_date = start_date + timedelta(days=1)
     res = pd.concat(frames)
-    res.columns = ['time', 'tags_id', 'name', 'fuel_state', 'current_load', 'status', 'additional_tags']
-    res.to_csv("../benchmark/", index=False, header=False)
+    #res.columns = ['time', 'tags_id', 'name', 'fuel_state', 'current_load', 'status', 'additional_tags']
+    res.to_csv("/var/lib/postgresql/benchmark/tmp.csv", index=False)
 s3_select_gen_csv(2)
