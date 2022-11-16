@@ -9,6 +9,7 @@ import pandas as pd
 import random
 import numpy as np
 
+
 def query_csv_s3(s3, bucket_name, filename, sql_exp, use_header):
     #  should we search by column name or column index
     if use_header:
@@ -46,17 +47,18 @@ def s3_select_gen_csv(date, table):
     #  should we use header names to filter
     use_header = False
 
-    start_date = date
+    start_date = datetime.strptime(date, '%Y-%m-%d')
     return_path = "/var/lib/postgresql/benchmark/tmp.csv"
     filename = basic_filename + table + "_" + str(start_date) + ".csv"
     #  return CSV of unpacked data
     file_str = query_csv_s3(s3, bucket_name, filename, sql_exp, use_header)
     #  read CSV to dataframe
     df = pd.read_csv(StringIO(file_str))
-    df.columns = ['time', 'tags_id', 'name', 'fuel_state', 'current_load', 'status', 'additional_tags']
+    df.columns = ['time', 'tags_id', 'name', 'latitude', 'longitude', 'elevation', 'velocity', 'heading', 'grade',
+                  'fuel_consumption', 'additional_tags']
     df.to_csv(return_path, index=False)
-
     return return_path
+
 
 if __name__ == "__main__":
     print(s3_select_gen_csv("2022-10-03", "readings"))
