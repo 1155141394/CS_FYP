@@ -48,7 +48,8 @@ def s3_select_gen_csv(date, table):
 
     start_date = datetime.strptime(date, '%Y-%m-%d')
     return_path = "/var/lib/postgresql/benchmark/tmp.csv"
-    filename = basic_filename + table + "_" + str(start_date) + ".csv"
+    filename = basic_filename + table + "_" + date + ".csv"
+    print(filename)
     #  return CSV of unpacked data
     file_str = query_csv_s3(s3, bucket_name, filename, sql_exp, use_header)
     #  read CSV to dataframe
