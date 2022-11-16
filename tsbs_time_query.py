@@ -73,7 +73,7 @@ def generate_query():
                     AND t.name IS NOT NULL
                     AND t.fleet = '%s'
                     GROUP BY 1, 2
-                    HAVING avg(r.velocity) < 1""" % location
+                    HAVING avg(r.velocity) < 1""" % location)
     return sql_query
 
 if __name__ == "__main__":
