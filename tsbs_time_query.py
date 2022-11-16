@@ -96,7 +96,7 @@ if __name__ == "__main__":
         else:
             file_path = s3_trans_csv("2022-10-03", "readings")
 
-        sql_copy = "COPY diagnostics from '" + file_path + "' DELIMITER ',' CSV HEADER;"
+        sql_copy = "COPY readings from '" + file_path + "' DELIMITER ',' CSV HEADER;"
         cur.execute(sql_copy)
         conn.commit()
 
