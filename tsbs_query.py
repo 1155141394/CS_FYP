@@ -110,7 +110,7 @@ def generate_query(query_type):
     sql_query.append("""SELECT t.name AS name, t.driver AS driver
                     FROM tags t
                     INNER JOIN readings r ON r.tags_id = t.id
-                    WHERE time >= '2022-01-03 13:09:14.823888 +0000' AND time < '2022-01-03 13:19:14.823888 +0000'
+                    WHERE time >= '2022-10-03 13:09:14.823888 +0000' AND time < '2022-10-03 13:19:14.823888 +0000'
                     AND t.name IS NOT NULL
                     AND t.fleet = '%s'
                     GROUP BY 1, 2
