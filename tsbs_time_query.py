@@ -61,7 +61,7 @@ def s3_select_gen_csv(date, table):
 
 def s3_trans_csv(date, table):
     file_path = "/var/lib/postgresql/benchmark/tmp.csv"
-    os.system("aws s3 cp s3://csfyp2023/benchmark/%s_%s %s" % (table, date, file_path))
+    os.system("aws s3 cp s3://csfyp2023/benchmark/%s_%s.csv %s" % (table, date, file_path))
     return file_path
 
 def generate_query():
