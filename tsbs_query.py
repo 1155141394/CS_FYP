@@ -35,7 +35,7 @@ def query_csv_s3(s3, bucket_name, filename, sql_exp, use_header):
     return file_str
 
 
-def s3_select_gen_csv(days, table):
+def s3_query(days, table):
     s3 = boto3.client('s3')
     days = int(days) - 1
     bucket_name = 'csfyp2023'
@@ -50,8 +50,8 @@ def s3_select_gen_csv(days, table):
     start_date = start_date.date()
     frames = []
     return_path = "/var/lib/postgresql/benchmark/tmp.csv"
-    if len(days) == 1:
-        filename = basic_filename + "diagnostics_" + str(start_date) + ".csv"
+    if days == 1:
+        filename = basic_filename + table + "_" + str(start_date) + ".csv"
         #  return CSV of unpacked data
         file_str = query_csv_s3(s3, bucket_name, filename, sql_exp, use_header)
         #  read CSV to dataframe
@@ -181,7 +181,7 @@ if __name__ == "__main__":
 
         else:
             if query_type == "2" and use_s3select:
-                file_path = s3_select_gen_csv(query_day, table)
+                file_path = s3_query(query_day, table)
                 sql_copy = "COPY diagnostics from '" + file_path + "' DELIMITER ',' CSV HEADER;"
                 cur.execute(sql_copy)
                 conn.commit()
