@@ -37,7 +37,6 @@ def query_csv_s3(s3, bucket_name, filename, sql_exp, use_header):
 
 def s3_select_gen_csv(date, table):
     s3 = boto3.client('s3')
-    days = int(days) - 1
     bucket_name = 'csfyp2023'
     basic_filename = 'benchmark/'
 
