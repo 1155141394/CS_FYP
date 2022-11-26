@@ -30,7 +30,7 @@ conn = psycopg2.connect(host="localhost", port=5432, user="postgres", password="
 cur = conn.cursor()
 # today = date.today()
 beg_date = datetime.strptime("2022-10-01 00:00:00", '%Y-%m-%d %H:%M:%S')
-for i in range(3):
+for i in range(4):
     beg_time = time.time()
     end_date = beg_date + timedelta(days=1)
     beg_day = beg_date.date()
