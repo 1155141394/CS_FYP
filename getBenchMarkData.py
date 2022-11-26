@@ -20,7 +20,7 @@ os.system('tsbs_generate_data --use-case="iot" --seed=123 --scale=400 '
           ' --log-interval="10s" --format="timescaledb" '
           '| gzip > ./timescaledb-data.gz')
 
-os.system('cat /tmp/timescaledb-data.gz | gunzip | '
+os.system('cat ./timescaledb-data.gz | gunzip | '
           'tsbs_load_timescaledb --postgres="sslmode=disable" --host="localhost" '
           '--port=5432 --pass="1234" --user="postgres" --admin-db-name=defaultdb --workers=8  '
           '--in-table-partition-tag=true --chunk-time=24h --write-profile= --field-index-count=1 '
