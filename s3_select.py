@@ -73,8 +73,7 @@ for i in times:
         print(line)
         data.append(line.split(","))
 df = pd.DataFrame(data)
-#with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-#    print(df)
+
 df.to_csv('tmp.csv', index=False, header=False)
 pg_end = time.time()
 time_cost = pg_end - pg_beg
