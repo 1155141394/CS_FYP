@@ -14,7 +14,7 @@ import numpy as np
 # end_date_iso = end_date.isoformat()
 
 
-os.system('tsbs_generate_data --use-case="iot" --seed=123 --scale=1 '
+os.system('tsbs_generate_data --use-case="iot" --seed=123 --scale=400 '
           '--timestamp-start="2022-10-01T00:00:00Z"'
           ' --timestamp-end="2022-10-05T00:00:00Z"'
           ' --log-interval="10s" --format="timescaledb" '
@@ -46,7 +46,7 @@ for i in range(4):
     latest_chunk = data[0][0]
 
     sql_get_data = r"copy %s to" \
-                   " '/home/postgres/CS_FYP/postgresql/%s' delimiter as ',' null as '' escape as '\"' CSV quote as '\"'" % (
+                   " '/var/lib/postgresql/%s' delimiter as ',' null as '' escape as '\"' CSV quote as '\"'" % (
                        latest_chunk, file_name_1)
     print("File name is %s" % (file_name_1))
     cur.execute(sql_get_data)
@@ -59,15 +59,15 @@ for i in range(4):
     for field in fields:
         file_fields.append(field[0])
 
-    csv = pd.read_csv(r'/home/postgres/CS_FYP/%s' % file_name_1, header=None, names=file_fields)
-    csv.to_csv('/home/postgres/CS_FYP/%s' % file_name_1, index=False)
+    csv = pd.read_csv(r'/var/lib/postgresql/%s' % file_name_1, header=None, names=file_fields)
+    csv.to_csv('/var/lib/postgresql/%s' % file_name_1, index=False)
 
     sql_delete_chunk = r"SELECT drop_chunks('diagnostics', older_than => DATE '%s');" % end_date
     cur.execute(sql_delete_chunk)
     # print(cur.fetchall())
     conn.commit()
-    os.system("aws s3 cp ./%s s3://csfyp2023/benchmark/%s" % (file_name_1, file_name_1))
-    os.system("rm -rf ./%s" % (file_name_1))
+    os.system("aws s3 cp /var/lib/postgresql/%s s3://csfyp2023/benchmark/%s" % (file_name_1, file_name_1))
+    os.system("rm -rf /var/lib/postgresql/%s" % (file_name_1))
 
     # get data from readings
     sql_get_chunks = r"SELECT show_chunks('readings', older_than => DATE '%s');" % (end_date)
@@ -77,7 +77,7 @@ for i in range(4):
     latest_chunk = data[0][0]
 
     sql_get_data = r"copy %s to" \
-                   " '/home/postgres/CS_FYP/%s' delimiter as ',' null as '' escape as '\"' CSV quote as '\"'" % (
+                   " '/var/lib/postgresql/%s' delimiter as ',' null as '' escape as '\"' CSV quote as '\"'" % (
                        latest_chunk, file_name_2)
     print("File name is %s" % file_name_2)
     cur.execute(sql_get_data)
@@ -90,15 +90,15 @@ for i in range(4):
     for field in fields:
         file_fields.append(field[0])
 
-    csv = pd.read_csv(r'/home/postgres/CS_FYP/%s' % file_name_2, header=None, names=file_fields)
-    csv.to_csv('/home/postgres/CS_FYP/%s' % file_name_2, index=False)
+    csv = pd.read_csv(r'/var/lib/postgresql/%s' % file_name_2, header=None, names=file_fields)
+    csv.to_csv('/var/lib/postgresql/%s' % file_name_2, index=False)
 
     sql_delete_chunk = r"SELECT drop_chunks('readings', older_than => DATE '%s');" % end_date
     cur.execute(sql_delete_chunk)
     # print(cur.fetchall())
     conn.commit()
-    os.system("aws s3 cp ./%s s3://csfyp2023/benchmark/%s" % (file_name_2, file_name_2))
-    os.system("rm -rf ./%s" % (file_name_2))
+    os.system("aws s3 cp /var/lib/postgresql/%s s3://csfyp2023/benchmark/%s" % (file_name_2, file_name_2))
+    os.system("rm -rf /var/lib/postgresql/%s" % (file_name_2))
 
     # # get data from tags
     # sql_get_chunks = r"SELECT show_chunks('tags', older_than => DATE '%s');" % (end_date)
