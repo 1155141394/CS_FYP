@@ -17,7 +17,7 @@ import numpy as np
 os.system('tsbs_generate_data --use-case="iot" --seed=123 --scale=100 '
           '--timestamp-start="2022-10-03T00:00:00Z"'
           ' --timestamp-end="2022-10-04T00:00:00Z"'
-          ' --log-interval="100s" --format="timescaledb" '
+          ' --log-interval="10s" --format="timescaledb" '
           '| gzip > ./timescaledb-data.gz')
 
 os.system('cat ./timescaledb-data.gz | gunzip | '
