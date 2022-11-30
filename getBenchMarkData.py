@@ -29,7 +29,7 @@ os.system('cat ./timescaledb-data.gz | gunzip | '
 conn = psycopg2.connect(host="localhost", port=5432, user="postgres", password="1234", database="benchmark")
 cur = conn.cursor()
 # today = date.today()
-beg_date = datetime.strptime("2022-10-03 00:00:00", '%Y-%m-%d %H:%M:%S')
+beg_date = datetime.strptime("2022-10-01 00:00:00", '%Y-%m-%d %H:%M:%S')
 for i in range(0):
     beg_time = time.time()
     end_date = beg_date + timedelta(days=1)
