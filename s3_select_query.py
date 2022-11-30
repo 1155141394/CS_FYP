@@ -1,0 +1,1 @@
+cat ./timescaledb-data.gz | gunzip | tsbs_load_timescaledb --postgres="sslmode=disable" --host="localhost" --port=5432 --pass="1234" --user="postgres" --admin-db-name=defaultdb --workers=8  --in-table-partition-tag=true --chunk-time=24h --write-profile= --field-index-count=1 --do-create-db=true --force-text-format=false --do-abort-on-exist=false --use-hypertable=true
