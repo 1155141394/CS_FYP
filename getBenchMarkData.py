@@ -14,9 +14,9 @@ import numpy as np
 # end_date_iso = end_date.isoformat()
 
 
-os.system('tsbs_generate_data --use-case="iot" --seed=123 --scale=100 '
-          '--timestamp-start="2022-10-01T00:00:00Z"'
-          ' --timestamp-end="2022-10-02T00:00:00Z"'
+os.system('tsbs_generate_data --use-case="iot" --seed=123 --scale=200 '
+          '--timestamp-start="2022-10-03T00:00:00Z"'
+          ' --timestamp-end="2022-10-04T00:00:00Z"'
           ' --log-interval="10s" --format="timescaledb" '
           '| gzip > ./timescaledb-data.gz')
 
@@ -30,7 +30,7 @@ conn = psycopg2.connect(host="localhost", port=5432, user="postgres", password="
 cur = conn.cursor()
 # today = date.today()
 beg_date = datetime.strptime("2022-10-03 00:00:00", '%Y-%m-%d %H:%M:%S')
-for i in range(0):
+for i in range(1):
     beg_time = time.time()
     end_date = beg_date + timedelta(days=1)
     beg_day = beg_date.date()
