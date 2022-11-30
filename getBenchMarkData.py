@@ -14,7 +14,7 @@ import numpy as np
 # end_date_iso = end_date.isoformat()
 
 
-os.system('tsbs_generate_data --use-case="iot" --seed=123 --scale=400 '
+os.system('tsbs_generate_data --use-case="iot" --seed=123 --scale=5 '
           '--timestamp-start="2022-10-03T00:00:00Z"'
           ' --timestamp-end="2022-10-04T00:00:00Z"'
           ' --log-interval="10s" --format="timescaledb" '
