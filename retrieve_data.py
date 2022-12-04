@@ -135,7 +135,7 @@ else:
         # Copy the s3 files into PostgresqlDB
         for i in range(0, len(s3)):
             print("We need data from " + s3[i])
-            state = os.system("aws s3 cp s3://csfyp2023/%s/%s ../%s/tempt.csv"%(table_name,s3[i],table_name))
+            state = os.system("aws s3 cp s3://csfyp2023/%s/%s /var/lib/postgresql/%s/tempt.csv"%(table_name,s3[i],table_name))
             if state != 0:
                 print("There is no data in " + s3[i])
                 continue
