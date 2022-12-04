@@ -165,7 +165,8 @@ else:
     end_date += timedelta(days=1)
     end_time = end_date.strftime('%Y-%m-%d')
     # drop the data that was inserted
-    sql_drop = "SELECT drop_chunks('%s', older_than => DATE '%s', newer_than => DATE '%s');"%(table_name, end_time, start_time[:10])
+    # sql_drop = "SELECT drop_chunks('%s', older_than => DATE '%s', newer_than => DATE '%s');"%(table_name, end_time, start_time[:10])
+    sql_drop = "delete from hardware_usage;"
     cur.execute(sql_drop)
     conn.commit()
     #print(cur.fetchall())
