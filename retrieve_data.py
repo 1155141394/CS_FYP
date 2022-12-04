@@ -168,7 +168,7 @@ else:
     sql_drop = "SELECT drop_chunks('%s', older_than => DATE '%s', newer_than => DATE '%s');"%(table_name, end_time, start_time[:10])
     cur.execute(sql_drop)
     conn.commit()
-    //print(cur.fetchall())
+    #print(cur.fetchall())
     
 
 
