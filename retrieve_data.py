@@ -101,7 +101,7 @@ def s3_select(table_name, beg_t, end_t):
             data.append(line.split(","))
     df = pd.DataFrame(data)
     file_name = 'tmp.csv'
-    df.to_csv('./'+file_name, index=False, header=False)
+    df.to_csv('/var/lib/postgresql/'+file_name, index=False, header=False)
     pg_end = time.time()
     return(file_name)
 
@@ -126,7 +126,7 @@ if data:
     print(data)
 else:
     # Data is stored in S3. Retrieve data from S3
-    print("Data is not in the TimescaleDB.\n Search for data in S3.")
+    print("Data is not in the TimescaleDB.\nSearch for data in S3.")
     opt = input('Select your query method:')
 
     begin = time.time()
@@ -147,7 +147,7 @@ else:
         os.system("rm -rf /var/lib/postgresql/%s/tempt.csv"%(table_name))
     elif opt == '2' :
         s3 = s3_select(table_name, start_time, end_time)
-        sql_copy = "COPY hardware_usage from '/var/lib/postgresql/Python_script/%s' DELIMITER ',' CSV HEADER;"%(s3)
+        sql_copy = "COPY hardware_usage from '/var/lib/postgresql/%s' DELIMITER ',' CSV HEADER;"%(s3)
         cur.execute(sql_copy)
         conn.commit()
         os.system("rm -rf ./%s"%(s3))
@@ -168,7 +168,7 @@ else:
     sql_drop = "SELECT drop_chunks('%s', older_than => DATE '%s', newer_than => DATE '%s');"%(table_name, end_time, start_time[:10])
     cur.execute(sql_drop)
     conn.commit()
-    print(cur.fetchall())
+    //print(cur.fetchall())
     
 
 
