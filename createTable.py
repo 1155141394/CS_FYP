@@ -6,7 +6,7 @@ conn = psycopg2.connect(host="localhost", port=5432, user="postgres", password="
 
 cur = conn.cursor()
 sql1 = "CREATE TABLE hardware_usage (time TIMESTAMPTZ NOT NULL, cpu_percent REAL NOT NULL, memory_percent" \
-      " REAL NOT NULL)"
+      " REAL NOT NULL);"
 sql2 = "SELECT create_hypertable('hardware_usage','time');"
 cur.execute(sql1)
 cur.execute(sql2)

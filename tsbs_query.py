@@ -95,7 +95,7 @@ def generate_query(query_type):
                             ORDER BY time DESC LIMIT 1) d ON true
                     WHERE t.name IS NOT NULL
                     AND d.fuel_state < 0.1
-                    AND t.fleet = '%s';""" % (location))
+                    AND t.fleet = 'South';""" % (location))
 
     sql_query.append("""SELECT t.name AS name, t.driver AS driver, d.*
                     FROM tags t INNER JOIN LATERAL
