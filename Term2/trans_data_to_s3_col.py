@@ -13,7 +13,7 @@ while True:
     # Set the date info
     today = date.today()
     # send data to s3 hourly
-    if now.hour == 0:
+    if True:
         cur = conn.cursor()
         curr_time = datetime.datetime.now() + datetime.timedelta(hours=-1)
         curr_hour = curr_time.hour
@@ -66,6 +66,7 @@ while True:
         os.system("rm /home/postgres/tmp_file/%s" % cpu_file_name)
         os.system("rm /home/postgres/tmp_file/%s" % mem_file_name)
         time.sleep(60)
+        break
     time.sleep(1)
 
 conn.close()
