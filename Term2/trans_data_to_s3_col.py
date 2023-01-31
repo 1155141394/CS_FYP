@@ -13,7 +13,7 @@ while True:
     # Set the date info
     today = date.today()
     # send data to s3 hourly
-    if now.hour == 0:
+    if now.minute == 0:
         cur = conn.cursor()
         curr_time = datetime.datetime.now() + datetime.timedelta(hours=-1)
         curr_hour = curr_time.hour
