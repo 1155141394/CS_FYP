@@ -13,13 +13,13 @@ while True:
     # Set the date info
     today = date.today()
     # send data to s3 hourly
-    if True:
+    if now.hour == 0:
         cur = conn.cursor()
         curr_time = datetime.datetime.now() + datetime.timedelta(hours=-1)
         curr_hour = curr_time.hour
 
         # set the file name with data + date + hour
-        cpu_file_name = "cpu_usage_" + str(today) + "_" + "" + ".csv"
+        cpu_file_name = "cpu_usage_" + str(today) + "_" + str(curr_hour) + ".csv"
         mem_file_name = "memory_usage_" + str(today) + "_" + str(curr_hour) + ".csv"
 
         # get the chunk name and data from the hypertable
@@ -66,7 +66,6 @@ while True:
         os.system("rm /home/postgres/tmp_file/%s" % cpu_file_name)
         os.system("rm /home/postgres/tmp_file/%s" % mem_file_name)
         time.sleep(60)
-        break
     time.sleep(1)
 
 conn.close()
