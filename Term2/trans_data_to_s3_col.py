@@ -23,7 +23,7 @@ while True:
         mem_file_name = "memory_usage_" + str(today) + "_" + str(curr_hour) + ".csv"
 
         # get the chunk name and data from the hypertable
-        sql_get_chunks = r"SELECT show_chunks('hardware_usage', newer_than => now() - interval '1 hour');"
+        sql_get_chunks = r"SELECT show_chunks('hardware_usage', newer_than => now() - interval '2 hour');"
         cur.execute(sql_get_chunks)
         data = cur.fetchall()
         print(data)
@@ -55,7 +55,7 @@ while True:
         # csv = pd.read_csv(r'/var/lib/postgresql/%s' % (file_name), header=None, names=file_fields)
         # csv.to_csv('/var/lib/postgresql/%s' % (file_name), index=False)
 
-        sql_delete_chunk = r"SELECT drop_chunks('hardware_usage', INTERVAL '1 hour');"
+        sql_delete_chunk = r"SELECT drop_chunks('hardware_usage', older_than => now());"
         cur.execute(sql_delete_chunk)
         # print(cur.fetchall())
         conn.commit()
