@@ -34,7 +34,7 @@ while True:
         sql_get_data = r"copy %s to" \
                        " '/home/postgres/tmp_file/%s' delimiter as ',' null as '' escape as '\"' CSV quote as '\"'" % (
                            latest_chunk, tmp_filename)
-        print("File name is %s" % (file_name))
+        print("File name is %s" % (tmp_filename))
         cur.execute(sql_get_data)
 
         # get the column name
