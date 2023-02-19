@@ -91,6 +91,7 @@ def s3_select(table_name, beg_t, end_t):
         expression = basic_exp + "'%s' and '%s';" % (beg_t, end_t)
         key = retrieve_file[0]
         data = s3_data(expression, key)
+        print(key)
         df = pd.DataFrame(data)
         df.to_csv('/var/lib/postgresql/tmp.csv', index=False, header=False)
     else:
