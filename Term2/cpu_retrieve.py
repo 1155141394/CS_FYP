@@ -108,6 +108,7 @@ def s3_select(table_name, beg_t, end_t):
         before_expression = "SELECT * FROM s3object s where s.\"time\" < '%s';"%(end_t)
         key = retrieve_file[len(retrieve_file)-1]   
         data = data(before_expression, key)
+        df = pd.DataFrame(data)
         df.to_csv('/var/lib/postgresql/tmp%s.csv'%(len(retrieve_file)-1), index=False, header=False)
         
         # 输入待合并文件所在文件夹
