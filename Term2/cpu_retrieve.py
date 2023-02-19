@@ -99,6 +99,7 @@ def s3_select(table_name, beg_t, end_t):
         after_expression = "SELECT * FROM s3object s where s.\"time\" > '%s';"%(beg_t)
         key = retrieve_file[0]
         data = data(after_expression, key)
+        df = pd.DataFrame(data)
         df.to_csv('/var/lib/postgresql/tmp0.csv', index=False, header=False)
         for i in range(1,len(retrieve_file)-1):
             state = os.system("aws s3 cp s3://csfyp2023/%s /var/lib/postgresql/tmp%s.csv"%(retrieve_file[i],str(i)))
