@@ -7,7 +7,6 @@ import time
 from datetime import date, datetime, timedelta
 import pandas as pd
 from save_data_to_s3 import *
-s3_select('1','2023-02-19 11:01:54','2023-02-19 11:05:54')
 
 def data(expression, key):
     s3 = boto3.client('s3')
@@ -123,6 +122,7 @@ def s3_select(table_name, beg_t, end_t):
         result.to_csv(path + 'merge_res.csv', index=False, encoding='gbk')  # 保存合并后的文件
 
 if __name__ == "__main__":
+    s3_select('1', '2023-02-19 11:01:54', '2023-02-19 11:05:54')
 
 
 
