@@ -48,8 +48,8 @@ def s3_select(table_name, beg_t, end_t):
     # end_t = input("Please input the end time:") # Get the end time
 
     # Change the string to datetime type
-    beg_t = datetime.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
-    end_t = datetime.strptime(end_t, '%Y-%m-%d %H:%M:%S')
+    beg_t = datetime.datetime.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
+    end_t = datetime.datetime.strptime(end_t, '%Y-%m-%d %H:%M:%S')
 
 
     # Determine if the time interval is bigger than one day
