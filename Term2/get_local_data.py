@@ -5,6 +5,7 @@ from datetime import date
 import datetime
 import pandas as pd
 import numpy as np
+from save_data_to_s3 import save_data_to_s3
 
 conn = psycopg2.connect(host="localhost", port=5432, user="postgres", password="1234", database="example")
 
@@ -13,17 +14,20 @@ while True:
     # Set the date info
     today = date.today()
     # send data to s3 hourly
-    if now.minute == 0:
+    flag = 0
+    if now.minute == 0 and flag == 0:
+        flag = 1
         cur = conn.cursor()
-        curr_time = datetime.datetime.now() + datetime.timedelta(hours=-1)
-        curr_hour = curr_time.hour
+        end_time = datetime.datetime.now()
+        start_time = end_time + datetime.timedelta(hours=-2)
+        curr_hour = start_time.hour
 
         # set the file name with data + date + hour
         cpu_file_name = "cpu_usage_" + str(today) + "_" + str(curr_hour) + ".csv"
         mem_file_name = "memory_usage_" + str(today) + "_" + str(curr_hour) + ".csv"
 
         # get the chunk name and data from the hypertable
-        sql_get_chunks = r"SELECT show_chunks('hardware_usage', newer_than => now() - interval '2 hour');"
+        sql_get_chunks = r"SELECT show_chunks('hardware_usage', newer_than => now() - interval '3 hour');"
         cur.execute(sql_get_chunks)
         data = cur.fetchall()
         print(data)
@@ -59,13 +63,18 @@ while True:
         cur.execute(sql_delete_chunk)
         # print(cur.fetchall())
         conn.commit()
-        os.system("aws s3 cp /home/postgres/tmp_file/%s s3://csfyp2023/hardware_usage/%s" % (cpu_file_name, cpu_file_name))
-        os.system("aws s3 cp /home/postgres/tmp_file/%s s3://csfyp2023/hardware_usage/%s" % (mem_file_name, mem_file_name))
+
+        save_data_to_s3("csfyp2023", 1, start_time, end_time, "/home/postgres/tmp_file/%s" % cpu_file_name)
+
+
+        # os.system("aws s3 cp /home/postgres/tmp_file/%s s3://csfyp2023/hardware_usage/%s" % (cpu_file_name, cpu_file_name))
+        # os.system("aws s3 cp /home/postgres/tmp_file/%s s3://csfyp2023/hardware_usage/%s" % (mem_file_name, mem_file_name))
 
         os.system("rm /home/postgres/tmp_file/%s" % tmp_filename)
         os.system("rm /home/postgres/tmp_file/%s" % cpu_file_name)
         os.system("rm /home/postgres/tmp_file/%s" % mem_file_name)
         time.sleep(60)
-    time.sleep(1)
+    else:
+        flag = 0
 
 conn.close()
