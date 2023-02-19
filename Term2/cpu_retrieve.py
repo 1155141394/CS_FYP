@@ -26,7 +26,7 @@ def time_index(start_t, end_t):
         start_h = start_t.hour
         end_h = end_t.hour
         start_index = start_h//2 + 1
-        end_index = end_t//2 + 1
+        end_index = end_h//2 + 1
         for i in range(start_index,end_index+1):
             hours.append(i)
         return hours
