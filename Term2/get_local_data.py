@@ -57,8 +57,8 @@ while True:
         # csv = pd.read_csv(r'/var/lib/postgresql/%s' % (file_name), header=None, names=file_fields)
         # csv.to_csv('/var/lib/postgresql/%s' % (file_name), index=False)
 
-        # sql_delete_chunk = r"SELECT drop_chunks('hardware_usage', older_than => now());"
-        # cur.execute(sql_delete_chunk)
+        sql_delete_chunk = r"SELECT drop_chunks('hardware_usage', older_than => now());"
+        cur.execute(sql_delete_chunk)
         # print(cur.fetchall())
         conn.commit()
 
