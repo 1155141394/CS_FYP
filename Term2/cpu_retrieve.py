@@ -6,7 +6,7 @@ import boto3
 import time
 from datetime import date, datetime, timedelta
 import pandas as pd
-import save_data_to_s3.*
+from save_data_to_s3 import *
 s3_select('1','2023-02-19 11:01:54','2023-02-19 11:05:54')
 
 def data(expression, key):
