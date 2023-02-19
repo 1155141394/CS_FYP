@@ -121,7 +121,8 @@ def s3_select(table_name, beg_t, end_t):
         result = pd.concat(file_list)   # 合并文件
         result.to_csv(path + 'merge_res.csv', index=False, encoding='gbk')  # 保存合并后的文件
 
-    
+if __name__ == "__main__":
+
 
 
 
