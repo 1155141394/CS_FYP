@@ -101,9 +101,9 @@ def s3_select(table_name, beg_t, end_t):
 
     elif end_t.date() == beg_t.date():
         file_name = table_name + r"/%s/" % (beg_t.strftime("%Y-%m-%d"))
-            indexes = time_index(beg_t,end_t)
-            for index in indexes:
-                retrieve_file.append(file_name+str(index)+'.csv')
+        indexes = time_index(beg_t,end_t)
+        for index in indexes:
+            retrieve_file.append(file_name+str(index)+'.csv')
 
     # Get the start time
     pg_beg = time.time()
@@ -124,7 +124,8 @@ def s3_select(table_name, beg_t, end_t):
         return retrieve_file
     else:
         after_expression = "SELECT * FROM s3object s where s.\"time\" > '%s';"%(beg_t)
-        key = retrieve_file
+        key = retrieve_file[0]
+        data = data(after_expression, key)
         for 
 
         
