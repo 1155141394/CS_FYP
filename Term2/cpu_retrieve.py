@@ -40,6 +40,7 @@ def s3_data(expression, key):
     for line in (com_rec.splitlines()):
         #print(line)
         data.append(line.split(","))
+    return data
 
 def s3_select(table_name, beg_t, end_t):
     times = [] # record the date used to retrieve data
