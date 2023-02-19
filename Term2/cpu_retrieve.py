@@ -8,7 +8,7 @@ from datetime import date, datetime, timedelta
 import pandas as pd
 from save_data_to_s3 import *
 
-def data(expression, key):
+def s3_data(expression, key):
     s3 = boto3.client('s3')
     resp = s3.select_object_content(
         Bucket='csfyp2023',
@@ -90,14 +90,13 @@ def s3_select(table_name, beg_t, end_t):
         basic_exp = "SELECT * FROM s3object s where s.\"time\" between " # Base expression
         expression = basic_exp + "'%s' and '%s';" % (beg_t, end_t)
         key = retrieve_file[0]
-        data = data(expression, key)
+        data = s3_data(expression, key)
         df = pd.DataFrame(data)
-        tmp = 'tmp.csv'
-        df.to_csv('/var/lib/postgresql/'+tmp, index=False, header=False)
+        df.to_csv('/var/lib/postgresql/tmp.csv', index=False, header=False)
     else:
         after_expression = "SELECT * FROM s3object s where s.\"time\" > '%s';"%(beg_t)
         key = retrieve_file[0]
-        data = data(after_expression, key)
+        data = s3_data(after_expression, key)
         df = pd.DataFrame(data)
         df.to_csv('/var/lib/postgresql/tmp0.csv', index=False, header=False)
         for i in range(1,len(retrieve_file)-1):
@@ -107,7 +106,7 @@ def s3_select(table_name, beg_t, end_t):
 
         before_expression = "SELECT * FROM s3object s where s.\"time\" < '%s';"%(end_t)
         key = retrieve_file[len(retrieve_file)-1]   
-        data = data(before_expression, key)
+        data = s3_data(before_expression, key)
         df = pd.DataFrame(data)
         df.to_csv('/var/lib/postgresql/tmp%s.csv'%(len(retrieve_file)-1), index=False, header=False)
         
