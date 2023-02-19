@@ -6,34 +6,11 @@ import boto3
 import time
 from datetime import date, datetime, timedelta
 import pandas as pd
-s3 = boto3.client('s3')
-
-def time_index(start_t, end_t):
-    hours=[]
-    if start_t == None:
-        end_h = end_t.hour
-        end_index = end_t//2 + 1
-        for i in range(1,end_index+1):
-                hours.append(i)
-        return hours
-    elif end_t == None:
-        start_h = start_t.hour
-        start_index = start_h//2 + 1
-        for i in range(start_index,13):
-            hours.append(i)
-        return hours
-    else:
-        start_h = start_t.hour
-        end_h = end_t.hour
-        start_index = start_h//2 + 1
-        end_index = end_t//2 + 1
-        for i in range(start_index,end_index+1):
-            hours.append(i)
-        return hours
+import save_data_to_s3.*
+s3_select('1','2023-02-19 11:01:54','2023-02-19 11:05:54')
 
 def data(expression, key):
-    # print(expression)
-    # print(key)
+    s3 = boto3.client('s3')
     resp = s3.select_object_content(
         Bucket='csfyp2023',
         Key=key,
@@ -118,82 +95,32 @@ def s3_select(table_name, beg_t, end_t):
         df = pd.DataFrame(data)
         tmp = 'tmp.csv'
         df.to_csv('/var/lib/postgresql/'+tmp, index=False, header=False)
-        pg_end = time.time()
-        retrieve_file = []
-        retrieve_file.append(tmp)
-        return retrieve_file
     else:
         after_expression = "SELECT * FROM s3object s where s.\"time\" > '%s';"%(beg_t)
         key = retrieve_file[0]
         data = data(after_expression, key)
-        for 
-
-        
-
-# Connect to Postgresql database
-conn = psycopg2.connect(database="example", user="postgres", password="1234", host="localhost", port="5432")
-
-# Let user input command
-table_name = input("Please enter your query table name:")
-start_time = input("Your query start time:")
-end_time = input("Your query end time:")
-
-sql_select = "select * from %s where time > '%s' and time < '%s';"%(table_name, start_time, end_time)
-
-cur = conn.cursor()
-
-cur.execute(sql_select)
-conn.commit()
-data = cur.fetchall()
-
-if data:
-    # Data in database
-    print(data)
-else:
-    # Data is stored in S3. Retrieve data from S3
-    print("Data is not in the TimescaleDB.\nSearch for data in S3.")
-    opt = input('Select your query method:')
-
-    begin = time.time()
-    s3 = s3_select(table_name, start_time, end_time)
-    if len(s3) == 1:
-        s3 = s3[0]
-        sql_copy = "COPY hardware_usage from '/var/lib/postgresql/%s' DELIMITER ',' CSV HEADER;"%(s3)
-        cur.execute(sql_copy)
-        conn.commit()
-        os.system("rm -rf ./%s"%(s3))
-    else:
-        s3 = s3_select(table_name, start_time, end_time)
-        # Copy the s3 files into PostgresqlDB
-        for s3_file in s3:
-            state = os.system("aws s3 cp s3://csfyp2023/%s /var/lib/postgresql/%s/tempt.json"%(s3_file,table_name))
+        df.to_csv('/var/lib/postgresql/tmp0.csv', index=False, header=False)
+        for i in range(1,len(retrieve_file)-1):
+            state = os.system("aws s3 cp s3://csfyp2023/%s /var/lib/postgresql/tmp%s.csv"%(retrieve_file[i],str(i)))
             if state != 0:
-                print("There is no data in " + s3_file)
-                continue
-            else:
-                sql_copy = "COPY hardware_usage from '/var/lib/postgresql/%s/tempt.csv' DELIMITER ',' CSV HEADER;" % (table_name)
-                cur.execute(sql_copy)
-                conn.commit()
-    
-    
-    cur.execute(sql_select)
-    conn.commit()
-    print(cur.fetchall())
+                print("There is no data in " + retrieve_file[i])
 
-    finish = time.time()
-    cost = finish - begin
-    print("The query cost %f seconds"%(cost))
+        before_expression = "SELECT * FROM s3object s where s.\"time\" < '%s';"%(end_t)
+        key = retrieve_file[len(retrieve_file)-1]   
+        data = data(before_expression, key)
+        df.to_csv('/var/lib/postgresql/tmp%s.csv'%(len(retrieve_file)-1), index=False, header=False)
+        
+        # 输入待合并文件所在文件夹
+        path = r'/var/lib/postgresql/'
 
-    # need to delay one day of end_date
-    end_date = datetime.strptime(end_time[:10], '%Y-%m-%d')
-    end_date += timedelta(days=1)
-    end_time = end_date.strftime('%Y-%m-%d')
-    # drop the data that was inserted
-    # sql_drop = "SELECT drop_chunks('%s', older_than => DATE '%s', newer_than => DATE '%s');"%(table_name, end_time, start_time[:10])
-    sql_drop = "delete from hardware_usage;"
-    cur.execute(sql_drop)
-    conn.commit()
-    #print(cur.fetchall())
+        file_list = []
+        for file in os.listdir(path):
+            df = pd.read_csv(path + file)
+            file_list.append(df)
+
+        result = pd.concat(file_list)   # 合并文件
+        result.to_csv(path + 'merge_res.csv', index=False, encoding='gbk')  # 保存合并后的文件
+
     
 
 
