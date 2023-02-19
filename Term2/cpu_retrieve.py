@@ -9,6 +9,7 @@ import pandas as pd
 from save_data_to_s3 import *
 
 def s3_data(expression, key):
+    data = []
     s3 = boto3.client('s3')
     resp = s3.select_object_content(
         Bucket='csfyp2023',
@@ -81,9 +82,7 @@ def s3_select(table_name, beg_t, end_t):
         for index in indexes:
             retrieve_file.append(file_name+str(index)+'.csv')
 
-    # Get the start time
-    pg_beg = time.time()
-    data = []
+
     # loop to retrieve the data from s3
    
     if len(retrieve_file) == 1:
