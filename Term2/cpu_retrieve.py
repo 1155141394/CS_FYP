@@ -6,30 +6,8 @@ import boto3
 import time
 from datetime import date, datetime, timedelta
 import pandas as pd
-s3 = boto3.client('s3')
-
-def time_index(start_t, end_t):
-    hours=[]
-    if start_t == None:
-        end_h = end_t.hour
-        end_index = end_t//2 + 1
-        for i in range(1,end_index+1):
-                hours.append(i)
-        return hours
-    elif end_t == None:
-        start_h = start_t.hour
-        start_index = start_h//2 + 1
-        for i in range(start_index,13):
-            hours.append(i)
-        return hours
-    else:
-        start_h = start_t.hour
-        end_h = end_t.hour
-        start_index = start_h//2 + 1
-        end_index = end_t//2 + 1
-        for i in range(start_index,end_index+1):
-            hours.append(i)
-        return hours
+import save_data_to_s3.*
+s3_select('1','2023-02-19 11:01:54','2023-02-19 11:05:54')
 
 def data(expression, key):
     s3 = boto3.client('s3')
