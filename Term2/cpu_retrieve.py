@@ -99,7 +99,7 @@ def s3_select(table_name, beg_t, end_t):
         key = retrieve_file[0]
         data = s3_data(after_expression, key)
         df = pd.DataFrame(data)
-        df.to_csv('/var/lib/postgresql/tmp0.csv', index=False, header=False)
+        df.to_csv('/home/postgres/CS_FYP/data/tmp0.csv', index=False, header=False)
         for i in range(1,len(retrieve_file)-1):
             state = os.system("aws s3 cp s3://csfyp2023/%s /home/postgres/CS_FYP/data/tmp%s.csv"%(retrieve_file[i],str(i)))
             if state != 0:
@@ -121,6 +121,7 @@ def s3_select(table_name, beg_t, end_t):
 
         result = pd.concat(file_list)   # 合并文件
         result.to_csv(path + 'merge_res.csv', index=False, encoding='gbk')  # 保存合并后的文件
+        os.system('rm -rf /home/postgres/CS_FYP/data/tmp*')
 
 if __name__ == "__main__":
     s3_select('1', '2023-02-20 00:01:54', '2023-02-20 05:05:54')
