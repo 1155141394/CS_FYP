@@ -112,11 +112,11 @@ def s3_select(table_name, beg_t, end_t):
         df.to_csv('/home/postgres/CS_FYP/data/tmp%s.csv'%(len(retrieve_file)-1), index=False, header=False)
         
         # 输入待合并文件所在文件夹
-        path = r'/home/postgres/CS_FYP/data/'
+        path = r'/home/postgres/CS_FYP/data/tmp'
 
         file_list = []
-        for file in os.listdir(path):
-            df = pd.read_csv(path + file)
+        for i in range(0,len(retrieve_file)):
+            df = pd.read_csv(path + str(i) + '.csv')
             file_list.append(df)
 
         result = pd.concat(file_list)   # 合并文件
