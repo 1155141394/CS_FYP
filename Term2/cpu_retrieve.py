@@ -93,7 +93,7 @@ def s3_select(table_name, beg_t, end_t):
         print(key)
         data = s3_data(expression, key)
         df = pd.DataFrame(data)
-        df.to_csv('/var/lib/postgresql/tmp.csv', index=False, header=False)
+        df.to_csv('~/CS_FYP/data/tmp.csv', index=False, header=False)
     else:
         after_expression = "SELECT * FROM s3object s where s.\"time\" > '%s';"%(beg_t)
         key = retrieve_file[0]
@@ -101,7 +101,7 @@ def s3_select(table_name, beg_t, end_t):
         df = pd.DataFrame(data)
         df.to_csv('/var/lib/postgresql/tmp0.csv', index=False, header=False)
         for i in range(1,len(retrieve_file)-1):
-            state = os.system("aws s3 cp s3://csfyp2023/%s /var/lib/postgresql/tmp%s.csv"%(retrieve_file[i],str(i)))
+            state = os.system("aws s3 cp s3://csfyp2023/%s ~/CS_FYP/data/tmp%s.csv"%(retrieve_file[i],str(i)))
             if state != 0:
                 print("There is no data in " + retrieve_file[i])
 
@@ -109,10 +109,10 @@ def s3_select(table_name, beg_t, end_t):
         key = retrieve_file[len(retrieve_file)-1]   
         data = s3_data(before_expression, key)
         df = pd.DataFrame(data)
-        df.to_csv('/var/lib/postgresql/tmp%s.csv'%(len(retrieve_file)-1), index=False, header=False)
+        df.to_csv('~/CS_FYP/data/tmp%s.csv'%(len(retrieve_file)-1), index=False, header=False)
         
         # 输入待合并文件所在文件夹
-        path = r'/var/lib/postgresql/'
+        path = r'~/CS_FYP/data/'
 
         file_list = []
         for file in os.listdir(path):
