@@ -83,7 +83,7 @@ def s3_select(table_name, beg_t, end_t):
         for index in indexes:
             retrieve_file.append(file_name+str(index)+'.csv')
 
-
+    print(retrieve_file)
     # loop to retrieve the data from s3
    
     if len(retrieve_file) == 1:
