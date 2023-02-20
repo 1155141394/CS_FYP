@@ -123,7 +123,7 @@ def s3_select(table_name, beg_t, end_t):
         result.to_csv(path + 'merge_res.csv', index=False, encoding='gbk')  # 保存合并后的文件
 
 if __name__ == "__main__":
-    s3_select('1', '2023-02-20 00:01:54', '2023-02-19 05:05:54')
+    s3_select('1', '2023-02-20 00:01:54', '2023-02-20 05:05:54')
 
 
 
