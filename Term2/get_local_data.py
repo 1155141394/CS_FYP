@@ -14,7 +14,7 @@ while True:
     # Set the date info
     today = date.today()
     # send data to s3 every two hours
-    if now.hour & 1 == 0:
+    if now.hour & 1 == 0 and now.minute == 0:
         cur = conn.cursor()
         end_time = datetime.datetime.now()
         start_time = end_time + datetime.timedelta(hours=-2)
