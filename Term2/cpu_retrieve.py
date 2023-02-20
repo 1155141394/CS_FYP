@@ -124,7 +124,7 @@ def s3_select(table_name, beg_t, end_t):
         # os.system('rm -rf /home/postgres/CS_FYP/data/tmp*')
 
 if __name__ == "__main__":
-    s3_select('1', '2023-02-20 00:01:54', '2023-02-20 05:05:54')
+    s3_select('1', '2023-02-20 02:01:54', '2023-02-20 06:05:54')
 
 
 
