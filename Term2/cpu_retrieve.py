@@ -98,29 +98,34 @@ def s3_select(table_name, beg_t, end_t):
         after_expression = "SELECT * FROM s3object s where s.\"time\" > '%s';"%(beg_t)
         key = retrieve_file[0]
         data = s3_data(after_expression, key)
-        df = pd.DataFrame(data)
-        df.to_csv('/home/postgres/CS_FYP/data/tmp0.csv', index=False, header=False)
+        # df = pd.DataFrame(data)
+        # df.to_csv('/home/postgres/CS_FYP/data/tmp0.csv', index=False, header=False)
         for i in range(1,len(retrieve_file)-1):
-            state = os.system("aws s3 cp s3://csfyp2023/%s /home/postgres/CS_FYP/data/tmp%s.csv"%(retrieve_file[i],str(i)))
-            if state != 0:
-                print("There is no data in " + retrieve_file[i])
+            expression = "SELECT * FROM s3object s "
+            key = retrieve_file[i]
+            data = data + s3_data(expression, key)
+            # df = pd.DataFrame(data)
+            # df.to_csv('/home/postgres/CS_FYP/data/tmp0.csv', index=False, header=False)
+            # state = os.system("aws s3 cp s3://csfyp2023/%s /home/postgres/CS_FYP/data/tmp%s.csv"%(retrieve_file[i],str(i)))
+            # if state != 0:
+            #     print("There is no data in " + retrieve_file[i])
 
         before_expression = "SELECT * FROM s3object s where s.\"time\" < '%s';"%(end_t)
         key = retrieve_file[len(retrieve_file)-1]   
-        data = s3_data(before_expression, key)
+        data = data + s3_data(before_expression, key)
         df = pd.DataFrame(data)
-        df.to_csv('/home/postgres/CS_FYP/data/tmp%s.csv'%(len(retrieve_file)-1), index=False, header=False)
+        df.to_csv('/home/postgres/CS_FYP/data/tmp.csv', index=False, header=False)
         
-        # 输入待合并文件所在文件夹
-        path = r'/home/postgres/CS_FYP/data/tmp'
+        # # 输入待合并文件所在文件夹
+        # path = r'/home/postgres/CS_FYP/data/tmp'
 
-        file_list = []
-        for i in range(0,len(retrieve_file)):
-            df = pd.read_csv(path + str(i) + '.csv')
-            file_list.append(df)
+        # file_list = []
+        # for i in range(0,len(retrieve_file)):
+        #     df = pd.read_csv(path + str(i) + '.csv')
+        #     file_list.append(df)
 
-        result = pd.concat(file_list)   # 合并文件
-        result.to_csv(path + 'merge_res.csv', index=False, encoding='gbk')  # 保存合并后的文件
+        # result = pd.concat(file_list)   # 合并文件
+        # result.to_csv(path + 'merge_res.csv', index=False, encoding='gbk')  # 保存合并后的文件
         #os.system('rm -rf /home/postgres/CS_FYP/data/tmp*')
 
 if __name__ == "__main__":
