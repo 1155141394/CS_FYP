@@ -16,9 +16,12 @@ des = cursor.description
 attr = []
 for item in des:
    attr.append(item[0])
-print(attr)
 for line in lines:
-   print(line[2])
+   node = line[attr.index("node")]
+   cpu = line[attr.index("cpu")]
+   time = line[attr.index("time")]
+   cpu_usage = line[attr.index("cpu_usage")]
+   print(node,cpu,time)
 # 提交数据
 conn.commit()
 # 关闭连接
