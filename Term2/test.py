@@ -1,6 +1,3 @@
-CREATE TABLE table (
-    time TIMESTAMPTZ NOT NULL,
-    cpu INT NOT NULL,
-    node INT NULL,
-    cpu_usage DOUBLE PRECISION NULL
-);
+a = [0]*4
+a[0] = 8
+print(a)
