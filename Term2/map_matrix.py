@@ -12,7 +12,11 @@ cursor.execute('''SELECT * from cpu_usage''')
 
 #Fetching 1st row from the table
 lines = cursor.fetchall();
-print(cursor.description)
+des = cursor.description
+attr = []
+for item in des:
+   attr.append(item[0])
+print(attr)
 for line in lines:
    print(line[2])
 # 提交数据
