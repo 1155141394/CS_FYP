@@ -9,12 +9,11 @@ conn.autocommit = True
 cursor = conn.cursor()
 # 检索数据
 cursor.execute('''SELECT * from cpu_usage''')
-# 正在从表中获取第一行
-result = cursor.fetchone();
-print(result)
+
 #Fetching 1st row from the table
-result = cursor.fetchall();
-print(result)
+lines = cursor.fetchall();
+for line in lines:
+   print(line)
 # 提交数据
 conn.commit()
 # 关闭连接

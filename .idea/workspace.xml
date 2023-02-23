@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0cca1765-f6a2-43d0-a243-d353ca4fda8e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Term2/map_matrix.py" afterDir="false" />
+    <list default="true" id="0cca1765-f6a2-43d0-a243-d353ca4fda8e" name="Changes" comment="add map">
+      <change beforePath="$PROJECT_DIR$/Term2/map_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/map_matrix.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +61,25 @@
       <option name="presentableId" value="Default" />
       <updated>1677130266324</updated>
     </task>
+    <task id="LOCAL-00001" summary="add map">
+      <created>1677131075547</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1677131075547</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add map">
+      <created>1677131137584</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1677131137584</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add map" />
+    <option name="LAST_COMMIT_MESSAGE" value="add map" />
   </component>
 </project>
