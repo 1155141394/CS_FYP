@@ -13,7 +13,7 @@ cursor.execute('''SELECT * from cpu_usage''')
 #Fetching 1st row from the table
 lines = cursor.fetchall();
 for line in lines:
-   print(line[2])
+   print(line["node"])
 # 提交数据
 conn.commit()
 # 关闭连接
