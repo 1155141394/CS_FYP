@@ -1,32 +1,21 @@
-a = [0]*4
-a[0] = 8
-print(a)
+from hash import HashTable
 
-import hashlib
-import csv
-import os
-a = "cpu0"
-
-print(hashlib.sha1(str.encode("utf-8")).hexdigest())
-f = open("./tmp.txt", "a")
-f.writelines("a")
+tag1 = ["node1", "node2"]
+tag2 = ["cpu1", "cpu2", "cpu3"]
+indx = HashTable(5000)
 
 
-def insert(tsid, time, val, columns=None):
-   file_name = f"./{tsid}.csv"
-   if not os.path.exists(file_name):
-      with open(file_name, "a") as f:
-         csv_writer = csv.writer(f, delimiter=',')
-         data = [str(time), str(val)]
-         csv_writer.writerow(columns)
-         csv_writer.writerow(data)
-   else:
-      with open(file_name, "a") as f:
-         csv_writer = csv.writer(f, delimiter=',')
-         data = [str(time), str(val)]
-         csv_writer.writerow(data)
-   print(f"Write data to {tsid}.csv successfully.")
+def char_sum(str):
+    res = 0
+    count = 1
+    for c in str:
+        res += ord(c) * count
+        count *= 256
+    return res
 
 
-if __name__ == '__main__':
-    insert(1, 1, 1, ["time", "value"])
+for i in tag1:
+    for j in tag2:
+        x = char_sum(i)
+        y = char_sum(j)
+        print(indx.put(x, 1), indx.put(y, 1))
