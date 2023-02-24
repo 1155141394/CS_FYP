@@ -16,7 +16,7 @@ def char_sum(str):
 
 # Use sha1 to get the index of tags
 def index(index_map, tag1="", tag2=""):
-   tag2 = char_sum(tag1 + tag2)
+   tag2 = char_sum(tag2)
    tag1 = char_sum(tag1)
    tag1_val =  index_map.get(tag1)
    tag2_val = index_map.get(tag2)
@@ -29,7 +29,7 @@ def index(index_map, tag1="", tag2=""):
 
 
 def insert(tsid, time, val, columns=None):
-   file_name = f"./{tsid}.csv"
+   file_name = f"/home/postgres/CS_FYP/data/{tsid}.csv"
    if not os.path.exists(file_name):
       with open(file_name, "a") as f:
          csv_writer = csv.writer(f, delimiter=',')
