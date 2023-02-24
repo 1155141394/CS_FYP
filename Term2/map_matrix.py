@@ -28,7 +28,7 @@ def index(index_map, tag1="", tag2=""):
    else:
       res.append(False)
       print("not existed")
-   return res
+   return res.append(index_map)
 
 
 def insert(tsid, time, val, columns=None):
@@ -71,7 +71,7 @@ for line in lines:
    cpu = line[attr.index("cpu")]
    time = line[attr.index("time")]
    cpu_usage = line[attr.index("cpu_usage")]
-   node_index, cpu_index, is_exist = index(index_map, node, cpu)
+   node_index, cpu_index, is_exist, index_map = index(index_map, node, cpu)
    if is_exist:
       tsid = 0
       for i in range(len(map_matrix)):
