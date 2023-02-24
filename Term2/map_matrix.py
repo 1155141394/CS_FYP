@@ -9,8 +9,10 @@ from hash import HashTable
 # change the string to char sum
 def char_sum(str):
    res = 0
+   count = 1
    for c in str:
-      res += ord(c)
+      res += ord(c) * count
+      count *= 10
    return res
 
 
