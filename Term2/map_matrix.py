@@ -16,15 +16,15 @@ def char_sum(str):
 
 # Use sha1 to get the index of tags
 def index(index_map, tag1="", tag2=""):
+   tag2 = char_sum(tag1 + tag2)
    tag1 = char_sum(tag1)
-   tag2 = char_sum(tag1+tag2)
    tag1_val =  index_map.get(tag1)
    tag2_val = index_map.get(tag2)
    res = [index_map.put(tag1, 1), index_map.put(tag2, 1)]
    if tag1_val and tag2_val:
-      res.append(1)
+      res.append(True)
    else:
-      res.append(0)
+      res.append(False)
    return res
 
 
