@@ -3,16 +3,29 @@ import pandas as pd
 import hashlib
 import csv
 import os
+from hash import HashTable
 # 建立连接
 
+# change the string to char sum
+def char_sum(str):
+   res = 0
+   for c in str:
+      res += ord(c)
+   return res
+
+
 # Use sha1 to get the index of tags
-def index(tag1 = "", tag2 = ""):
-   if tag1 and tag2:
-      encoded_tag1 = hashlib.sha1(tag1.encode("utf-8")).hexdigest()
-      encoded_tag2 = hashlib.sha1((tag1+tag2).encode("utf-8")).hexdigest()
-      return encoded_tag1, encoded_tag2
+def index(index_map, tag1="", tag2=""):
+   tag1 = char_sum(tag1)
+   tag2 = char_sum(tag1+tag2)
+   tag1_val =  index_map.get(tag1)
+   tag2_val = index_map.get(tag2)
+   res = [index_map.put(tag1, 1), index_map.put(tag2, 1)]
+   if tag1_val and tag2_val:
+      res.append(1)
    else:
-      print("Lose arguments.")
+      res.append(0)
+   return res
 
 
 def insert(tsid, time, val, columns=None):
@@ -42,22 +55,20 @@ conn.autocommit = True
 cursor = conn.cursor()
 # 检索数据
 cursor.execute('''SELECT * from cpu_usage''')
-
+index_map = HashTable(5000)
 #Fetching 1st row from the table
 lines = cursor.fetchall();
 des = cursor.description
 attr = []
 for item in des:
    attr.append(item[0])
-index_map = {} # record the tags pair
 map_matrix = []
 for line in lines:
    node = line[attr.index("node")]
    cpu = line[attr.index("cpu")]
    time = line[attr.index("time")]
    cpu_usage = line[attr.index("cpu_usage")]
-   node_index,cpu_index = index(node, cpu)
-   is_exist = 1 if node_index in index_map.keys() and cpu_index in index_map.keys() else 0 # determine tags whether exist
+   node_index, cpu_index, is_exist = index(index_map, node, cpu)
    if is_exist:
       tsid = 0
       for i in range(len(map_matrix)):
@@ -67,11 +78,6 @@ for line in lines:
       insert(tsid,time,cpu_usage,["time", "value"])
       continue
    else:
-      if node_index not in index_map.keys():
-         index_map[node_index] = 1
-         index_map[cpu_index] = 1
-      else:
-         index_map[cpu_index] = 1
       new_TS = [0]*5000
       tsid = len(map_matrix)
       map_matrix.append(new_TS)
