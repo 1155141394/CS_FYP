@@ -27,6 +27,7 @@ def index(index_map, tag1="", tag2=""):
       res.append(True)
    else:
       res.append(False)
+      print("not existed")
    return res
 
 
