@@ -59,7 +59,7 @@ attr = []
 for item in des:
    attr.append(item[0])
 map_matrix = []
-cpu_node = {}
+cpu_node = set()
 for line in lines:
    node = line[attr.index("node")]
    cpu = line[attr.index("cpu")]
