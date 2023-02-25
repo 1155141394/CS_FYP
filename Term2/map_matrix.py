@@ -23,11 +23,6 @@ def index(index_map, tag1="", tag2=""):
    tag1_val =  index_map.get(tag1)
    tag2_val = index_map.get(tag2)
    res = [index_map.put(tag1, 1), index_map.put(tag2, 1)]
-   if tag1_val and tag2_val:
-      res.append(True)
-   else:
-      res.append(False)
-      print("not existed")
    return res
 
 

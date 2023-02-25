@@ -13,9 +13,21 @@ def char_sum(str):
         count *= 256
     return res
 
+def index(index_map, tag1="", tag2=""):
+   tag2 = char_sum(tag2)
+   tag1 = char_sum(tag1)
+   tag1_val =  index_map.get(tag1)
+   tag2_val = index_map.get(tag2)
+   res = [index_map.put(tag1, 1), index_map.put(tag2, 1)]
+   if tag1_val and tag2_val:
+      res.append(True)
+   else:
+      res.append(False)
+      print("not existed")
+   return res
+
 
 for i in tag1:
     for j in tag2:
-        x = char_sum(i)
-        y = char_sum(j)
-        print(indx.put(x, 1), indx.put(y, 1))
+
+        print(index(indx, i, j))
