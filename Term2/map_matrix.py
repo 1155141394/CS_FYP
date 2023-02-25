@@ -20,8 +20,6 @@ def char_sum(str):
 def index(index_map, tag1="", tag2=""):
    tag2 = char_sum(tag2)
    tag1 = char_sum(tag1)
-   tag1_val =  index_map.get(tag1)
-   tag2_val = index_map.get(tag2)
    res = [index_map.put(tag1, 1), index_map.put(tag2, 1)]
    return res
 
@@ -61,12 +59,14 @@ attr = []
 for item in des:
    attr.append(item[0])
 map_matrix = []
+cpu_node = {}
 for line in lines:
    node = line[attr.index("node")]
    cpu = line[attr.index("cpu")]
    time = line[attr.index("time")]
    cpu_usage = line[attr.index("cpu_usage")]
-   node_index, cpu_index, is_exist = index(index_map, node, cpu)
+   node_index, cpu_index = index(index_map, node, cpu)
+   is_exist = 1 if cpu + '_' + node in cpu_node else 0
    if is_exist:
       tsid = 0
       for i in range(len(map_matrix)):
@@ -76,6 +76,7 @@ for line in lines:
       insert(tsid,time,cpu_usage,["time", "value"])
       continue
    else:
+      cpu_node.add(cpu + '_' + node)
       new_TS = [0]*5000
       tsid = len(map_matrix)
       map_matrix.append(new_TS)

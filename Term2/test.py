@@ -27,7 +27,9 @@ def index(index_map, tag1="", tag2=""):
    return res
 
 
-for i in tag1:
-    for j in tag2:
-
-        print(index(indx, i, j))
+# for i in tag1:
+#     for j in tag2:
+#
+#         print(index(indx, i, j))
+print(index(indx,"cpu0","node1"))
+print(index(indx,"cpu0","node1"))
