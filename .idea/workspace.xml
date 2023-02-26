@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0cca1765-f6a2-43d0-a243-d353ca4fda8e" name="Changes" comment="convert to new hash map">
+    <list default="true" id="0cca1765-f6a2-43d0-a243-d353ca4fda8e" name="Changes" comment="update index function">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Term2/map_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/map_matrix.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Term2/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +82,7 @@
       <option name="presentableId" value="Default" />
       <updated>1677130266324</updated>
       <workItem from="1677160117410" duration="5316000" />
-      <workItem from="1677246963916" duration="5438000" />
+      <workItem from="1677246963916" duration="6097000" />
     </task>
     <task id="LOCAL-00001" summary="add map">
       <created>1677131075547</created>
@@ -205,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677253135184</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="update index function">
+      <created>1677301068978</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1677301068978</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,7 +220,8 @@
     <MESSAGE value="add map" />
     <MESSAGE value="add index and insert function to map_matrix.py" />
     <MESSAGE value="convert to new hash map" />
-    <option name="LAST_COMMIT_MESSAGE" value="convert to new hash map" />
+    <MESSAGE value="update index function" />
+    <option name="LAST_COMMIT_MESSAGE" value="update index function" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CS_FYP$test.coverage" NAME="test Coverage Results" MODIFIED="1677253204840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Term2" />
