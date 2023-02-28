@@ -65,20 +65,20 @@ def s3_select(table_name, beg_t, end_t):
 
         for i in times:
             if i[0].strftime("%Y-%m-%d") == i[1].strftime("%Y-%m-%d"):
-                file_name = table_name + r"/%s/" % (i[0].strftime("%Y-%m-%d"))
+                file_name = table_name + r"/%s_" % (i[0].strftime("%Y-%m-%d"))
                 indexes = time_index(None,i[1])
                 for index in indexes:
                     retrieve_file.append(file_name+str(index)+'.csv')
                 
             else:
-                file_name = table_name + r"/%s/" % (i[0].strftime("%Y-%m-%d"))
+                file_name = table_name + r"/%s_" % (i[0].strftime("%Y-%m-%d"))
                 indexes = time_index(i[0],None)
                 for index in indexes:
                     retrieve_file.append(file_name+str(index)+'.csv')
 
 
     elif end_t.date() == beg_t.date():
-        file_name = table_name + r"/%s/" % (beg_t.strftime("%Y-%m-%d"))
+        file_name = table_name + r"/%s_" % (beg_t.strftime("%Y-%m-%d"))
         indexes = time_index(beg_t,end_t)
         for index in indexes:
             retrieve_file.append(file_name+str(index)+'.csv')
