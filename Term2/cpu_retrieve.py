@@ -45,9 +45,6 @@ def s3_data(expression, key):
 def s3_select(table_name, beg_t, end_t):
     times = [] # record the date used to retrieve data
     retrieve_file = []
-    # table_name = input("Please input the table you want to search:") # Get table name from user
-    # beg_t = input("Please input the start time:") # Get the start time
-    # end_t = input("Please input the end time:") # Get the end time
 
     # Change the string to datetime type
     beg_t = datetime.datetime.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
@@ -115,21 +112,27 @@ def s3_select(table_name, beg_t, end_t):
         data = data + s3_data(before_expression, key)
         df = pd.DataFrame(data)
         df.to_csv('/home/postgres/CS_FYP/data/tmp.csv', index=False, header=False)
-        
-        # # 输入待合并文件所在文件夹
-        # path = r'/home/postgres/CS_FYP/data/tmp'
 
-        # file_list = []
-        # for i in range(0,len(retrieve_file)):
-        #     df = pd.read_csv(path + str(i) + '.csv')
-        #     file_list.append(df)
+def find_id(node,cpu):
+    state = os.system("aws s3 cp s3://csfyp2023/map_matrix /home/postgres/CS_FYP/data/map_matrix.csv")
+    if state != 0:
+        print("There is no map in csfyp2023")
+        return
 
-        # result = pd.concat(file_list)   # 合并文件
-        # result.to_csv(path + 'merge_res.csv', index=False, encoding='gbk')  # 保存合并后的文件
-        #os.system('rm -rf /home/postgres/CS_FYP/data/tmp*')
+    csv_file = csv.reader(open('/home/postgres/CS_FYP/data/map_matrix.csv', 'r'))
+    print(csv_file)  # 可以先输出看一下该文件是什么样的类型
+
+    content = []  # 用来存储整个文件的数据，存成一个列表，列表的每一个元素又是一个列表，表示的是文件的某一行
+
+    for line in csv_file:
+        content.append(line)
+    print("该文件中保存的数据为:\n", content)
+
+
 
 if __name__ == "__main__":
-    s3_select('1', '2023-02-20 02:01:54', '2023-02-20 06:05:54')
+    # s3_select('1', '2023-02-20 02:01:54', '2023-02-20 06:05:54')
+    find_id(1,3)
 
 
 

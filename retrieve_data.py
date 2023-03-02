@@ -101,8 +101,7 @@ def s3_select(table_name, beg_t, end_t):
             data.append(line.split(","))
     df = pd.DataFrame(data)
     file_name = 'tmp.csv'
-    df.to_csv('/var/lib/postgresql/'+file_name, index=False, header=False)
-    pg_end = time.time()
+    df.to_csv('/var/lib/postgresql/'+file_name, index=False, header=False
     return(file_name)
 
 # Connect to Postgresql database

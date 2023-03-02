@@ -7,10 +7,7 @@
     <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="Update data storage in S3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Term2/cpu_retrieve.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/cpu_retrieve.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Term2/map_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/map_matrix.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Term2/map_to_int.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Term2/save_data_to_s3.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Term2/transfer_data_local2s3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/transfer_data_local2s3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/retrieve_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/retrieve_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -236,7 +233,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677590065735</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Update data storage in S3">
+      <created>1677728889842</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1677728889842</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
