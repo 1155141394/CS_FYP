@@ -5,7 +5,7 @@ from datetime import date
 import datetime
 import pandas as pd
 import numpy as np
-from save_data_to_s3 import save_data_to_s3
+from tools import *
 
 conn = psycopg2.connect(host="localhost", port=5432, user="postgres", password="1234", database="example")
 

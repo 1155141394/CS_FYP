@@ -1,46 +1,8 @@
 import psycopg2
 import pandas as pd
-import hashlib
-import csv
-import os
+from tools import *
 from hash import HashTable
 # 建立连接
-
-# change the string to char sum
-def char_sum(str):
-   res = 0
-   count = 1
-   for c in str:
-      res += ord(c) * count
-      count *= 256
-   return res
-
-
-# Use sha1 to get the index of tags
-def index(index_map, tag1="", tag2=""):
-   tag2 = char_sum(tag2)
-   tag1 = char_sum(tag1)
-   res = [index_map.put(tag1, 1), index_map.put(tag2, 1)]
-   return res
-
-
-def insert(tsid, time, val, columns=None):
-   file_name = f"/home/postgres/CS_FYP/data/{tsid}.csv"
-   if not os.path.exists(file_name):
-      with open(file_name, "a") as f:
-         csv_writer = csv.writer(f, delimiter=',')
-         data = [str(time), str(val)]
-         csv_writer.writerow(columns)
-         csv_writer.writerow(data)
-   else:
-      with open(file_name, "a") as f:
-         csv_writer = csv.writer(f, delimiter=',')
-         data = [str(time), str(val)]
-         csv_writer.writerow(data)
-   print(f"Write data to {tsid}.csv successfully.")
-
-
-
 
 conn = psycopg2.connect(
    database="example", user="postgres", password="1234", host="localhost", port="5432"
