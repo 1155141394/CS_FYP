@@ -51,4 +51,4 @@ conn.commit()
 # 关闭连接
 conn.close()
 df = pd.DataFrame(map_matrix)
-df.to_csv('/home/postgres/CS_FYP/data/map_matrix', index=False, header=False)
+df.to_csv('/home/postgres/CS_FYP/data/map_matrix.csv', index=False, header=False)
