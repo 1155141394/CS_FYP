@@ -51,7 +51,12 @@ def time_index(start_t, end_t):
 
 def save_data_to_s3(bucket, tsid, time_start, time_end, data_path):
     generated_date = time_start.strftime("%Y-%m-%d")
-    index = time_index(time_start, time_end)[0]
+    if time_end.hour == 0:
+        index = time_index(time_start, None)[0]
+    elif time_start.hour == 0:
+        index = time_index(None, time_end)[0]
+    else:
+        index = time_index(time_start, time_end)[0]
     file_name = f"{tsid}_{generated_date}_{index}.csv"
     os.system("aws s3 cp %s s3://%s/%s" % (data_path, bucket, file_name))
     print("Save the file to S3 successfully.")
