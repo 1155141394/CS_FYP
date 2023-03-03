@@ -117,7 +117,6 @@ def find_id(node,cpu):
     state = os.system("aws s3 cp s3://csfyp2023/map_matrix /home/postgres/CS_FYP/data/map_matrix.csv")
     if state != 0:
         print("There is no map in csfyp2023")
-        return
 
     csv_file = csv.reader(open('/home/postgres/CS_FYP/data/map_matrix.csv', 'r'))
     print(csv_file)  # 可以先输出看一下该文件是什么样的类型
