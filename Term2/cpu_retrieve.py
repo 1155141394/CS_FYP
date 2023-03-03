@@ -8,6 +8,42 @@ from datetime import date, datetime, timedelta
 import pandas as pd
 from tools import *
 
+
+def find_rows(arr, index1, index2):
+    rows = []
+    for i, row in enumerate(arr):
+        if index1 != -1 and index2 != -1:
+            if row[index1] == 1 and row[index2] == 1:
+                rows.append(i)
+        elif index1 == -1 and index2 != -1:
+            if row[index2] == 1:
+                rows.append(i)
+        elif index1 != -1 and index2 == -1:
+            if row[index1] == 1:
+                rows.append(i)
+    return rows
+
+
+def get_params_from_sql(sql_query):
+    import re
+    #用于提取表名的正则表达式
+    table_regex = r'from\s+`?(\w+)`?'
+    #用于提取其他参数的正则表达式
+    params_regex = r'(select|from|where|order by|limit|group by)\s+`?(\w+)`?(.*?)(?=(select|from|where|order by|limit|group by|$))'
+
+    result = {}
+
+    # 提取表名
+    table_name = re.search(table_regex, sql_query)
+    if table_name:
+        result['table_name'] = table_name.group(1)
+
+    # 提取其他参数
+    params = re.findall(params_regex, sql_query, re.IGNORECASE)
+    for param in params:
+        result[param[0]] = (param[1], param[2])
+
+    return result
 def s3_data(expression, key):
     data = []
     s3 = boto3.client('s3')
@@ -119,13 +155,15 @@ def find_id(node,cpu):
         print("There is no map in csfyp2023")
 
     csv_file = csv.reader(open('/home/postgres/CS_FYP/data/map_matrix.csv', 'r'))
-    print(csv_file)  # 可以先输出看一下该文件是什么样的类型
+
 
     content = []  # 用来存储整个文件的数据，存成一个列表，列表的每一个元素又是一个列表，表示的是文件的某一行
 
     for line in csv_file:
         content.append(line)
-    print("该文件中保存的数据为:\n", content)
+
+    content = list(map(int, content))
+
 
 
 
