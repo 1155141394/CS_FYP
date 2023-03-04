@@ -1,7 +1,7 @@
 import psycopg2
 import pandas as pd
 from tools import *
-from Term2.hash import HashTable
+from hash import HashTable
 
 conn = psycopg2.connect(
    database="example", user="postgres", password="1234", host="localhost", port="5432"
