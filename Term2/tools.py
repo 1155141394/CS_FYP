@@ -1,12 +1,7 @@
 import os
-import time
-from datetime import date
-import datetime
-import sys
-import hashlib
 import numpy as np
 import csv
-from hash import HashTable
+
 
 def compress_array(arr):
     """将一个二维的数组压缩为一个一维的数组，并返回一个元组，包含压缩后的数组和压缩前后数组的行列数"""
@@ -115,5 +110,19 @@ def insert(tsid, time, val, columns=None):
          data = [str(time), str(val)]
          csv_writer.writerow(data)
    print(f"Write data to {tsid}.csv successfully.")
+
+# 将set写入文件
+def write_set_to_file(input_set, output_file):
+   with open(output_file, 'w') as f:
+       for x in input_set:
+           f.write(str(x) + '\n')
+
+# 读取文件的set
+def read_set_from_file(input_file):
+   output_set = set()
+   with open(input_file, 'r') as f:
+       for line in f:
+           output_set.add(line.strip())
+   return output_set
 
 

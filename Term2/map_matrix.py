@@ -1,8 +1,7 @@
 import psycopg2
 import pandas as pd
 from tools import *
-from hash import HashTable
-# 建立连接
+from Term2.hash import HashTable
 
 conn = psycopg2.connect(
    database="example", user="postgres", password="1234", host="localhost", port="5432"
@@ -46,6 +45,7 @@ for line in lines:
       map_matrix[tsid][node_index] = 1
       insert(tsid,time,cpu_usage,["time", "value"])
 
+write_set_to_file(cpu_node,'/home/postgres/CS_FYP/data/query_set')
 # 提交数据
 conn.commit()
 # 关闭连接
