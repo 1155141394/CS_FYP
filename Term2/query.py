@@ -7,6 +7,7 @@ import time
 from datetime import date, datetime, timedelta
 import pandas as pd
 from tools import *
+from Term2.hash import HashTable
 
 
 def find_rows(arr, index1, index2):
@@ -166,14 +167,15 @@ def find_id(node,cpu):
     for line in csv_file:
         content.append(line)
     content = list(map(int, content))
-
-
-
+    index_map = HashTable.read_hash('/home/postgres/CS_FYP/data/query_hash')
+    node_index, cpu_index = index(index_map, node, cpu)
+    tsid_list = find_rows(content,node_index,cpu_index)
+    print(tsid_list)
 
 
 if __name__ == "__main__":
     # s3_select('1', '2023-02-20 02:01:54', '2023-02-20 06:05:54')
-    find_id(1,3)
+    find_id('node0','cpu1')
 
 
 
