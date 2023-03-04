@@ -175,7 +175,7 @@ def find_id(node,cpu):
 
 if __name__ == "__main__":
     # s3_select('1', '2023-02-20 02:01:54', '2023-02-20 06:05:54')
-    find_id('node0','cpu1')
+    find_id('node1','cpu1')
 
 
 
