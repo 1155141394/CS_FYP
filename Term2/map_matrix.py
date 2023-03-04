@@ -48,6 +48,7 @@ for line in lines:
       insert(tsid,time,cpu_usage,["time", "value"])
 
 write_set_to_file(cpu_node,'/home/postgres/CS_FYP/data/query_set.txt')
+index_map.save_hash('/home/postgres/CS_FYP/data/query_hash')
 # 提交数据
 conn.commit()
 # 关闭连接
