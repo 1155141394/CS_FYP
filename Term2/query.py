@@ -7,7 +7,7 @@ import time
 from datetime import date, datetime, timedelta
 import pandas as pd
 from tools import *
-from Term2.hash import HashTable
+from hash import HashTable
 
 
 def find_rows(arr, index1, index2):
