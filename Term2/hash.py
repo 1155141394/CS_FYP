@@ -11,7 +11,7 @@ class HashTable:
             pickle.dump(self, f)
     import pickle
 
-    def read_hash(self,filename):
+    def read_hash(filename):
         with open(filename, 'rb') as f:
             hash_table = pickle.load(f)
             return hash_table
