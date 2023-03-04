@@ -6,6 +6,7 @@ import boto3
 import time
 from datetime import date, datetime, timedelta
 import pandas as pd
+import numpy as np
 from tools import *
 from hash import HashTable
 
@@ -166,7 +167,8 @@ def find_id(node,cpu):
     content = []  # 用来存储整个文件的数据，存成一个列表，列表的每一个元素又是一个列表，表示的是文件的某一行
     for line in csv_file:
         content.append(line)
-    content = list(map(int, content))
+    content = np.asarray(content)
+    content = content.astype(int)
     index_map = HashTable.read_hash('/home/postgres/CS_FYP/data/query_hash')
     node_index, cpu_index = index(index_map, node, cpu)
     tsid_list = find_rows(content,node_index,cpu_index)
