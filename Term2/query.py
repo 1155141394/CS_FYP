@@ -150,19 +150,23 @@ def s3_select(table_name, beg_t, end_t):
         df.to_csv('/home/postgres/CS_FYP/data/tmp.csv', index=False, header=False)
 
 def find_id(node,cpu):
+    # 到s3寻找map
     state = os.system("aws s3 cp s3://csfyp2023/map_matrix /home/postgres/CS_FYP/data/map_matrix.csv")
     if state != 0:
-        print("There is no map in csfyp2023")
+        print("There is no map in csfyp2023.")
+
+    query_set = read_set_from_file("/home/postgres/CS_FYP/data/query_set.txt")
+    # 表中没有这个tags_pair
+    if node + '_' + cpu not in query_set:
+        print("There is no data in the storage.")
+        return
 
     csv_file = csv.reader(open('/home/postgres/CS_FYP/data/map_matrix.csv', 'r'))
-
-
     content = []  # 用来存储整个文件的数据，存成一个列表，列表的每一个元素又是一个列表，表示的是文件的某一行
-
     for line in csv_file:
         content.append(line)
-
     content = list(map(int, content))
+
 
 
 

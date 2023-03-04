@@ -1,9 +1,20 @@
+import pickle
 class HashTable:
     def __init__(self, length):  # 初始化散列表
         self.size = length  # 长度为11
         self.slots = [None] * self.size  # 生成slot列表，将所有槽（列表值）初始为None
         self.data = [None] * self.size  # 生成data列表，将所有槽中数据设置为None
         # 两个列表中的值一一对应，如slot[1]与data[1]是一对
+
+    def save_hash(self, filename):
+        with open(filename, 'wb') as f:
+            pickle.dump(self, f)
+    import pickle
+
+    def read_hash(self,filename):
+        with open(filename, 'rb') as f:
+            hash_table = pickle.load(f)
+            return hash_table
 
     def hashfunction(self, key):  # 查表函数
         return key % self.size  # 该函数的输入为值返回为值对应的槽
