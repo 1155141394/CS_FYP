@@ -169,7 +169,17 @@ def find_id(node,cpu):
         content.append(line)
     content = np.asarray(content)
     content = content.astype(int)
+    # 读取query_hash
     index_map = HashTable.read_hash('/home/postgres/CS_FYP/data/query_hash')
+    tsid_list = []
+    # 返回所有tsid
+    if node is None and cpu is None:
+        for i in range(len(content)):
+            tsid_list.append(i)
+        return tsid_list
+    if node is None and cpu is not None:
+        tsid_list = find_rows(content,-1,cpu_index)
+    # 读取cpu，node的哈希值
     node_index, cpu_index = index(index_map, node, cpu)
     tsid_list = find_rows(content,node_index,cpu_index)
     print(tsid_list)
