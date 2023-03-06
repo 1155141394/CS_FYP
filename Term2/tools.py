@@ -74,8 +74,8 @@ def save_data_to_s3(bucket, tsid, time_start, time_end, data_path):
         index = time_index(None, time_end)[0]
     else:
         index = time_index(time_start, time_end)[0]
-    file_name = f"{tsid}_{generated_date}_{index}.csv"
-    os.system("aws s3 cp %s s3://%s/%s" % (data_path, bucket, file_name))
+    file_name = f"{generated_date}_{index}.csv"
+    os.system("aws s3 cp %s s3://%s/%s/%s" % (data_path, bucket, tsid, file_name))
     print("Save the file to S3 successfully.")
 
 
