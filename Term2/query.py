@@ -161,10 +161,6 @@ def find_id(node, cpu):
         print("There is no map in csfyp2023.")
 
     query_set = read_set_from_file("/home/postgres/CS_FYP/data/query_set.txt")
-    # 表中没有这个tags_pair
-    if node + '_' + cpu not in query_set:
-        print("There is no data in the storage.")
-        return
 
     csv_file = csv.reader(open('/home/postgres/CS_FYP/data/map_matrix.csv', 'r'))
     content = []  # 用来存储整个文件的数据，存成一个列表，列表的每一个元素又是一个列表，表示的是文件的某一行
@@ -175,6 +171,16 @@ def find_id(node, cpu):
     # 读取query_hash
     index_map = HashTable.read_hash('/home/postgres/CS_FYP/data/query_hash')
     tsid_list = []
+    if node is not None and cpu is not None:
+        # 表中没有这个tags_pair
+        if node + '_' + cpu not in query_set:
+            print("There is no data in the storage.")
+            return tsid_list
+        else:
+            cpu_index = index(index_map,cpu)
+            node_index = index(index_map,node)
+            tsid_list = find_rows(content,node_index,cpu_index)
+            return tsid_list
     # 返回所有tsid
     if node is None and cpu is None:
         for i in range(len(content)):
