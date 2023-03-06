@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add hashtable to string">
+    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="reformat the file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Term2/hash.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/hash.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Term2/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/tools.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +89,7 @@
       <workItem from="1677160117410" duration="5316000" />
       <workItem from="1677246963916" duration="6404000" />
       <workItem from="1677808005257" duration="10000" />
-      <workItem from="1678066609702" duration="4722000" />
+      <workItem from="1678066609702" duration="5843000" />
     </task>
     <task id="LOCAL-00001" summary="add map">
       <created>1677131075547</created>
@@ -352,7 +350,21 @@
       <option name="project" value="LOCAL" />
       <updated>1678067659025</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="add read file to hashtable">
+      <created>1678110488970</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1678110488970</updated>
+    </task>
+    <task id="LOCAL-00039" summary="reformat the file">
+      <created>1678110610234</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1678110610234</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -366,7 +378,9 @@
     <MESSAGE value="Update data storage in S3" />
     <MESSAGE value="add set&amp;file" />
     <MESSAGE value="add hashtable to string" />
-    <option name="LAST_COMMIT_MESSAGE" value="add hashtable to string" />
+    <MESSAGE value="add read file to hashtable" />
+    <MESSAGE value="reformat the file" />
+    <option name="LAST_COMMIT_MESSAGE" value="reformat the file" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CS_FYP$tools.coverage" NAME="tools Coverage Results" MODIFIED="1678110453953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Term2" />

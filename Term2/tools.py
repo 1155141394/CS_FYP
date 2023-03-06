@@ -90,10 +90,9 @@ def char_sum(str):
 
 
 # Use sha1 to get the index of tags
-def index(index_map, tag1="", tag2=""):
-    tag2 = char_sum(tag2)
-    tag1 = char_sum(tag1)
-    res = [index_map.put(tag1, 1), index_map.put(tag2, 1)]
+def index(index_map, tag=""):
+    tag = char_sum(tag)
+    res = index_map.put(tag, 1)
     return res
 
 

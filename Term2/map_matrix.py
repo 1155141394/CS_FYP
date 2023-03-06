@@ -14,7 +14,7 @@ cursor = conn.cursor()
 cursor.execute('''SELECT * from cpu_usage''')
 index_map = HashTable(5000)
 # Fetching 1st row from the table
-lines = cursor.fetchall();
+lines = cursor.fetchall()
 des = cursor.description
 attr = []
 for item in des:
@@ -28,7 +28,8 @@ for line in lines:
     time = line[attr.index("time")]
     cpu_usage = line[attr.index("cpu_usage")]
     # 获得cpu和node对应的hash值
-    node_index, cpu_index = index(index_map, node, cpu)
+    node_index = index(index_map, node)
+    cpu_index = index(index_map, cpu)
     is_exist = 1 if cpu + '_' + node in cpu_node else 0
     if is_exist:
         tsid = 0
