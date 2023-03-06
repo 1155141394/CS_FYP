@@ -28,9 +28,9 @@ def find_rows(arr, index1, index2):
 
 def get_params_from_sql(sql_query):
     import re
-    #用于提取表名的正则表达式
+    # 用于提取表名的正则表达式
     table_regex = r'from\s+`?(\w+)`?'
-    #用于提取其他参数的正则表达式
+    # 用于提取其他参数的正则表达式
     params_regex = r'(select|from|where|order by|limit|group by)\s+`?(\w+)`?(.*?)(?=(select|from|where|order by|limit|group by|$))'
 
     result = {}
@@ -46,6 +46,8 @@ def get_params_from_sql(sql_query):
         result[param[0]] = (param[1], param[2])
 
     return result
+
+
 def s3_data(expression, key):
     data = []
     s3 = boto3.client('s3')
@@ -54,8 +56,8 @@ def s3_data(expression, key):
         Key=key,
         ExpressionType='SQL',
         Expression=expression,
-        InputSerialization = {'CSV': {"FileHeaderInfo": "Use"}, 'CompressionType': 'NONE'},
-        OutputSerialization = {'CSV': {}},
+        InputSerialization={'CSV': {"FileHeaderInfo": "Use"}, 'CompressionType': 'NONE'},
+        OutputSerialization={'CSV': {}},
     )
     com_rec = ""
     for event in resp['Payload']:
@@ -64,7 +66,7 @@ def s3_data(expression, key):
             com_rec = com_rec + records
             # print(records)
             # for line in (records.splitlines()):
-                # print(line)
+            # print(line)
             #    data.append(line.split(","))
 
         elif 'Stats' in event:
@@ -76,53 +78,53 @@ def s3_data(expression, key):
             print("Stats details bytesReturned: ")
             print(statsDetails['BytesReturned'])
     for line in (com_rec.splitlines()):
-        #print(line)
+        # print(line)
         data.append(line.split(","))
     return data
 
+
 def s3_select(table_name, beg_t, end_t):
-    times = [] # record the date used to retrieve data
+    times = []  # record the date used to retrieve data
     retrieve_file = []
 
     # Change the string to datetime type
     beg_t = datetime.datetime.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
     end_t = datetime.datetime.strptime(end_t, '%Y-%m-%d %H:%M:%S')
 
-
     # Determine if the time interval is bigger than one day
     if end_t.date() > beg_t.date():
         temp_t = beg_t + timedelta(days=1)
         times.append([beg_t, temp_t])
         while temp_t.date() < end_t.date():
-            times.append([temp_t, temp_t+timedelta(days=1)])
-            temp_t = temp_t+ timedelta(days=1)
+            times.append([temp_t, temp_t + timedelta(days=1)])
+            temp_t = temp_t + timedelta(days=1)
         times.append([temp_t, end_t])
 
         for i in times:
             if i[0].strftime("%Y-%m-%d") == i[1].strftime("%Y-%m-%d"):
                 file_name = table_name + r"/%s_" % (i[0].strftime("%Y-%m-%d"))
-                indexes = time_index(None,i[1])
+                indexes = time_index(None, i[1])
                 for index in indexes:
-                    retrieve_file.append(file_name+str(index)+'.csv')
-                
+                    retrieve_file.append(file_name + str(index) + '.csv')
+
             else:
                 file_name = table_name + r"/%s_" % (i[0].strftime("%Y-%m-%d"))
-                indexes = time_index(i[0],None)
+                indexes = time_index(i[0], None)
                 for index in indexes:
-                    retrieve_file.append(file_name+str(index)+'.csv')
+                    retrieve_file.append(file_name + str(index) + '.csv')
 
 
     elif end_t.date() == beg_t.date():
         file_name = table_name + r"/%s_" % (beg_t.strftime("%Y-%m-%d"))
-        indexes = time_index(beg_t,end_t)
+        indexes = time_index(beg_t, end_t)
         for index in indexes:
-            retrieve_file.append(file_name+str(index)+'.csv')
+            retrieve_file.append(file_name + str(index) + '.csv')
 
     print(retrieve_file)
     # loop to retrieve the data from s3
-   
+
     if len(retrieve_file) == 1:
-        basic_exp = "SELECT * FROM s3object s where s.\"time\" between " # Base expression
+        basic_exp = "SELECT * FROM s3object s where s.\"time\" between "  # Base expression
         expression = basic_exp + "'%s' and '%s';" % (beg_t, end_t)
         key = retrieve_file[0]
         print(key)
@@ -130,12 +132,12 @@ def s3_select(table_name, beg_t, end_t):
         df = pd.DataFrame(data)
         df.to_csv('/home/postgres/CS_FYP/data/tmp.csv', index=False, header=False)
     else:
-        after_expression = "SELECT * FROM s3object s where s.\"time\" > '%s';"%(beg_t)
+        after_expression = "SELECT * FROM s3object s where s.\"time\" > '%s';" % (beg_t)
         key = retrieve_file[0]
         data = s3_data(after_expression, key)
         # df = pd.DataFrame(data)
         # df.to_csv('/home/postgres/CS_FYP/data/tmp0.csv', index=False, header=False)
-        for i in range(1,len(retrieve_file)-1):
+        for i in range(1, len(retrieve_file) - 1):
             expression = "SELECT * FROM s3object s "
             key = retrieve_file[i]
             data = data + s3_data(expression, key)
@@ -145,13 +147,14 @@ def s3_select(table_name, beg_t, end_t):
             # if state != 0:
             #     print("There is no data in " + retrieve_file[i])
 
-        before_expression = "SELECT * FROM s3object s where s.\"time\" < '%s';"%(end_t)
-        key = retrieve_file[len(retrieve_file)-1]   
+        before_expression = "SELECT * FROM s3object s where s.\"time\" < '%s';" % (end_t)
+        key = retrieve_file[len(retrieve_file) - 1]
         data = data + s3_data(before_expression, key)
         df = pd.DataFrame(data)
         df.to_csv('/home/postgres/CS_FYP/data/tmp.csv', index=False, header=False)
 
-def find_id(node,cpu):
+
+def find_id(node, cpu):
     # 到s3寻找map
     state = os.system("aws s3 cp s3://csfyp2023/map_matrix /home/postgres/CS_FYP/data/map_matrix.csv")
     if state != 0:
@@ -178,18 +181,13 @@ def find_id(node,cpu):
             tsid_list.append(i)
         return tsid_list
     if node is None and cpu is not None:
-        tsid_list = find_rows(content,-1,cpu_index)
+        tsid_list = find_rows(content, -1, cpu_index)
     # 读取cpu，node的哈希值
     node_index, cpu_index = index(index_map, node, cpu)
-    tsid_list = find_rows(content,node_index,cpu_index)
+    tsid_list = find_rows(content, node_index, cpu_index)
     print(tsid_list)
 
 
 if __name__ == "__main__":
     # s3_select('1', '2023-02-20 02:01:54', '2023-02-20 06:05:54')
-    find_id('node1','cpu1')
-
-
-
-
-
+    find_id('node1', 'cpu1')
