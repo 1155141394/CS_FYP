@@ -25,7 +25,7 @@ def compress_array(arr):
 
 def decompress_array(compressed_arr, shape):
     """将一个压缩后的数组解压缩为原始的二维数组"""
-    rows,cols = shape  # 获取原始数组的行列数
+    rows, cols = shape  # 获取原始数组的行列数
     decompressed_arr = np.zeros((rows, cols), dtype=int)  # 创建一个全零的二维数组
     i = 0
     j = 0
@@ -42,25 +42,25 @@ def decompress_array(compressed_arr, shape):
 
 
 def time_index(start_t, end_t):
-    hours=[]
+    hours = []
     if start_t == None:
         end_h = end_t.hour
-        end_index = end_h//2 + 1
-        for i in range(1,end_index+1):
-                hours.append(i)
+        end_index = end_h // 2 + 1
+        for i in range(1, end_index + 1):
+            hours.append(i)
         return hours
     elif end_t == None:
         start_h = start_t.hour
-        start_index = start_h//2 + 1
-        for i in range(start_index,13):
+        start_index = start_h // 2 + 1
+        for i in range(start_index, 13):
             hours.append(i)
         return hours
     else:
         start_h = start_t.hour
         end_h = end_t.hour
-        start_index = start_h//2 + 1
-        end_index = end_h//2 + 1
-        for i in range(start_index,end_index+1):
+        start_index = start_h // 2 + 1
+        end_index = end_h // 2 + 1
+        for i in range(start_index, end_index + 1):
             hours.append(i)
         return hours
 
@@ -80,49 +80,66 @@ def save_data_to_s3(bucket, tsid, time_start, time_end, data_path):
 
 # change the string to char sum
 def char_sum(str):
-   res = 0
-   count = 1
-   for c in str:
-      res += ord(c) * count
-      count *= 256
-   return res
+    res = 0
+    count = 1
+    for c in str:
+        res += ord(c) * count
+        count *= 256
+    return res
 
 
 # Use sha1 to get the index of tags
 def index(index_map, tag1="", tag2=""):
-   tag2 = char_sum(tag2)
-   tag1 = char_sum(tag1)
-   res = [index_map.put(tag1, 1), index_map.put(tag2, 1)]
-   return res
+    tag2 = char_sum(tag2)
+    tag1 = char_sum(tag1)
+    res = [index_map.put(tag1, 1), index_map.put(tag2, 1)]
+    return res
 
 
 def insert(tsid, time, val, columns=None):
-   file_name = f"/home/postgres/CS_FYP/data/{tsid}.csv"
-   if not os.path.exists(file_name):
-      with open(file_name, "a") as f:
-         csv_writer = csv.writer(f, delimiter=',')
-         data = [str(time), str(val)]
-         csv_writer.writerow(columns)
-         csv_writer.writerow(data)
-   else:
-      with open(file_name, "a") as f:
-         csv_writer = csv.writer(f, delimiter=',')
-         data = [str(time), str(val)]
-         csv_writer.writerow(data)
-   print(f"Write data to {tsid}.csv successfully.")
+    file_name = f"/home/postgres/CS_FYP/data/{tsid}.csv"
+    if not os.path.exists(file_name):
+        with open(file_name, "a") as f:
+            csv_writer = csv.writer(f, delimiter=',')
+            data = [str(time), str(val)]
+            csv_writer.writerow(columns)
+            csv_writer.writerow(data)
+    else:
+        with open(file_name, "a") as f:
+            csv_writer = csv.writer(f, delimiter=',')
+            data = [str(time), str(val)]
+            csv_writer.writerow(data)
+    print(f"Write data to {tsid}.csv successfully.")
+
 
 # 将set写入文件
 def write_set_to_file(input_set, output_file):
-   with open(output_file, 'w') as f:
-       for x in input_set:
-           f.write(str(x) + '\n')
+    with open(output_file, 'w') as f:
+        for x in input_set:
+            f.write(str(x) + '\n')
+
 
 # 读取文件的set
 def read_set_from_file(input_file):
-   output_set = set()
-   with open(input_file, 'r') as f:
-       for line in f:
-           output_set.add(line.strip())
-   return output_set
+    output_set = set()
+    with open(input_file, 'r') as f:
+        for line in f:
+            output_set.add(line.strip())
+    return output_set
 
+
+# 将hashtable写入文件
+def hash_to_string(hashtable, output_file):
+    with open(output_file, "w") as f:
+        f.write(f"{str(len(hashtable.slots))}\n")
+        for indx, key in enumerate(hashtable.slots):
+            f.write(f"{str(key)}:{str(hashtable.data[indx])}\n")
+
+
+def read_hash_from_file(input_file):
+    slots = []
+    data = []
+    hash_len = 0
+    with open(input_file, "r") as f:
+        for line in f:
 

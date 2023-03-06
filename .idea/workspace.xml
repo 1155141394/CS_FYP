@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add set&amp;file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Term2/query.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/query.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Term2/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Term2/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/tools.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +61,7 @@
       <workItem from="1677160117410" duration="5316000" />
       <workItem from="1677246963916" duration="6404000" />
       <workItem from="1677808005257" duration="10000" />
+      <workItem from="1678066609702" duration="744000" />
     </task>
     <task id="LOCAL-00001" summary="add map">
       <created>1677131075547</created>
