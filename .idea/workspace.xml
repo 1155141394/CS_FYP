@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="reformat the file">
+    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add set&amp;file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Term2/query.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/query.py" afterDir="false" />
     </list>
@@ -365,7 +365,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678110610234</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="add set&amp;file">
+      <created>1678112637433</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1678112637433</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -377,10 +384,10 @@
     <MESSAGE value="convert to new hash map" />
     <MESSAGE value="update index function" />
     <MESSAGE value="Update data storage in S3" />
-    <MESSAGE value="add set&amp;file" />
     <MESSAGE value="add hashtable to string" />
     <MESSAGE value="add read file to hashtable" />
     <MESSAGE value="reformat the file" />
-    <option name="LAST_COMMIT_MESSAGE" value="reformat the file" />
+    <MESSAGE value="add set&amp;file" />
+    <option name="LAST_COMMIT_MESSAGE" value="add set&amp;file" />
   </component>
 </project>
