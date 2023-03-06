@@ -1,6 +1,8 @@
 import pickle
+
+
 class HashTable:
-    def __init__(self, slots, data, length):  # 初始化散列表
+    def __init__(self, slots=None, data=None, length=10):  # 初始化散列表
         self.size = length  # 长度为11
         if not slots and not data:
             self.slots = [None] * self.size  # 生成slot列表，将所有槽（列表值）初始为None
@@ -12,6 +14,7 @@ class HashTable:
     def save_hash(self, filename):
         with open(filename, 'wb') as f:
             pickle.dump(self, f)
+
     import pickle
 
     def read_hash(filename):

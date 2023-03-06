@@ -1,6 +1,7 @@
 import os
-import numpy as np
+# import numpy as np
 import csv
+from hash import *
 
 
 def compress_array(arr):
@@ -129,17 +130,33 @@ def read_set_from_file(input_file):
 
 
 # 将hashtable写入文件
-def hash_to_string(hashtable, output_file):
+def hash_to_file(hashtable, output_file):
     with open(output_file, "w") as f:
         f.write(f"{str(len(hashtable.slots))}\n")
         for indx, key in enumerate(hashtable.slots):
             f.write(f"{str(key)}:{str(hashtable.data[indx])}\n")
 
 
+# 读取文件的hashtable
 def read_hash_from_file(input_file):
     slots = []
     data = []
     hash_len = 0
+    flag = 0
     with open(input_file, "r") as f:
-        for line in f:
+        for line in f.readlines():
+            line = line.strip()
+            if not flag:
+                flag = 1
+                hash_len = int(line)
+            else:
+                line = line.split(":")
+                slots.append(line[0])
+                data.append(line[1])
+    hashtable = HashTable(slots=slots, data=data, length=hash_len)
+    return hashtable
+
+
+
+
 
