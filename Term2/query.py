@@ -181,11 +181,14 @@ def find_id(node, cpu):
             tsid_list.append(i)
         return tsid_list
     if node is None and cpu is not None:
+        cpu_index = index(index_map, cpu)
         tsid_list = find_rows(content, -1, cpu_index)
-    # 读取cpu，node的哈希值
-    node_index, cpu_index = index(index_map, node, cpu)
-    tsid_list = find_rows(content, node_index, cpu_index)
-    print(tsid_list)
+        return tsid_list
+    if node is not None and cpu is None:
+        node_index = index(index_map,node)
+        tsid_list = find_rows(content, node_index, -1)
+        return tsid_list
+
 
 
 if __name__ == "__main__":
