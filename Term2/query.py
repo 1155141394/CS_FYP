@@ -83,7 +83,7 @@ def s3_data(expression, key):
     return data
 
 
-def s3_select(table_name, beg_t, end_t):
+def s3_select(tsid, beg_t, end_t):
     times = []  # record the date used to retrieve data
     retrieve_file = []
 
@@ -102,20 +102,20 @@ def s3_select(table_name, beg_t, end_t):
 
         for i in times:
             if i[0].strftime("%Y-%m-%d") == i[1].strftime("%Y-%m-%d"):
-                file_name = table_name + r"/%s_" % (i[0].strftime("%Y-%m-%d"))
+                file_name = str(tsid) + r"/%s_" % (i[0].strftime("%Y-%m-%d"))
                 indexes = time_index(None, i[1])
                 for index in indexes:
                     retrieve_file.append(file_name + str(index) + '.csv')
 
             else:
-                file_name = table_name + r"/%s_" % (i[0].strftime("%Y-%m-%d"))
+                file_name = str(tsid) + r"/%s_" % (i[0].strftime("%Y-%m-%d"))
                 indexes = time_index(i[0], None)
                 for index in indexes:
                     retrieve_file.append(file_name + str(index) + '.csv')
 
 
     elif end_t.date() == beg_t.date():
-        file_name = table_name + r"/%s_" % (beg_t.strftime("%Y-%m-%d"))
+        file_name = str(tsid) + r"/%s_" % (beg_t.strftime("%Y-%m-%d"))
         indexes = time_index(beg_t, end_t)
         for index in indexes:
             retrieve_file.append(file_name + str(index) + '.csv')
@@ -151,7 +151,7 @@ def s3_select(table_name, beg_t, end_t):
         key = retrieve_file[len(retrieve_file) - 1]
         data = data + s3_data(before_expression, key)
         df = pd.DataFrame(data)
-        df.to_csv('/home/postgres/CS_FYP/data/tmp.csv', index=False, header=False)
+        return df
 
 
 def find_id(node, cpu):
@@ -198,5 +198,11 @@ def find_id(node, cpu):
 
 
 if __name__ == "__main__":
-    # s3_select('1', '2023-02-20 02:01:54', '2023-02-20 06:05:54')
-    print(find_id('node1', None))
+    tsids = find_id('node1', None)
+    df_list = []
+    for tsid in tsids:
+        df = s3_select(tsid, '2023-02-20 02:01:54', '2023-02-20 06:05:54')
+        df_list.append(df)
+    result = pd.concat(df_list)
+    print(result)
+
