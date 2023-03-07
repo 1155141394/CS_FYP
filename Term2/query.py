@@ -201,7 +201,7 @@ if __name__ == "__main__":
     tsids = find_id('node1', 'cpu2')
     df_list = []
     for tsid in tsids:
-        df = s3_select(tsid, '2023-03-06 20:01:54', '2023-03-07 01:05:54')
+        df = s3_select(tsid, '2023-03-07 00:01:54', '2023-03-07 02:05:54')
         df_list.append(df)
     result = pd.concat(df_list)
     print(result)
