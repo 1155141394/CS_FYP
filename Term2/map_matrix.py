@@ -12,7 +12,7 @@ conn.autocommit = True
 cursor = conn.cursor()
 # 检索数据
 cursor.execute('''SELECT * from cpu_usage''')
-index_map = HashTable(5000)
+index_map = HashTable(length=5000)
 # Fetching 1st row from the table
 lines = cursor.fetchall()
 des = cursor.description
