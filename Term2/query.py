@@ -198,7 +198,7 @@ def find_id(node, cpu):
 
 
 if __name__ == "__main__":
-    tsids = find_id('node1', None)
+    tsids = find_id('node1', 'cpu2')
     df_list = []
     for tsid in tsids:
         df = s3_select(tsid, '2023-02-20 02:01:54', '2023-02-20 06:05:54')
