@@ -27,6 +27,7 @@ for line in lines:
     cpu = line[attr.index("cpu")]
     time = line[attr.index("time")]
     cpu_usage = line[attr.index("cpu_usage")]
+    print(node)
     # 获得cpu和node对应的hash值
     node_index = index(index_map, node)
     cpu_index = index(index_map, cpu)
