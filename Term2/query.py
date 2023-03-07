@@ -88,8 +88,8 @@ def s3_select(tsid, beg_t, end_t):
     retrieve_file = []
 
     # Change the string to datetime type
-    beg_t = datetime.datetime.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
-    end_t = datetime.datetime.strptime(end_t, '%Y-%m-%d %H:%M:%S')
+    beg_t = datetime.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
+    end_t = datetime.strptime(end_t, '%Y-%m-%d %H:%M:%S')
 
     # Determine if the time interval is bigger than one day
     if end_t.date() > beg_t.date():
