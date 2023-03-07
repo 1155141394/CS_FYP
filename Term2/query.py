@@ -205,4 +205,6 @@ if __name__ == "__main__":
         df_list.append(df)
     result = pd.concat(df_list)
     print(result)
+    result.to_csv('/home/postgres/CS_FYP/data/result.csv')
+
 
