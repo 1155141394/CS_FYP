@@ -21,12 +21,13 @@ def data_mapping(tags_name,value_name,des,lines):
         for i in range(len(value_name)):
             value.append(line[attr.index(value_name[i])])
 
+        print(tags_value)
         for tag in tags_value:
             tag = str(tag)
             # 获得cpu和node对应的hash值
             index_list.append(index(index_map, tag))
             tags_str += tag + '_'
-        print('yes')
+
         is_exist = 1 if tags_str in tags_pair_set else 0
         if is_exist:
             tsid = 0
