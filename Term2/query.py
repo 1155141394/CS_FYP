@@ -135,17 +135,11 @@ def s3_select(tsid, beg_t, end_t):
         after_expression = "SELECT * FROM s3object s where s.\"time\" > '%s';" % (beg_t)
         key = retrieve_file[0]
         data = s3_data(after_expression, key)
-        # df = pd.DataFrame(data)
-        # df.to_csv('/home/postgres/CS_FYP/data/tmp0.csv', index=False, header=False)
+
         for i in range(1, len(retrieve_file) - 1):
             expression = "SELECT * FROM s3object s "
             key = retrieve_file[i]
             data = data + s3_data(expression, key)
-            # df = pd.DataFrame(data)
-            # df.to_csv('/home/postgres/CS_FYP/data/tmp0.csv', index=False, header=False)
-            # state = os.system("aws s3 cp s3://csfyp2023/%s /home/postgres/CS_FYP/data/tmp%s.csv"%(retrieve_file[i],str(i)))
-            # if state != 0:
-            #     print("There is no data in " + retrieve_file[i])
 
         before_expression = "SELECT * FROM s3object s where s.\"time\" < '%s';" % (end_t)
         key = retrieve_file[len(retrieve_file) - 1]
@@ -154,7 +148,7 @@ def s3_select(tsid, beg_t, end_t):
         return df
 
 
-def find_id(node, cpu):
+def find_id(tags_list):
     # 到s3寻找map
     state = os.system("aws s3 cp s3://csfyp2023/map_matrix /home/postgres/CS_FYP/data/map_matrix.csv")
     if state != 0:
@@ -171,34 +165,16 @@ def find_id(node, cpu):
     # 读取query_hash
     index_map = HashTable.read_hash('/home/postgres/CS_FYP/data/query_hash')
     tsid_list = []
-    if node is not None and cpu is not None:
-        # 表中没有这个tags_pair
-        if node + '_' + cpu not in query_set:
-            print("There is no data in the storage.")
-            return tsid_list
-        else:
-            cpu_index = index(index_map,cpu)
-            node_index = index(index_map,node)
-            tsid_list = find_rows(content,node_index,cpu_index)
-            return tsid_list
-    # 返回所有tsid
-    if node is None and cpu is None:
-        for i in range(len(content)):
-            tsid_list.append(i)
-        return tsid_list
-    if node is None and cpu is not None:
-        cpu_index = index(index_map, cpu)
-        tsid_list = find_rows(content, -1, cpu_index)
-        return tsid_list
-    if node is not None and cpu is None:
-        node_index = index(index_map,node)
-        tsid_list = find_rows(content, node_index, -1)
-        return tsid_list
-
-
+    for i in range(len(content)):
+        tsid_list.append(i)
+    for tag in tags_list:
+        tag_index = index(index_map,tag)
+        tmp_list = find_rows(content,tag_index,-1)
+        tsid_list = [i for i in tsid_list if i in tmp_list]
+    return tsid_list
 
 if __name__ == "__main__":
-    tsids = find_id('node1', None)
+    tsids = find_id(['41','host_40'])
     df_list = []
     for tsid in tsids:
         df = s3_select(tsid, '2023-03-07 00:01:54', '2023-03-07 02:05:54')
