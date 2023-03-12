@@ -72,7 +72,7 @@ conn.autocommit = True
 # 使用cursor()方法创建游标对象
 cursor = conn.cursor()
 # 检索数据
-cursor.execute('''SELECT * from cpu''')
+cursor.execute('''SELECT * from cpu limit 5000''')
 index_map = HashTable(length=5000)
 # Fetching 1st row from the table
 lines = cursor.fetchall()
