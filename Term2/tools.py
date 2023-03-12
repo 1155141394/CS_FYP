@@ -96,12 +96,12 @@ def index(index_map, tag=""):
     return res
 
 
-def insert(tsid, time, vals, columns=None):
+def insert(tsid, vals, columns=None):
     file_name = f"/home/postgres/CS_FYP/data/{tsid}.csv"
     if not os.path.exists(file_name):
         with open(file_name, "a") as f:
             csv_writer = csv.writer(f, delimiter=',')
-            data = [str(time)]
+            data = []
             for val in vals:
                 data.append(str(val))
             csv_writer.writerow(columns)
@@ -109,7 +109,7 @@ def insert(tsid, time, vals, columns=None):
     else:
         with open(file_name, "a") as f:
             csv_writer = csv.writer(f, delimiter=',')
-            data = [str(time)]
+            data = []
             for val in vals:
                 data.append(str(val))
             csv_writer.writerow(data)
