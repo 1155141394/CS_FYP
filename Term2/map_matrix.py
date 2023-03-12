@@ -8,12 +8,13 @@ def data_mapping(tags_name,value_name,des,lines):
         attr.append(item[0])
     map_matrix = []
     tags_pair_set = set()
-
+    print("line of data: {}",len(lines))
     for line in lines:
         tags_value = []
         value = []
         index_list = []
         tags_str = ''
+        print('yes')
         for i in range(len(tags_name)):
             # 获得表中attr中的值
             tags_value.append(line[attr.index(tags_name[i])])
@@ -46,7 +47,6 @@ def data_mapping(tags_name,value_name,des,lines):
             new_TS = [0] * 5000
             tsid = len(map_matrix)
             map_matrix.append(new_TS)
-            print("tsid is {}", tsid)
             for indexes in index_list:
                 map_matrix[tsid][indexes] = 1
 
