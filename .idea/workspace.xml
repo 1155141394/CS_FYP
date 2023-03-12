@@ -91,13 +91,6 @@
       <workItem from="1677808005257" duration="10000" />
       <workItem from="1678066609702" duration="5843000" />
     </task>
-    <task id="LOCAL-00011" summary="convert to new hash map">
-      <created>1677250859388</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1677250859388</updated>
-    </task>
     <task id="LOCAL-00012" summary="convert to new hash map">
       <created>1677251351266</created>
       <option name="number" value="00012" />
@@ -434,7 +427,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678613940922</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="add set&amp;file">
+      <created>1678614075099</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1678614075099</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

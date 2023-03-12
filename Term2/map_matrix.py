@@ -14,7 +14,6 @@ def data_mapping(tags_name,value_name,des,lines):
         value = []
         index_list = []
         tags_str = ''
-        print('yes')
         for i in range(len(tags_name)):
             # 获得表中attr中的值
             tags_value.append(line[attr.index(tags_name[i])])
@@ -27,7 +26,7 @@ def data_mapping(tags_name,value_name,des,lines):
             # 获得cpu和node对应的hash值
             index_list.append(index(index_map, tag))
             tags_str += tag + '_'
-
+        print('yes')
         is_exist = 1 if tags_str in tags_pair_set else 0
         if is_exist:
             tsid = 0
