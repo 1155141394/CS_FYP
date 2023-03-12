@@ -174,7 +174,7 @@ def find_id(tags_list):
     return tsid_list
 
 if __name__ == "__main__":
-    tsids = find_id(['41','host_40'])
+    tsids = find_id(['42','host_41'])
     df_list = []
     for tsid in tsids:
         df = s3_select(tsid, '2023-03-07 00:01:54', '2023-03-07 02:05:54')
