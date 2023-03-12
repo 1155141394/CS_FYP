@@ -21,7 +21,6 @@ def data_mapping(tags_name,value_name,des,lines):
         for i in range(len(value_name)):
             value.append(line[attr.index(value_name[i])])
 
-        print(tags_value)
         for tag in tags_value:
             tag = str(tag)
             # 获得cpu和node对应的hash值
