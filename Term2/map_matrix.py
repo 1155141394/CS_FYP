@@ -55,7 +55,9 @@ index_map.save_hash('/home/postgres/CS_FYP/data/query_hash')
 conn.commit()
 # 关闭连接
 conn.close()
-map_matrix = compress_array(map_matrix)
+compress_arr,shape = compress_array(map_matrix)
+print(compress_arr,shape)
+map_matrix = decompress_array(compress_arr,shape)
 df = pd.DataFrame(map_matrix)
 df.to_csv('/home/postgres/CS_FYP/data/map_matrix.csv', index=False, header=False)
 
