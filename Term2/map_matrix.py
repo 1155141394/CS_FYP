@@ -78,7 +78,7 @@ index_map = HashTable(length=5000)
 lines = cursor.fetchall()
 des = cursor.description
 tags_name =  ["tags_id", "hostname"]
-value_name = ['usage_user','usage_system' ,'usage\
+value_name = ['time','usage_user','usage_system' ,'usage\
 _idle' ,'usage_nice','usage_iowait','usage_irq' ,'usage_softirq','usage_steal','us\
 age_guest','usage_guest_nice','additional_tags']
 data_mapping(tags_name,value_name,des,lines)
