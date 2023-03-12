@@ -23,7 +23,7 @@ def data_mapping(tags_name,value_name,des,lines):
 
         for tag in tags_value:
             # 获得cpu和node对应的hash值
-            index_list.append(index(index_map, tag))
+            index_list.append(index(index_map, str(tag)))
             tags_str += tag + '_'
 
         is_exist = 1 if tags_str in tags_pair_set else 0
