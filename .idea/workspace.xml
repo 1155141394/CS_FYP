@@ -91,6 +91,48 @@
       <workItem from="1677808005257" duration="10000" />
       <workItem from="1678066609702" duration="5843000" />
     </task>
+    <task id="LOCAL-00007" summary="add map">
+      <created>1677131950414</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1677131950414</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add map">
+      <created>1677132164643</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1677132164643</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add index and insert function to map_matrix.py">
+      <created>1677206698234</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1677206698234</updated>
+    </task>
+    <task id="LOCAL-00010" summary="convert to new hash map">
+      <created>1677250543983</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1677250543983</updated>
+    </task>
+    <task id="LOCAL-00011" summary="convert to new hash map">
+      <created>1677250859388</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1677250859388</updated>
+    </task>
+    <task id="LOCAL-00012" summary="convert to new hash map">
+      <created>1677251351266</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1677251351266</updated>
+    </task>
     <task id="LOCAL-00013" summary="convert to new hash map">
       <created>1677251537848</created>
       <option name="number" value="00013" />
@@ -392,49 +434,7 @@
       <option name="project" value="LOCAL" />
       <updated>1678612858263</updated>
     </task>
-    <task id="LOCAL-00056" summary="add set&amp;file">
-      <created>1678613580277</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1678613580277</updated>
-    </task>
-    <task id="LOCAL-00057" summary="add set&amp;file">
-      <created>1678613801815</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1678613801815</updated>
-    </task>
-    <task id="LOCAL-00058" summary="add set&amp;file">
-      <created>1678613892172</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1678613892172</updated>
-    </task>
-    <task id="LOCAL-00059" summary="add set&amp;file">
-      <created>1678613940922</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1678613940922</updated>
-    </task>
-    <task id="LOCAL-00060" summary="add set&amp;file">
-      <created>1678614075099</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1678614075099</updated>
-    </task>
-    <task id="LOCAL-00061" summary="add set&amp;file">
-      <created>1678614147153</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1678614147153</updated>
-    </task>
-    <option name="localTasksCounter" value="62" />
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
