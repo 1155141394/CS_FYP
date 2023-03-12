@@ -76,7 +76,6 @@ index_map = HashTable(length=5000)
 # Fetching 1st row from the table
 lines = cursor.fetchall()
 des = cursor.description
-data_mapping()
 tags_name =  ["tags_id", "hostname"]
 value_name = ['usage_user','usage_system' ,'usage\
 _idle' ,'usage_nice','usage_iowait','usage_irq' ,'usage_softirq','usage_steal','us\
