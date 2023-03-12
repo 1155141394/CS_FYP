@@ -64,14 +64,14 @@ def data_mapping(tags_name,value_name,des,lines):
 
 
 conn = psycopg2.connect(
-    database="example", user="postgres", password="1234", host="localhost", port="5432"
+    database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
 )
 # 设置自动提交
 conn.autocommit = True
 # 使用cursor()方法创建游标对象
 cursor = conn.cursor()
 # 检索数据
-cursor.execute('''SELECT * from cpu_usage''')
+cursor.execute('''SELECT * from cpu''')
 index_map = HashTable(length=5000)
 # Fetching 1st row from the table
 lines = cursor.fetchall()
