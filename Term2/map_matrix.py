@@ -45,8 +45,8 @@ def data_mapping(tags_name,value_name,des,lines):
             tags_pair_set.add(tags_str)
             new_TS = [0] * 5000
             tsid = len(map_matrix)
-            print("tsid is {}",tsid)
             map_matrix.append(new_TS)
+            print("tsid is {}", tsid)
             for indexes in index_list:
                 map_matrix[tsid][indexes] = 1
 
