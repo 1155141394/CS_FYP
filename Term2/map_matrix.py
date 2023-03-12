@@ -29,7 +29,6 @@ def data_mapping(tags_name,value_name,des,lines):
 
         is_exist = 1 if tags_str in tags_pair_set else 0
         if is_exist:
-            print("is_exist")
             tsid = 0
             for i in range(len(map_matrix)):
                 flag = 1
@@ -46,6 +45,7 @@ def data_mapping(tags_name,value_name,des,lines):
             tags_pair_set.add(tags_str)
             new_TS = [0] * 5000
             tsid = len(map_matrix)
+            print("tsid is "%tsid)
             map_matrix.append(new_TS)
             for indexes in index_list:
                 map_matrix[tsid][indexes] = 1
