@@ -44,6 +44,7 @@ class HashTable:
                 while self.slots[nextslot] is not None and self.slots[nextslot] is not key:
                     # 当下一个待搜寻的槽位不是空且，该槽位对应的键与新插入的键不是一个键时，再接着寻找
                     nextslot = self.rehash(nextslot)
+                    print(nextslot)
                 if self.slots[nextslot] == None:  # 如果找到一个空槽则填入
                     self.slots[nextslot] = key
                     self.data[nextslot] = data
