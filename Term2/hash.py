@@ -41,7 +41,7 @@ class HashTable:
                 return hashvalue
             else:  # 如果不是同一个键则开始寻找某一个哈希值（键值对为None）
                 nextslot = self.rehash(hashvalue)  # 获取下一个搜寻的槽位
-                while self.slots[nextslot] is not None and self.slots[nextslot] is not key:
+                while self.slots[nextslot] is not None and self.slots[nextslot] != key:
                     # 当下一个待搜寻的槽位不是空且，该槽位对应的键与新插入的键不是一个键时，再接着寻找
                     nextslot = self.rehash(nextslot)
                 if self.slots[nextslot] == None:  # 如果找到一个空槽则填入
