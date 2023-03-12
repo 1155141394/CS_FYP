@@ -8,7 +8,7 @@ def data_mapping(tags_name,value_name,des,lines):
         attr.append(item[0])
     map_matrix = []
     tags_pair_set = set()
-    print("line of data: {}",len(lines))
+    print("line of data: {}", len(lines))
     for line in lines:
         tags_value = []
         value = []

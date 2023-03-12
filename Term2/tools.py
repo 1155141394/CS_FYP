@@ -93,6 +93,7 @@ def char_sum(str):
 def index(index_map, tag=""):
     tag = char_sum(tag)
     res = index_map.put(tag, 1)
+    print(res)
     return res
 
 
