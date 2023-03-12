@@ -29,6 +29,7 @@ def data_mapping(tags_name,value_name,des,lines):
 
         is_exist = 1 if tags_str in tags_pair_set else 0
         if is_exist:
+            print("is_exist")
             tsid = 0
             for i in range(len(map_matrix)):
                 flag = 1
