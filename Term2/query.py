@@ -137,7 +137,8 @@ def s3_select(tsid, beg_t, end_t):
         print(key)
         data = s3_data(expression, key)
         df = pd.DataFrame(data)
-        df.to_csv('/home/postgres/CS_FYP/data/tmp.csv', index=False, header=False)
+        print(df)
+        df.to_csv('/home/postgres/CS_FYP/meta/tmp.csv', index=False, header=False)
     else:
         after_expression = "SELECT * FROM s3object s where s.\"time\" > %d;" % (beg_t_str)
         key = retrieve_file[0]
@@ -186,11 +187,9 @@ if __name__ == "__main__":
     for tsid in tsids:
         df = s3_select(tsid, '2023-01-01 08:01:54','2023-01-01 08:05:54')
         df_list.append(df)
-    if len(df_list) < 2:
-        print(df_list)
-    else:
+    if len(df_list) > 2:
         result = pd.concat(df_list)
         print(result)
-    # result.to_csv('/home/postgres/CS_FYP/meta/result.csv')
+        result.to_csv('/home/postgres/CS_FYP/meta/result.csv')
 
 
