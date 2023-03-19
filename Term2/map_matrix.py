@@ -7,6 +7,7 @@ import json
 import datetime
 from tqdm import tqdm
 import sys
+import gc
 
 def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set,index_map):
     attr = []
@@ -107,7 +108,9 @@ def run_tsbs(conn, begin_t, end_t):
     csv_files = find_all_csv('/home/postgres/CS_FYP/data')
     begin_dt = datetime.datetime.strptime(begin_t, '%Y-%m-%d %H:%M:%S')
     end_dt = datetime.datetime.strptime(end_t, '%Y-%m-%d %H:%M:%S')
+
     print("Transfer files to S3.")
+    gc.collect()
     for csv_file in tqdm(csv_files):
         save_data_to_s3('csfyp2023', begin_dt, end_dt, csv_file)
 
