@@ -79,9 +79,9 @@ def run_tsbs(conn, begin_t, end_t):
     lines = cursor.fetchall()
     des = cursor.description
     tags_name = ["tags_id", "hostname"]
-    ts_names = ['usage_user', 'usage_system', 'usage\
-        _idle', 'usage_nice', 'usage_iowait', 'usage_irq', 'usage_softirq', 'usage_steal', 'us\
-        age_guest', 'usage_guest_nice', 'additional_tags']
+    ts_names = ['usage_user', 'usage_system', 'usage_idle',
+                'usage_nice', 'usage_iowait', 'usage_irq', 'usage_softirq', 'usage_steal',
+                'usage_guest', 'usage_guest_nice', 'additional_tags']
 
     # 判断是否第一次跑
     if os.path.exists('/home/postgres/CS_FYP/meta/map_matrix.csv'):
