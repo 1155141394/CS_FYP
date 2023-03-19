@@ -3,6 +3,7 @@ import numpy as np
 import csv
 from hash import *
 import subprocess
+import json
 
 
 def compress_array(arr):
@@ -46,6 +47,11 @@ def decompress_array(compressed_arr):
             j -= cols
     return decompressed_arr
 
+def txt_to_list(filename):
+    f = open(filename, 'r')
+    out = f.read()
+    compress_arr = json.loads(out)
+    return compress_arr
 
 def time_index(start_t, end_t):
     hours = []

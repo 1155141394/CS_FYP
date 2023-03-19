@@ -3,7 +3,7 @@ import pandas as pd
 from tools import *
 import time
 from hash import HashTable
-import csv
+import json
 import datetime
 from tqdm import tqdm
 import sys
@@ -65,9 +65,11 @@ def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set
     write_set_to_file(tags_pair_set, '/home/postgres/CS_FYP/meta/query_set.txt')
     index_map.save_hash('/home/postgres/CS_FYP/meta/query_hash')
     compress_arr = str(compress_array(map_matrix))
-    f = open('/home/postgres/CS_FYP/meta/map_matrix.csv', 'w')
+    compress_arr = json.dumps(compress_arr)
+    f = open('/home/postgres/CS_FYP/meta/map_matrix.txt', 'w')
     f.write(compress_arr)
     f.close()
+
 
 def run_tsbs(conn, begin_t, end_t):
     # 设置自动提交
@@ -88,12 +90,14 @@ def run_tsbs(conn, begin_t, end_t):
     # 判断是否第一次跑
     if os.path.exists('/home/postgres/CS_FYP/meta/map_matrix.csv'):
         index_map = HashTable.read_hash('/home/postgres/CS_FYP/meta/query_hash')
-        map_matrix = csv.reader(open('/home/postgres/CS_FYP/meta/map_matrix.csv', 'r'))
+        compress_arr = txt_to_list('/home/postgres/CS_FYP/meta/map_matrix.txt')
+        map_matrix = decompress_array(compress_arr)
         tags_pair_set = read_set_from_file("/home/postgres/CS_FYP/meta/query_set.txt")
     else:
         index_map = HashTable(length=5000)
         map_matrix = []
         tags_pair_set = set()
+
     for ts_name in ts_names:
         value_name = []
         value_name.append('time')

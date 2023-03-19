@@ -158,16 +158,12 @@ def s3_select(tsid, beg_t, end_t):
 
 def find_id(tags_list):
     # 到s3寻找map
-    state = os.system("aws s3 cp s3://csfyp2023/map_matrix /home/postgres/CS_FYP/meta/map_matrix.csv")
+    state = os.system("aws s3 cp s3://csfyp2023/map_matrix /home/postgres/CS_FYP/meta/map_matrix.txt")
     if state != 0:
         print("There is no map in csfyp2023.")
 
-    csv_file = csv.reader(open('/home/postgres/CS_FYP/meta/map_matrix.csv', 'r'))
-    content = []  # 用来存储整个文件的数据，存成一个列表，列表的每一个元素又是一个列表，表示的是文件的某一行
-    for line in csv_file:
-        content.append(line)
-    content = np.asarray(content)
-    content = content.astype(int)
+    compress_arr = txt_to_list('/home/postgres/CS_FYP/meta/map_matrix.txt')
+    content = decompress_array(compress_arr)
     # 读取query_hash
     index_map = HashTable.read_hash('/home/postgres/CS_FYP/meta/query_hash')
     tsid_list = []
