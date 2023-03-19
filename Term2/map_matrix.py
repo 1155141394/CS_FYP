@@ -96,7 +96,7 @@ def run_tsbs(conn, begin_t, end_t):
         index_map = HashTable(length=5000)
         map_matrix = []
         tags_pair_set = set()
-
+    print(map_matrix)
     for ts_name in ts_names:
         value_name = []
         value_name.append('time')
