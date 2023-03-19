@@ -97,13 +97,13 @@ def run_tsbs(conn, begin_t,end_t):
 
     csv_files = find_all_csv('/home/postgres/CS_FYP/data')
     for csv_file in csv_files:
-        save_data_to_s3('csfyp2023',)
+        save_data_to_s3('csfyp2023', begin_t, end_t, csv_file)
 
 if __name__ == "__main__":
     conn = psycopg2.connect(
         database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
     )
-    run_tsbs(conn,'2023-1-1 8:00:00', '2023-1-1 10:00:00')
+    run_tsbs(conn, '2023-1-1 8:00:00', '2023-1-1 10:00:00')
     # 提交数据
     conn.commit()
     # 关闭连接
