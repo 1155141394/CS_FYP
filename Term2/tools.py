@@ -116,7 +116,7 @@ def insert(tsid, vals, columns=None):
             for val in vals:
                 data.append(str(val))
             csv_writer.writerow(data)
-    print(f"Write data to {tsid}.csv successfully.")
+    # print(f"Write data to {tsid}.csv successfully.")
 
 
 # 将set写入文件
