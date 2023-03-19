@@ -21,7 +21,7 @@ def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set
             value.append(line[attr.index(value_name[i])])
 
         # 将时间转换为时间戳
-        time_tuple = time.strptime(value[0], '%Y-%m-%d %H:%M:%S')
+        time_tuple = time.strptime(str(value[0]), '%Y-%m-%d %H:%M:%S')
         value[0] = str(int(time.mktime(time_tuple)))
 
         for tag in tags_value:
