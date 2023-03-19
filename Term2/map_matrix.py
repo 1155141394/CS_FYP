@@ -6,6 +6,7 @@ from hash import HashTable
 import csv
 import datetime
 from tqdm import tqdm
+import sys
 
 def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set,index_map):
     attr = []
@@ -110,10 +111,11 @@ def run_tsbs(conn, begin_t, end_t):
         save_data_to_s3('csfyp2023', begin_dt, end_dt, csv_file)
 
 if __name__ == "__main__":
+    inputs = sys.argv
     conn = psycopg2.connect(
         database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
     )
-    run_tsbs(conn, '2023-01-01 08:00:00', '2023-01-01 10:00:00')
+    run_tsbs(conn, inputs[0], inputs[1])
     # 提交数据
     conn.commit()
     # 关闭连接
