@@ -71,7 +71,7 @@ def run_tsbs(conn, begin_t, end_t):
     # 使用cursor()方法创建游标对象
     cursor = conn.cursor()
     # 检索数据
-    cursor.execute('''SELECT * from cpu where time > %s and time < %s;'''%(begin_t,end_t))
+    cursor.execute('''SELECT * from cpu where time > '%s' and time < '%s';'''%(begin_t,end_t))
 
     # Fetching 1st row from the table
     lines = cursor.fetchall()
