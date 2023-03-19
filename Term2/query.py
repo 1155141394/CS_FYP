@@ -91,7 +91,7 @@ def s3_select(tsid, beg_t, end_t):
     beg_t_str = str(int(time.mktime(time_tuple)))
     time_tuple = time.strptime(end_t, '%Y-%m-%d %H:%M:%S')
     end_t_str = str(int(time.mktime(time_tuple)))
-
+    print(beg_t_str,end_t_str)
 
     # Change the string to datetime type
     beg_t = datetime.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
@@ -185,7 +185,6 @@ if __name__ == "__main__":
 
     for tsid in tsids:
         df = s3_select(tsid, '2023-01-01 08:01:54','2023-01-01 08:05:54')
-        print(df)
         df_list.append(df)
     if len(df_list) < 2:
         print(df_list)
