@@ -91,6 +91,7 @@ def s3_select(tsid, beg_t, end_t):
     beg_t_str = str(int(time.mktime(time_tuple)))
     time_tuple = time.strptime(end_t, '%Y-%m-%d %H:%M:%S')
     end_t_str = str(int(time.mktime(time_tuple)))
+    print(beg_t_str)
 
     # Change the string to datetime type
     beg_t = datetime.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
