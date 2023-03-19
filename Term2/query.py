@@ -154,8 +154,6 @@ def find_id(tags_list):
     if state != 0:
         print("There is no map in csfyp2023.")
 
-    query_set = read_set_from_file("/home/postgres/CS_FYP/data/query_set.txt")
-
     csv_file = csv.reader(open('/home/postgres/CS_FYP/data/map_matrix.csv', 'r'))
     content = []  # 用来存储整个文件的数据，存成一个列表，列表的每一个元素又是一个列表，表示的是文件的某一行
     for line in csv_file:
