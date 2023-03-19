@@ -65,7 +65,7 @@ def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set
     df.to_csv('/home/postgres/CS_FYP/meta/map_matrix.csv', index=False, header=False)
 
 
-def run_tsbs(conn, begin_t,end_t):
+def run_tsbs(conn, begin_t, end_t):
     # 设置自动提交
     conn.autocommit = True
     # 使用cursor()方法创建游标对象
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     conn = psycopg2.connect(
         database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
     )
-    run_tsbs(conn, '2023-1-1 8:00:00', '2023-1-1 10:00:00')
+    run_tsbs(conn, '2023-01-01 08:00:00', '2023-01-01 10:00:00')
     # 提交数据
     conn.commit()
     # 关闭连接
