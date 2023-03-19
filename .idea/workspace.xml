@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="update">
+    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add set&amp;file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Term2/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/tools.py" afterDir="false" />
     </list>
@@ -92,6 +92,48 @@
       <workItem from="1677246963916" duration="6404000" />
       <workItem from="1677808005257" duration="10000" />
       <workItem from="1678066609702" duration="5843000" />
+    </task>
+    <task id="LOCAL-00017" summary="convert to new hash map">
+      <created>1677253135184</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1677253135184</updated>
+    </task>
+    <task id="LOCAL-00018" summary="update index function">
+      <created>1677301068978</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1677301068978</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Update data storage in S3">
+      <created>1677403937176</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1677403937176</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Update data storage in S3">
+      <created>1677584652089</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1677584652089</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Update data storage in S3">
+      <created>1677590065735</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1677590065735</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Update data storage in S3">
+      <created>1677728889842</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1677728889842</updated>
     </task>
     <task id="LOCAL-00023" summary="Update data storage in S3">
       <created>1677745687282</created>
@@ -387,56 +429,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679211614639</updated>
     </task>
-    <task id="LOCAL-00065" summary="update">
-      <created>1679211967671</created>
+    <task id="LOCAL-00065" summary="add set&amp;file">
+      <created>1679211718942</created>
       <option name="number" value="00065" />
       <option name="presentableId" value="LOCAL-00065" />
       <option name="project" value="LOCAL" />
-      <updated>1679211967671</updated>
+      <updated>1679211718942</updated>
     </task>
-    <task id="LOCAL-00066" summary="update">
-      <created>1679212055331</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1679212055331</updated>
-    </task>
-    <task id="LOCAL-00067" summary="update">
-      <created>1679212126284</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1679212126284</updated>
-    </task>
-    <task id="LOCAL-00068" summary="update">
-      <created>1679212261830</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1679212261830</updated>
-    </task>
-    <task id="LOCAL-00069" summary="update">
-      <created>1679212934451</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1679212934451</updated>
-    </task>
-    <task id="LOCAL-00070" summary="update">
-      <created>1679213022762</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1679213022762</updated>
-    </task>
-    <task id="LOCAL-00071" summary="update">
-      <created>1679225735151</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1679225735151</updated>
-    </task>
-    <option name="localTasksCounter" value="72" />
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -452,10 +452,6 @@
     <MESSAGE value="add read file to hashtable" />
     <MESSAGE value="reformat the file" />
     <MESSAGE value="add set&amp;file" />
-    <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/CS_FYP$tools.coverage" NAME="tools Coverage Results" MODIFIED="1679203020978" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Term2" />
+    <option name="LAST_COMMIT_MESSAGE" value="add set&amp;file" />
   </component>
 </project>
