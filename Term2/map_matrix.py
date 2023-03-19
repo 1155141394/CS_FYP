@@ -92,7 +92,9 @@ def run_tsbs(conn, begin_t, end_t):
         tags_pair_set = set()
 
     for ts_name in ts_names:
-        value_name = ['time'].append(ts_name)
+        value_name = []
+        value_name.append('time')
+        value_name.append(ts_name)
         data_mapping(tags_name, value_name, des, lines, ts_name, map_matrix, tags_pair_set, index_map)
 
     csv_files = find_all_csv('/home/postgres/CS_FYP/data')
