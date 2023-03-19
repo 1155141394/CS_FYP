@@ -79,7 +79,6 @@ def save_data_to_s3(bucket, time_start, time_end, data_path):
     file_name = f"{generated_date}_{index}.csv"
     os.system("aws s3 cp %s s3://%s/%s/%s" % (data_path, bucket, tsid, file_name))
     os.system("rm %s" % data_path)
-    print("Save the file to S3 successfully.")
 
 
 # change the string to char sum
