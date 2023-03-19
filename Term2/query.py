@@ -181,13 +181,16 @@ def find_id(tags_list):
 if __name__ == "__main__":
     tsids = find_id(['42','host_41','usage_system'])
     print(tsids)
-    df_list = [pd.DataFrame([])]
+    df_list = []
 
     for tsid in tsids:
         df = s3_select(tsid, '2023-01-01 08:01:54','2023-01-01 08:05:54')
         df_list.append(df)
-    result = pd.concat(df_list)
-    print(result)
-    result.to_csv('/home/postgres/CS_FYP/meta/result.csv')
+    if len(df_list) < 2:
+        print(df_list)
+    else:
+        result = pd.concat(df_list)
+        print(result)
+    # result.to_csv('/home/postgres/CS_FYP/meta/result.csv')
 
 
