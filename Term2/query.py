@@ -185,6 +185,7 @@ if __name__ == "__main__":
 
     for tsid in tsids:
         df = s3_select(tsid, '2023-01-01 08:01:54','2023-01-01 08:05:54')
+        print(df)
         df_list.append(df)
     if len(df_list) < 2:
         print(df_list)

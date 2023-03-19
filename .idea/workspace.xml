@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add set&amp;file">
-      <change beforePath="$PROJECT_DIR$/1" beforeDir="false" afterPath="$PROJECT_DIR$/Others/1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Others/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Term2/query.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/query.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/getBenchMarkData.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/getBenchMarkData.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nohup.out" beforeDir="false" afterPath="$PROJECT_DIR$/Others/nohup.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reset.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/reset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/retrieve_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/retrieve_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s3_select.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/s3_select.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsbs_query.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/tsbs_query.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsbs_time_query.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/tsbs_time_query.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,13 +91,6 @@
       <workItem from="1677246963916" duration="6404000" />
       <workItem from="1677808005257" duration="10000" />
       <workItem from="1678066609702" duration="5843000" />
-    </task>
-    <task id="LOCAL-00014" summary="convert to new hash map">
-      <created>1677251589874</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1677251589874</updated>
     </task>
     <task id="LOCAL-00015" summary="convert to new hash map">
       <created>1677252047479</created>
@@ -445,7 +428,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678627108803</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="add set&amp;file">
+      <created>1679211556646</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1679211556646</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
