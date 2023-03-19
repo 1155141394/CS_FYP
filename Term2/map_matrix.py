@@ -115,7 +115,7 @@ if __name__ == "__main__":
     conn = psycopg2.connect(
         database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
     )
-    run_tsbs(conn, inputs[1], inputs[2])
+    run_tsbs(conn, inputs[1] + " " + inputs[2], inputs[3] + " " + inputs[4])
     # 提交数据
     conn.commit()
     # 关闭连接
