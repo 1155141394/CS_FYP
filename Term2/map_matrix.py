@@ -105,7 +105,8 @@ def run_tsbs(conn, begin_t, end_t):
     csv_files = find_all_csv('/home/postgres/CS_FYP/data')
     begin_dt = datetime.datetime.strptime(begin_t, '%Y-%m-%d %H:%M:%S')
     end_dt = datetime.datetime.strptime(end_t, '%Y-%m-%d %H:%M:%S')
-    for csv_file in csv_files:
+    print("Transfer files to S3.")
+    for csv_file in tqdm(csv_files):
         save_data_to_s3('csfyp2023', begin_dt, end_dt, csv_file)
 
 if __name__ == "__main__":
