@@ -105,6 +105,7 @@ def run_tsbs(conn, begin_t, end_t):
         value_name.append('time')
         value_name.append(ts_name)
         data_mapping(tags_name, value_name, des, lines, ts_name, map_matrix, tags_pair_set, index_map)
+        gc.collect()
 
     csv_files = find_all_csv('/home/postgres/CS_FYP/data')
     begin_dt = datetime.datetime.strptime(begin_t, '%Y-%m-%d %H:%M:%S')
