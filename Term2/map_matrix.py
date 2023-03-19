@@ -11,7 +11,7 @@ def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set
     attr = []
     for item in des:
         attr.append(item[0])
-    for line in lines:
+    for line in tqdm(lines):
         tags_value = []
         value = []
         index_list = []
@@ -96,7 +96,7 @@ def run_tsbs(conn, begin_t, end_t):
         map_matrix = []
         tags_pair_set = set()
 
-    for ts_name in tqdm(ts_names):
+    for ts_name in ts_names:
         value_name = []
         value_name.append('time')
         value_name.append(ts_name)
