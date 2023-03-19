@@ -140,7 +140,7 @@ def s3_select(tsid, beg_t, end_t):
         print(df)
         df.to_csv('/home/postgres/CS_FYP/meta/result.csv', index=False, header=False)
     else:
-        after_expression = "SELECT * FROM s3object s where s.\"time\" > %d;" % (beg_t_str)
+        after_expression = "SELECT * FROM s3object s where s.\"time\" > '%s';" % (beg_t_str)
         key = retrieve_file[0]
         data = s3_data(after_expression, key)
 
