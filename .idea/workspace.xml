@@ -93,13 +93,6 @@
       <workItem from="1677808005257" duration="10000" />
       <workItem from="1678066609702" duration="5843000" />
     </task>
-    <task id="LOCAL-00020" summary="Update data storage in S3">
-      <created>1677584652089</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1677584652089</updated>
-    </task>
     <task id="LOCAL-00021" summary="Update data storage in S3">
       <created>1677590065735</created>
       <option name="number" value="00021" />
@@ -436,7 +429,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679227798544</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="add set&amp;file">
+      <created>1679227932261</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1679227932261</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
