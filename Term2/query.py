@@ -175,8 +175,12 @@ if __name__ == "__main__":
     tsids = find_id(['42','host_41','usage_system'])
     print(tsids)
     df_list = []
+    time_tuple = time.strptime('2023-01-01 08:01:54', '%Y-%m-%d %H:%M:%S')
+    begin_t = str(int(time.mktime(time_tuple)))
+    time_tuple = time.strptime('2023-01-01 08:05:54', '%Y-%m-%d %H:%M:%S')
+    end_t = str(int(time.mktime(time_tuple)))
     for tsid in tsids:
-        df = s3_select(tsid, '2023-01-01 08:01:54', '2023-01-01 08:05:54')
+        df = s3_select(tsid, begin_t,end_t)
         df_list.append(df)
     result = pd.concat(df_list)
     print(result)
