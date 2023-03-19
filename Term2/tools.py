@@ -22,12 +22,16 @@ def compress_array(arr):
             compressed_arr.append(flat_arr[i])  # 将当前位置的值存储到压缩数组中
     if count > 0:
         compressed_arr.append(-count)  # 处理最后一段连续的零
-    return compressed_arr, (rows, cols)
+    compressed_arr.append(rows)
+    compressed_arr.append(cols)
+    return compressed_arr
 
 
-def decompress_array(compressed_arr, shape):
+def decompress_array(compressed_arr):
     """将一个压缩后的数组解压缩为原始的二维数组"""
-    rows, cols = shape  # 获取原始数组的行列数
+    rows = compressed_arr[len(compressed_arr)-2]  # 获取原始数组的行列数
+    cols = compressed_arr[len(compressed_arr)-1]
+    compressed_arr = compressed_arr[:-2]
     decompressed_arr = np.zeros((rows, cols), dtype=int)  # 创建一个全零的二维数组
     i = 0
     j = 0

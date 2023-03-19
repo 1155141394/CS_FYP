@@ -64,12 +64,10 @@ def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set
 
     write_set_to_file(tags_pair_set, '/home/postgres/CS_FYP/meta/query_set.txt')
     index_map.save_hash('/home/postgres/CS_FYP/meta/query_hash')
-    # compress_arr, shape = compress_array(map_matrix)
-    # print(compress_arr, shape)
-    # map_matrix = decompress_array(compress_arr, shape)
-    df = pd.DataFrame(map_matrix)
-    df.to_csv('/home/postgres/CS_FYP/meta/map_matrix.csv', index=False, header=False)
-
+    compress_arr = str(compress_array(map_matrix))
+    f = open('/home/postgres/CS_FYP/meta/map_matrix.csv', 'w')
+    f.write(compress_arr)
+    f.close()
 
 def run_tsbs(conn, begin_t, end_t):
     # 设置自动提交
