@@ -39,7 +39,7 @@ def s3_query(days, table):
     s3 = boto3.client('s3')
     days = int(days) - 1
     bucket_name = 'csfyp2023'
-    basic_filename = 'benchmark/'
+    basic_filename = '../benchmark/'
 
     #  create SQL expression to query by date using column names
     sql_exp = ("SELECT * FROM s3object s where s._4 < '0.1';")

@@ -38,7 +38,7 @@ def query_csv_s3(s3, bucket_name, filename, sql_exp, use_header):
 def s3_select_gen_csv(date, table):
     s3 = boto3.client('s3')
     bucket_name = 'csfyp2023'
-    basic_filename = 'benchmark/'
+    basic_filename = '../benchmark/'
 
     #  create SQL expression to query by date using column names
     sql_exp = "SELECT * FROM s3object s where s._1 >= '2022-10-03 13:09:14.823888 +0000' AND s._1 < '2022-10-03 13:19:14.823888 +0000';"

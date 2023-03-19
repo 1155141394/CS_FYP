@@ -76,6 +76,7 @@ def save_data_to_s3(bucket, tsid, time_start, time_end, data_path):
         index = time_index(time_start, time_end)[0]
     file_name = f"{generated_date}_{index}.csv"
     os.system("aws s3 cp %s s3://%s/%s/%s" % (data_path, bucket, tsid, file_name))
+    os.system("rm %s" % data_path)
     print("Save the file to S3 successfully.")
 
 
@@ -160,6 +161,15 @@ def read_hash_from_file(input_file):
     return hashtable
 
 
+# return csv_file list
+def find_all_csv(dir):
+    csv_files = []
+    files = os.listdir(dir)
+    for file in files:
+        print(file)
+        if ".csv" in file:
+            csv_files.append(file)
+    return csv_files
 
 
 
