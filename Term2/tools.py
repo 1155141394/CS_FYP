@@ -29,11 +29,9 @@ def compress_array(arr):
 
 
 def decompress_array(compressed_arr):
-    compressed_arr = list(map(int, compressed_arr))
     """将一个压缩后的数组解压缩为原始的二维数组"""
-    rows = compressed_arr[len(compressed_arr)-2] # 获取原始数组的行列数
-    cols = compressed_arr[len(compressed_arr)-1]
-
+    rows = int(compressed_arr[len(compressed_arr)-2]) # 获取原始数组的行列数
+    cols = int(compressed_arr[len(compressed_arr)-1])
     compressed_arr = compressed_arr[:-2]
     decompressed_arr = np.zeros((rows, cols), dtype=int)  # 创建一个全零的二维数组
     i = 0
@@ -52,11 +50,8 @@ def decompress_array(compressed_arr):
 def txt_to_list(filename):
     f = open(filename, 'r')
     out = f.read()
-    response = json.loads(out)
-    res = response.strip('[')
-    res = res.strip(']')
-    res = res.split(',')
-    return res
+    compress_arr = json.loads(out)
+    return compress_arr
 
 def time_index(start_t, end_t):
     hours = []
