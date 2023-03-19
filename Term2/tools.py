@@ -168,9 +168,8 @@ def find_all_csv(dir):
     csv_files = []
     files = os.listdir(dir)
     for file in files:
-        print(file)
         if ".csv" in file:
-            csv_files.append(dir+file)
+            csv_files.append(dir+'/'+file)
     return csv_files
 
 
