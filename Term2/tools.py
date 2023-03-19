@@ -66,7 +66,9 @@ def time_index(start_t, end_t):
         return hours
 
 
-def save_data_to_s3(bucket, tsid, time_start, time_end, data_path):
+def save_data_to_s3(bucket, time_start, time_end, data_path):
+    csv_file = data_path.split('/')[-1]
+    tsid = csv_file[:-4]
     generated_date = time_start.strftime("%Y-%m-%d")
     if time_end.hour == 0:
         index = time_index(time_start, None)[0]
@@ -168,7 +170,7 @@ def find_all_csv(dir):
     for file in files:
         print(file)
         if ".csv" in file:
-            csv_files.append(file)
+            csv_files.append(dir+file)
     return csv_files
 
 
