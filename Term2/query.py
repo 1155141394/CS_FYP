@@ -87,6 +87,11 @@ def s3_select(tsid, beg_t, end_t):
     times = []  # record the date used to retrieve data
     retrieve_file = []
 
+    time_tuple = time.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
+    beg_t_str = str(int(time.mktime(time_tuple)))
+    time_tuple = time.strptime(end_t, '%Y-%m-%d %H:%M:%S')
+    end_t_str = str(int(time.mktime(time_tuple)))
+
     # Change the string to datetime type
     beg_t = datetime.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
     end_t = datetime.strptime(end_t, '%Y-%m-%d %H:%M:%S')
@@ -123,10 +128,7 @@ def s3_select(tsid, beg_t, end_t):
     print(retrieve_file)
     # loop to retrieve the data from s3
 
-    time_tuple = time.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
-    beg_t = str(int(time.mktime(time_tuple)))
-    time_tuple = time.strptime(end_t, '%Y-%m-%d %H:%M:%S')
-    end_t = str(int(time.mktime(time_tuple)))
+
     if len(retrieve_file) == 1:
         basic_exp = "SELECT * FROM s3object s where s.\"time\" between "  # Base expression
         expression = basic_exp + "'%s' and '%s';" % (beg_t, end_t)
@@ -136,7 +138,7 @@ def s3_select(tsid, beg_t, end_t):
         df = pd.DataFrame(data)
         df.to_csv('/home/postgres/CS_FYP/data/tmp.csv', index=False, header=False)
     else:
-        after_expression = "SELECT * FROM s3object s where s.\"time\" > '%s';" % (beg_t)
+        after_expression = "SELECT * FROM s3object s where s.\"time\" > '%s';" % (beg_t_str)
         key = retrieve_file[0]
         data = s3_data(after_expression, key)
 
@@ -145,7 +147,7 @@ def s3_select(tsid, beg_t, end_t):
             key = retrieve_file[i]
             data = data + s3_data(expression, key)
 
-        before_expression = "SELECT * FROM s3object s where s.\"time\" < '%s';" % (end_t)
+        before_expression = "SELECT * FROM s3object s where s.\"time\" < '%s';" % (end_t_str)
         key = retrieve_file[len(retrieve_file) - 1]
         data = data + s3_data(before_expression, key)
         df = pd.DataFrame(data)
