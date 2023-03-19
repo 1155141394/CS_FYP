@@ -4,6 +4,9 @@ from tools import *
 import time
 from hash import HashTable
 import csv
+import datetime
+from tqdm import tqdm
+
 def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set,index_map):
     attr = []
     for item in des:
@@ -93,15 +96,17 @@ def run_tsbs(conn, begin_t, end_t):
         map_matrix = []
         tags_pair_set = set()
 
-    for ts_name in ts_names:
+    for ts_name in tqdm(ts_names):
         value_name = []
         value_name.append('time')
         value_name.append(ts_name)
         data_mapping(tags_name, value_name, des, lines, ts_name, map_matrix, tags_pair_set, index_map)
 
     csv_files = find_all_csv('/home/postgres/CS_FYP/data')
+    begin_dt = datetime.datetime.strptime(begin_t, '%Y-%m-%d %H:%M:%S')
+    end_dt = datetime.datetime.strptime(end_t, '%Y-%m-%d %H:%M:%S')
     for csv_file in csv_files:
-        save_data_to_s3('csfyp2023', begin_t, end_t, csv_file)
+        save_data_to_s3('csfyp2023', begin_dt, end_dt, csv_file)
 
 if __name__ == "__main__":
     conn = psycopg2.connect(

@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 from tools import *
 from hash import HashTable
-
+from tqdm import tqdm
 
 def find_rows(arr, index1, index2):
     rows = []
