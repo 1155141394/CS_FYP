@@ -89,7 +89,8 @@ def run_tsbs(conn, begin_t, end_t):
                 'usage_guest', 'usage_guest_nice', 'additional_tags']
 
     # 判断是否第一次跑
-    if os.path.exists('/home/postgres/CS_FYP/meta/map_matrix.csv'):
+    if os.path.exists('/home/postgres/CS_FYP/meta/map_matrix.txt'):
+        print('Not first time to run')
         index_map = HashTable.read_hash('/home/postgres/CS_FYP/meta/query_hash')
         compress_arr = txt_to_list('/home/postgres/CS_FYP/meta/map_matrix.txt')
         map_matrix = decompress_array(compress_arr)
