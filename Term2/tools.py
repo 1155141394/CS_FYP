@@ -32,7 +32,8 @@ def decompress_array(compressed_arr):
     """将一个压缩后的数组解压缩为原始的二维数组"""
     rows = compressed_arr[len(compressed_arr)-2] # 获取原始数组的行列数
     cols = compressed_arr[len(compressed_arr)-1]
-    print(compressed_arr)
+    print(type(compressed_arr))
+    print(rows,cols)
     rows = int(rows)
     cols = int(cols)
     compressed_arr = compressed_arr[:-2]
