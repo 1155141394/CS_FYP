@@ -172,10 +172,10 @@ def find_id(tags_list):
     return tsid_list
 
 if __name__ == "__main__":
-    tsids = find_id(['42','host_41'])
+    tsids = find_id(['42','host_41','usage_system'])
     df_list = []
     for tsid in tsids:
-        df = s3_select(tsid, '2023-03-07 00:01:54', '2023-03-07 02:05:54')
+        df = s3_select(tsid, '2023-01-01 08:01:54', '2023-01-01 08:05:54')
         df_list.append(df)
     result = pd.concat(df_list)
     print(result)
