@@ -173,6 +173,7 @@ def find_id(tags_list):
 
 if __name__ == "__main__":
     tsids = find_id(['42','host_41','usage_system'])
+    print('Need data from ts:' + tsids)
     df_list = []
     for tsid in tsids:
         df = s3_select(tsid, '2023-01-01 08:01:54', '2023-01-01 08:05:54')

@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add set&amp;file">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/1" beforeDir="false" afterPath="$PROJECT_DIR$/Others/1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Others/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Term2/query.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/query.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/getBenchMarkData.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/getBenchMarkData.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nohup.out" beforeDir="false" afterPath="$PROJECT_DIR$/Others/nohup.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reset.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/reset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/retrieve_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/retrieve_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s3_select.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/s3_select.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsbs_query.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/tsbs_query.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsbs_time_query.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/tsbs_time_query.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
