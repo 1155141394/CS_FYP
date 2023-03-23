@@ -12,18 +12,16 @@ import threading
 
 def multi_thread_save_s3(table_name, begin_dt, end_dt, csv_folder):
     threads = []
-    for csv_file in tqdm(csv_folder):
+    for csv_file in csv_folder:
         threads.append(
             threading.Thread(target=save_data_to_s3, args=(table_name,begin_dt, end_dt, csv_file,))
         )
     for thread in threads:
         thread.start()
 
-    for thread in threads:
+    for thread in tqdm(threads):
         thread.join()
     print('Finish transferring data to s3.')
-
-
 
 def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set,index_map):
     attr = []
