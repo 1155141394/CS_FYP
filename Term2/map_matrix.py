@@ -8,19 +8,14 @@ import datetime
 from tqdm import tqdm
 import sys
 import gc
-import threading
+from multiprocessing import Pool
 
 def multi_thread_save_s3(table_name, begin_dt, end_dt, csv_folder):
-    threads = []
+    p = Pool(20)
     for csv_file in csv_folder:
-        threads.append(
-            threading.Thread(target=save_data_to_s3, args=(table_name,begin_dt, end_dt, csv_file,))
-        )
-    for thread in threads:
-        thread.start()
-
-    for thread in tqdm(threads):
-        thread.join()
+        p.apply_async(save_data_to_s3, args=(table_name,begin_dt, end_dt, csv_file,))
+    p.close()
+    p.join()
     print('Finish transferring data to s3.')
 
 def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set,index_map):
