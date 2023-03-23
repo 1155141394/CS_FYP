@@ -82,39 +82,39 @@ def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set
 
 
 def run_tsbs(conn, begin_t, end_t):
-    # 设置自动提交
-    conn.autocommit = True
-    # 使用cursor()方法创建游标对象
-    cursor = conn.cursor()
-    # 检索数据
-    cursor.execute('''SELECT * from cpu where time > '%s' and time < '%s';'''%(begin_t,end_t))
-
-    # Fetching 1st row from the table
-    lines = cursor.fetchall()
-    des = cursor.description
-    tags_name = ["tags_id", "hostname"]
-    ts_names = ['usage_user', 'usage_system', 'usage_idle',
-                'usage_nice', 'usage_iowait', 'usage_irq', 'usage_softirq', 'usage_steal',
-                'usage_guest', 'usage_guest_nice', 'additional_tags']
-
-    # 判断是否第一次跑
-    if os.path.exists('/home/postgres/CS_FYP/meta/map_matrix.txt'):
-        print('Not first time to run')
-        index_map = HashTable.read_hash('/home/postgres/CS_FYP/meta/query_hash')
-        compress_arr = txt_to_list('/home/postgres/CS_FYP/meta/map_matrix.txt')
-        map_matrix = decompress_array(compress_arr)
-        tags_pair_set = read_set_from_file("/home/postgres/CS_FYP/meta/query_set.txt")
-    else:
-        index_map = HashTable(length=5000)
-        map_matrix = []
-        tags_pair_set = set()
-
-    for ts_name in ts_names:
-        value_name = []
-        value_name.append('time')
-        value_name.append(ts_name)
-        data_mapping(tags_name, value_name, des, lines, ts_name, map_matrix, tags_pair_set, index_map)
-        gc.collect()
+    # # 设置自动提交
+    # conn.autocommit = True
+    # # 使用cursor()方法创建游标对象
+    # cursor = conn.cursor()
+    # # 检索数据
+    # cursor.execute('''SELECT * from cpu where time > '%s' and time < '%s';'''%(begin_t,end_t))
+    #
+    # # Fetching 1st row from the table
+    # lines = cursor.fetchall()
+    # des = cursor.description
+    # tags_name = ["tags_id", "hostname"]
+    # ts_names = ['usage_user', 'usage_system', 'usage_idle',
+    #             'usage_nice', 'usage_iowait', 'usage_irq', 'usage_softirq', 'usage_steal',
+    #             'usage_guest', 'usage_guest_nice', 'additional_tags']
+    #
+    # # 判断是否第一次跑
+    # if os.path.exists('/home/postgres/CS_FYP/meta/map_matrix.txt'):
+    #     print('Not first time to run')
+    #     index_map = HashTable.read_hash('/home/postgres/CS_FYP/meta/query_hash')
+    #     compress_arr = txt_to_list('/home/postgres/CS_FYP/meta/map_matrix.txt')
+    #     map_matrix = decompress_array(compress_arr)
+    #     tags_pair_set = read_set_from_file("/home/postgres/CS_FYP/meta/query_set.txt")
+    # else:
+    #     index_map = HashTable(length=5000)
+    #     map_matrix = []
+    #     tags_pair_set = set()
+    #
+    # for ts_name in ts_names:
+    #     value_name = []
+    #     value_name.append('time')
+    #     value_name.append(ts_name)
+    #     data_mapping(tags_name, value_name, des, lines, ts_name, map_matrix, tags_pair_set, index_map)
+    #     gc.collect()
 
     csv_folder = find_all_csv('/home/postgres/CS_FYP/data')
     begin_dt = datetime.datetime.strptime(begin_t, '%Y-%m-%d %H:%M:%S')
