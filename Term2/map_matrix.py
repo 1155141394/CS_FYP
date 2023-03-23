@@ -8,6 +8,22 @@ import datetime
 from tqdm import tqdm
 import sys
 import gc
+import threading
+
+def multi_thread_save_s3(table_name, begin_dt, end_dt, csv_folder):
+    threads = []
+    for csv_file in tqdm(csv_folder):
+        threads.append(
+            threading.Thread(target=save_data_to_s3, args=(table_name,begin_dt, end_dt, csv_file,))
+        )
+    for thread in threads:
+        thread.start()
+
+    for thread in threads:
+        thread.join()
+    print('Finish transferring data to s3.')
+
+
 
 def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set,index_map):
     attr = []
@@ -107,14 +123,13 @@ def run_tsbs(conn, begin_t, end_t):
         data_mapping(tags_name, value_name, des, lines, ts_name, map_matrix, tags_pair_set, index_map)
         gc.collect()
 
-    csv_files = find_all_csv('/home/postgres/CS_FYP/data')
+    csv_folder = find_all_csv('/home/postgres/CS_FYP/data')
     begin_dt = datetime.datetime.strptime(begin_t, '%Y-%m-%d %H:%M:%S')
     end_dt = datetime.datetime.strptime(end_t, '%Y-%m-%d %H:%M:%S')
 
     print("Transfer files to S3.")
     gc.collect()
-    for csv_file in tqdm(csv_files):
-        save_data_to_s3('csfyp2023', begin_dt, end_dt, csv_file)
+    multi_thread_save_s3('csfyp2023', begin_dt, end_dt, csv_folder)
 
 if __name__ == "__main__":
     inputs = sys.argv
