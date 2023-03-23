@@ -82,10 +82,10 @@ def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set
 
 
 def run_tsbs(conn, begin_t, end_t):
-    # # 设置自动提交
-    # conn.autocommit = True
-    # # 使用cursor()方法创建游标对象
-    # cursor = conn.cursor()
+    # 设置自动提交
+    conn.autocommit = True
+    # 使用cursor()方法创建游标对象
+    cursor = conn.cursor()
     # # 检索数据
     # cursor.execute('''SELECT * from cpu where time > '%s' and time < '%s';'''%(begin_t,end_t))
     #
