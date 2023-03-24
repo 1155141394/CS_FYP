@@ -138,7 +138,7 @@ def s3_select(tsid, beg_t, end_t):
         data = s3_data(expression, key)
         df = pd.DataFrame(data)
         print(df)
-        df.to_csv('/home/postgres/CS_FYP/meta/result.csv', index=False, header=False)
+        df.to_csv(f'/home/postgres/CS_FYP/data/{table_name}/result.csv', index=False, header=False)
     else:
         after_expression = "SELECT * FROM s3object s where s.\"time\" > '%s';" % (beg_t_str)
         key = retrieve_file[0]
@@ -156,16 +156,16 @@ def s3_select(tsid, beg_t, end_t):
         return df
 
 
-def find_id(tags_list):
+def find_id(table_name, tags_list):
     # 到s3寻找map
-    state = os.system("aws s3 cp s3://csfyp2023/map_matrix /home/postgres/CS_FYP/meta/map_matrix.txt")
+    state = os.system(f"aws s3 cp s3://{table_name}/map_matrix.txt " + META_FOLDER + f'{table_name}/map_matrix.txt')
     if state != 0:
-        print("There is no map in csfyp2023.")
+        print(f"There is no map in {table_name}.")
 
-    compress_arr = txt_to_list('/home/postgres/CS_FYP/meta/map_matrix.txt')
+    compress_arr = txt_to_list(META_FOLDER + f'{table_name}/map_matrix.txt')
     content = decompress_array(compress_arr)
     # 读取query_hash
-    index_map = HashTable.read_hash('/home/postgres/CS_FYP/meta/query_hash')
+    index_map = HashTable.read_hash(META_FOLDER + f'{table_name}/query_hash')
     tsid_list = []
     for i in range(len(content)):
         tsid_list.append(i)
@@ -176,7 +176,8 @@ def find_id(tags_list):
     return tsid_list
 
 if __name__ == "__main__":
-    tsids = find_id(['42','host_41','usage_system'])
+    table_name = 'cpu'
+    tsids = find_id(table_name, ['42','host_41','usage_system'])
     print(tsids)
     df_list = []
 
@@ -186,6 +187,8 @@ if __name__ == "__main__":
     if len(df_list) > 2:
         result = pd.concat(df_list)
         print(result)
-        result.to_csv('/home/postgres/CS_FYP/meta/result.csv')
+        result.to_csv(f'/home/postgres/CS_FYP/data/{table_name}/result.csv')
+
+
 
 

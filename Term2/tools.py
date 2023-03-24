@@ -5,6 +5,7 @@ from hash import *
 import subprocess
 import json
 
+META_FOLDER = '/home/postgres/CS_FYP/meta/'
 
 def compress_array(arr):
     """将一个二维的数组压缩为一个一维的数组，并返回一个元组，包含压缩后的数组和压缩前后数组的行列数"""
@@ -114,7 +115,7 @@ def index(index_map, tag=""):
 
 
 def insert(tsid, vals, columns=None):
-    file_name = f"/home/postgres/CS_FYP/data/{tsid}.csv"
+    file_name = META_FOLDER + f"{tsid}.csv"
     if not os.path.exists(file_name):
         with open(file_name, "a") as f:
             csv_writer = csv.writer(f, delimiter=',')
@@ -183,7 +184,7 @@ def find_all_csv(dir):
     files = os.listdir(dir)
     for file in files:
         if ".csv" in file:
-            csv_files.append(dir+'/'+file)
+            csv_files.append(dir + file)
     return csv_files
 
 

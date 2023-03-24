@@ -72,64 +72,65 @@ def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set
 
             insert(tsid, value, value_name)
 
-    write_set_to_file(tags_pair_set, '/home/postgres/CS_FYP/meta/query_set.txt')
-    index_map.save_hash('/home/postgres/CS_FYP/meta/query_hash')
+    write_set_to_file(tags_pair_set, META_FOLDER + f'{table_name}/query_set.txt')
+    index_map.save_hash(META_FOLDER + f'{table_name}/query_hash')
     compress_arr = str(compress_array(map_matrix))
     compress_arr = json.dumps(compress_arr)
-    f = open('/home/postgres/CS_FYP/meta/map_matrix.txt', 'w')
+    f = open(META_FOLDER + f'{table_name}/map_matrix.txt', 'w')
     f.write(compress_arr)
     f.close()
 
 
-def run_tsbs(conn, begin_t, end_t):
+def run_tsbs(table_name, conn, begin_t, end_t):
     # 设置自动提交
     conn.autocommit = True
     # 使用cursor()方法创建游标对象
     cursor = conn.cursor()
-    # # 检索数据
-    # cursor.execute('''SELECT * from cpu where time > '%s' and time < '%s';'''%(begin_t,end_t))
-    #
-    # # Fetching 1st row from the table
-    # lines = cursor.fetchall()
-    # des = cursor.description
-    # tags_name = ["tags_id", "hostname"]
-    # ts_names = ['usage_user', 'usage_system', 'usage_idle',
-    #             'usage_nice', 'usage_iowait', 'usage_irq', 'usage_softirq', 'usage_steal',
-    #             'usage_guest', 'usage_guest_nice', 'additional_tags']
-    #
-    # # 判断是否第一次跑
-    # if os.path.exists('/home/postgres/CS_FYP/meta/map_matrix.txt'):
-    #     print('Not first time to run')
-    #     index_map = HashTable.read_hash('/home/postgres/CS_FYP/meta/query_hash')
-    #     compress_arr = txt_to_list('/home/postgres/CS_FYP/meta/map_matrix.txt')
-    #     map_matrix = decompress_array(compress_arr)
-    #     tags_pair_set = read_set_from_file("/home/postgres/CS_FYP/meta/query_set.txt")
-    # else:
-    #     index_map = HashTable(length=5000)
-    #     map_matrix = []
-    #     tags_pair_set = set()
-    #
-    # for ts_name in ts_names:
-    #     value_name = []
-    #     value_name.append('time')
-    #     value_name.append(ts_name)
-    #     data_mapping(tags_name, value_name, des, lines, ts_name, map_matrix, tags_pair_set, index_map)
-    #     gc.collect()
+    # 检索数据
+    cursor.execute('''SELECT * from %s where time > '%s' and time < '%s';'''%(table_name, begin_t,end_t))
 
-    csv_folder = find_all_csv('/home/postgres/CS_FYP/data')
+    # Fetching 1st row from the table
+    lines = cursor.fetchall()
+    des = cursor.description
+    tags_name = ["tags_id", "hostname"]
+    ts_names = ['usage_user', 'usage_system', 'usage_idle',
+                'usage_nice', 'usage_iowait', 'usage_irq', 'usage_softirq', 'usage_steal',
+                'usage_guest', 'usage_guest_nice', 'additional_tags']
+
+    # 判断是否第一次跑
+    if os.path.exists('/home/postgres/CS_FYP/meta/map_matrix.txt'):
+        print('Not first time to run')
+        index_map = HashTable.read_hash(META_FOLDER + f'{table_name}/query_hash')
+        compress_arr = txt_to_list(META_FOLDER + f'{table_name}/map_matrix.txt')
+        map_matrix = decompress_array(compress_arr)
+        tags_pair_set = read_set_from_file(META_FOLDER + f'{table_name}/query_set.txt')
+    else:
+        index_map = HashTable(length=5000)
+        map_matrix = []
+        tags_pair_set = set()
+
+    for ts_name in ts_names:
+        value_name = []
+        value_name.append('time')
+        value_name.append(ts_name)
+        data_mapping(tags_name, value_name, des, lines, ts_name, map_matrix, tags_pair_set, index_map)
+        gc.collect()
+
+    csv_folder = find_all_csv(META_FOLDER)
     begin_dt = datetime.datetime.strptime(begin_t, '%Y-%m-%d %H:%M:%S')
     end_dt = datetime.datetime.strptime(end_t, '%Y-%m-%d %H:%M:%S')
 
     print("Transfer files to S3.")
     gc.collect()
-    multi_thread_save_s3('csfyp2023', begin_dt, end_dt, csv_folder)
+    multi_thread_save_s3(table_name , begin_dt, end_dt, csv_folder)
 
 if __name__ == "__main__":
     inputs = sys.argv
     conn = psycopg2.connect(
         database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
     )
-    run_tsbs(conn, "2023-01-01 16:00:00", "2023-01-01 18:00:00")
+    table_name = 'cpu'
+    run_tsbs(table_name, conn, "2023-01-01 16:00:00", "2023-01-01 18:00:00")
     # 提交数据
     conn.commit()
     # 关闭连接
