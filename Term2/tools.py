@@ -1,5 +1,5 @@
 import os
-import numpy as np
+# import numpy as np
 import csv
 from hash import *
 import subprocess
@@ -157,7 +157,7 @@ def write_dict_to_file(dict, output_file):
 
 
 def read_dict_from_file(input_file):
-    with open('temp.txt', 'r') as f:
+    with open(input_file, 'r') as f:
         a = f.read()
         return eval(a)
 
