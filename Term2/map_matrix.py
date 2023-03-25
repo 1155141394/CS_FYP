@@ -85,7 +85,7 @@ def data_mapping(tags_name, value_name, des, lines, ts_name, map_matrix, tags_pa
 
 def run_tsbs(table_name, conn, begin_t, end_t):
     # 设置自动提交
-    conn.autocommit = True
+    # conn.autocommit = True
     # 使用cursor()方法创建游标对象
     cursor = conn.cursor()
     # 检索数据
