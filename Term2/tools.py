@@ -155,7 +155,8 @@ def write_dict_to_file(dict, output_file):
 
 
 def read_dict_from_file(input_file):
-    return json.load(open(input_file, 'r'))
+    f = open(input_file, 'r')
+    return json.loads(f.read())
 
 # 将hashtable写入文件
 def hash_to_file(hashtable, output_file):
