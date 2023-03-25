@@ -150,6 +150,13 @@ def read_set_from_file(input_file):
     return output_set
 
 
+def write_dict_to_file(dict, output_file):
+    json.dump(dict, open(output_file, 'w'))
+
+
+def read_dict_from_file(input_file):
+    return json.load(open(input_file))
+
 # 将hashtable写入文件
 def hash_to_file(hashtable, output_file):
     with open(output_file, "w") as f:
