@@ -122,6 +122,7 @@ def run_tsbs(table_name, conn, begin_t, end_t):
     gc.collect()
     multi_thread_save_s3(table_name , begin_dt, end_dt, csv_folder)
 
+
 if __name__ == "__main__":
     inputs = sys.argv
     conn = psycopg2.connect(

@@ -93,7 +93,7 @@ def save_data_to_s3(table_name, time_start, time_end, data_path):
     else:
         index = time_index(time_start, time_end)[0]
     file_name = f"{generated_date}_{index}.csv"
-    os.system("aws s3 cp %s s3://%s/%s/%s > /dev/null" % (data_path, table_name, tsid, file_name))
+    os.system("aws s3 cp %s s3://%s/%s/%s --profile csfyp > /dev/null" % (data_path, table_name, tsid, file_name))
     os.system("rm %s > /dev/null" % data_path)
 
 
