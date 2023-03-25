@@ -200,7 +200,7 @@ def get_col_name(conn, table_name):
         if col_name in tags:
             continue
         else:
-            res.append(col_name)
+            res.append(col_name[0])
     return res
 
 
