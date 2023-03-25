@@ -188,4 +188,23 @@ def find_all_csv(dir):
     return csv_files
 
 
+# get all the column name given a conn and table name
+def get_col_name(conn, table_name):
+    res = []
+    tags = ["tags_id", "hostname"]
+    cur = conn.cursor()
+    sql = r"select column_name from information_schema.columns where table_schema='public' and table_name='%s';" % table_name
+    cur.execute(sql)
+    col_names = cur.fetchall()
+    for col_name in col_names:
+        if col_name in tags:
+            continue
+        else:
+            res.append(col_name)
+    return res
+
+
+
+
+
 
