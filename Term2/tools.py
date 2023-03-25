@@ -82,7 +82,7 @@ def time_index(start_t, end_t):
         return hours
 
 
-def save_data_to_s3(bucket, time_start, time_end, data_path):
+def save_data_to_s3(table_name, time_start, time_end, data_path):
     csv_file = data_path.split('/')[-1]
     tsid = csv_file[:-4]
     generated_date = time_start.strftime("%Y-%m-%d")
@@ -93,7 +93,7 @@ def save_data_to_s3(bucket, time_start, time_end, data_path):
     else:
         index = time_index(time_start, time_end)[0]
     file_name = f"{generated_date}_{index}.csv"
-    os.system("aws s3 cp %s s3://%s/%s/%s > /dev/null" % (data_path, bucket, tsid, file_name))
+    os.system("aws s3 cp %s s3://%s/%s/%s > /dev/null" % (data_path, table_name, tsid, file_name))
     os.system("rm %s > /dev/null" % data_path)
 
 

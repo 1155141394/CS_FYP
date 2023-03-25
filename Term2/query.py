@@ -156,16 +156,16 @@ def s3_select(tsid, beg_t, end_t):
         return df
 
 
-def find_id(table_name, tags_list):
+def find_id(tags_list):
     # 到s3寻找map
-    state = os.system(f"aws s3 cp s3://{table_name}/map_matrix.txt " + META_FOLDER + f'{table_name}/map_matrix.txt')
+    state = os.system(f"aws s3 cp s3://map_matrix.txt " + META_FOLDER + 'map_matrix.txt')
     if state != 0:
-        print(f"There is no map in {table_name}.")
+        print(f"There is no map in s3.")
 
-    compress_arr = txt_to_list(META_FOLDER + f'{table_name}/map_matrix.txt')
+    compress_arr = txt_to_list(META_FOLDER + 'map_matrix.txt')
     content = decompress_array(compress_arr)
     # 读取query_hash
-    index_map = HashTable.read_hash(META_FOLDER + f'{table_name}/query_hash')
+    index_map = HashTable.read_hash(META_FOLDER + 'query_hash')
     tsid_list = []
     for i in range(len(content)):
         tsid_list.append(i)
@@ -177,7 +177,7 @@ def find_id(table_name, tags_list):
 
 if __name__ == "__main__":
     table_name = 'cpu'
-    tsids = find_id(table_name, ['42','host_41','usage_system'])
+    tsids = find_id(['42','host_41','usage_system'])
     print(tsids)
     df_list = []
 

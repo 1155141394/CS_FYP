@@ -72,11 +72,11 @@ def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set
 
             insert(tsid, value, value_name)
 
-    write_set_to_file(tags_pair_set, META_FOLDER + f'{table_name}/query_set.txt')
-    index_map.save_hash(META_FOLDER + f'{table_name}/query_hash')
+    write_set_to_file(tags_pair_set, META_FOLDER + 'query_set.txt')
+    index_map.save_hash(META_FOLDER + 'query_hash')
     compress_arr = str(compress_array(map_matrix))
     compress_arr = json.dumps(compress_arr)
-    f = open(META_FOLDER + f'{table_name}/map_matrix.txt', 'w')
+    f = open(META_FOLDER + 'map_matrix.txt', 'w')
     f.write(compress_arr)
     f.close()
 
@@ -98,12 +98,12 @@ def run_tsbs(table_name, conn, begin_t, end_t):
                 'usage_guest', 'usage_guest_nice', 'additional_tags']
 
     # 判断是否第一次跑
-    if os.path.exists('/home/postgres/CS_FYP/meta/map_matrix.txt'):
+    if os.path.exists(META_FOLDER + 'map_matrix.txt'):
         print('Not first time to run')
-        index_map = HashTable.read_hash(META_FOLDER + f'{table_name}/query_hash')
-        compress_arr = txt_to_list(META_FOLDER + f'{table_name}/map_matrix.txt')
+        index_map = HashTable.read_hash(META_FOLDER + 'query_hash')
+        compress_arr = txt_to_list(META_FOLDER + 'map_matrix.txt')
         map_matrix = decompress_array(compress_arr)
-        tags_pair_set = read_set_from_file(META_FOLDER + f'{table_name}/query_set.txt')
+        tags_pair_set = read_set_from_file(META_FOLDER + 'query_set.txt')
     else:
         index_map = HashTable(length=5000)
         map_matrix = []
