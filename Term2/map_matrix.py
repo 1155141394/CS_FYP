@@ -10,15 +10,17 @@ import sys
 import gc
 from multiprocessing import Pool
 
+
 def multi_thread_save_s3(table_name, begin_dt, end_dt, csv_folder):
     p = Pool(20)
     for csv_file in csv_folder:
-        p.apply_async(save_data_to_s3, args=(table_name,begin_dt, end_dt, csv_file,))
+        p.apply_async(save_data_to_s3, args=(table_name, begin_dt, end_dt, csv_file,))
     p.close()
     p.join()
     print('Finish transferring data to s3.')
 
-def data_mapping(tags_name,value_name,des,lines,ts_name,map_matrix,tags_pair_set,index_map):
+
+def data_mapping(tags_name, value_name, des, lines, ts_name, map_matrix, tags_pair_set, index_map):
     attr = []
     for item in des:
         attr.append(item[0])
@@ -87,14 +89,13 @@ def run_tsbs(table_name, conn, begin_t, end_t):
     # 使用cursor()方法创建游标对象
     cursor = conn.cursor()
     # 检索数据
-    cursor.execute('''SELECT * from %s where time > '%s' and time < '%s';'''%(table_name, begin_t,end_t))
+    cursor.execute('''SELECT * from %s where time > '%s' and time < '%s';''' % (table_name, begin_t, end_t))
 
     # Fetching 1st row from the table
     lines = cursor.fetchall()
     des = cursor.description
     tags_name = ["tags_id", "hostname"]
     ts_names = get_col_name(conn, table_name)
-    print(ts_names)
 
     # 判断是否第一次跑
     if os.path.exists(META_FOLDER + 'map_matrix.txt'):
@@ -121,7 +122,7 @@ def run_tsbs(table_name, conn, begin_t, end_t):
 
     print("Transfer files to S3.")
     gc.collect()
-    multi_thread_save_s3(table_name , begin_dt, end_dt, csv_folder)
+    multi_thread_save_s3(table_name, begin_dt, end_dt, csv_folder)
 
 
 if __name__ == "__main__":
@@ -129,13 +130,12 @@ if __name__ == "__main__":
     conn = psycopg2.connect(
         database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
     )
-    table_name = 'cpu'
-    run_tsbs(table_name, conn, "2023-01-01 18:00:00", "2023-01-01 20:00:00")
-    # 提交数据
-    conn.commit()
-    # 关闭连接
-    conn.close()
-
-
-
-
+    table_names = get_table_name(conn)
+    print(table_names)
+    # for table_name in table_names:
+    #     table_name = 'cpu'
+    #     run_tsbs(table_name, conn, "2023-01-01 18:00:00", "2023-01-01 20:00:00")
+    # # 提交数据
+    # conn.commit()
+    # # 关闭连接
+    # conn.close()

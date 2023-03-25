@@ -204,6 +204,15 @@ def get_col_name(conn, table_name):
     return res
 
 
+def get_table_name(conn):
+    res = []
+    cur = conn.cursor()
+    sql = "select * from pg_tables where schemaname = 'public';"
+    cur.execute(sql)
+    data_lines = cur.fetchall()
+    for data_line in data_lines:
+        res.append(data_line[1])
+    return res
 
 
 
