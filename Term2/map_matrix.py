@@ -94,6 +94,7 @@ def run_tsbs(table_name, conn, begin_t, end_t):
     des = cursor.description
     tags_name = ["tags_id", "hostname"]
     ts_names = get_col_name(conn, table_name)
+    print(ts_names)
 
     # 判断是否第一次跑
     if os.path.exists(META_FOLDER + 'map_matrix.txt'):
