@@ -106,13 +106,6 @@
       <workItem from="1677808005257" duration="10000" />
       <workItem from="1678066609702" duration="5843000" />
     </task>
-    <task id="LOCAL-00037" summary="add hashtable to string">
-      <created>1678067659025</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1678067659025</updated>
-    </task>
     <task id="LOCAL-00038" summary="add read file to hashtable">
       <created>1678110488970</created>
       <option name="number" value="00038" />
@@ -449,7 +442,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679668424062</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="add set&amp;file">
+      <created>1679733818755</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1679733818755</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

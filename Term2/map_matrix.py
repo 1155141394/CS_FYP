@@ -93,9 +93,7 @@ def run_tsbs(table_name, conn, begin_t, end_t):
     lines = cursor.fetchall()
     des = cursor.description
     tags_name = ["tags_id", "hostname"]
-    ts_names = ['usage_user', 'usage_system', 'usage_idle',
-                'usage_nice', 'usage_iowait', 'usage_irq', 'usage_softirq', 'usage_steal',
-                'usage_guest', 'usage_guest_nice', 'additional_tags']
+    ts_names = get_col_name(conn, table_name)
 
     # 判断是否第一次跑
     if os.path.exists(META_FOLDER + 'map_matrix.txt'):
