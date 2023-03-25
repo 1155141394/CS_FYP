@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="change nd array to list">
+    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add get table names to tools">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Term2/map_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/map_matrix.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Term2/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/tools.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,20 +92,6 @@
       <workItem from="1677246963916" duration="6404000" />
       <workItem from="1677808005257" duration="10000" />
       <workItem from="1678066609702" duration="5843000" />
-    </task>
-    <task id="LOCAL-00033" summary="add set&amp;file">
-      <created>1677915897176</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1677915897177</updated>
-    </task>
-    <task id="LOCAL-00034" summary="add set&amp;file">
-      <created>1677916044645</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1677916044645</updated>
     </task>
     <task id="LOCAL-00035" summary="add set&amp;file">
       <created>1677916192410</created>
@@ -437,7 +422,21 @@
       <option name="project" value="LOCAL" />
       <updated>1679743661816</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="add get table names to tools and test">
+      <created>1679748553975</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1679748553975</updated>
+    </task>
+    <task id="LOCAL-00083" summary="add get table names to tools">
+      <created>1679748587605</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1679748587605</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -455,7 +454,9 @@
     <MESSAGE value="add set&amp;file" />
     <MESSAGE value="update" />
     <MESSAGE value="change nd array to list" />
-    <option name="LAST_COMMIT_MESSAGE" value="change nd array to list" />
+    <MESSAGE value="add get table names to tools and test" />
+    <MESSAGE value="add get table names to tools" />
+    <option name="LAST_COMMIT_MESSAGE" value="add get table names to tools" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CS_FYP$tools.coverage" NAME="tools Coverage Results" MODIFIED="1679731755623" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Term2" />
