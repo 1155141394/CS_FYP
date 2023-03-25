@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add get table names to tools">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Term2/map_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/map_matrix.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Term2/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/tools.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -93,27 +92,6 @@
       <workItem from="1677246963916" duration="6404000" />
       <workItem from="1677808005257" duration="10000" />
       <workItem from="1678066609702" duration="5843000" />
-    </task>
-    <task id="LOCAL-00040" summary="add set&amp;file">
-      <created>1678112637433</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1678112637433</updated>
-    </task>
-    <task id="LOCAL-00041" summary="add set&amp;file">
-      <created>1678115000224</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1678115000224</updated>
-    </task>
-    <task id="LOCAL-00042" summary="add set&amp;file">
-      <created>1678115328149</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1678115328149</updated>
     </task>
     <task id="LOCAL-00043" summary="add set&amp;file">
       <created>1678117557397</created>
@@ -437,7 +415,28 @@
       <option name="project" value="LOCAL" />
       <updated>1679749791522</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="add get table names to tools">
+      <created>1679751057555</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1679751057555</updated>
+    </task>
+    <task id="LOCAL-00090" summary="add get table names to tools">
+      <created>1679751134598</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1679751134598</updated>
+    </task>
+    <task id="LOCAL-00091" summary="add get table names to tools">
+      <created>1679751255076</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1679751255076</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

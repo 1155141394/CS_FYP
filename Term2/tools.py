@@ -151,12 +151,16 @@ def read_set_from_file(input_file):
 
 
 def write_dict_to_file(dict, output_file):
-    json.dump(dict, open(output_file, 'w'))
+    f = open(output_file, 'w')
+    f.write(str(dict))
+    f.close()
 
 
 def read_dict_from_file(input_file):
-    f = open(input_file, 'r')
-    return json.loads(f.read())
+    with open('temp.txt', 'r') as f:
+        a = f.read()
+        return eval(a)
+
 
 # 将hashtable写入文件
 def hash_to_file(hashtable, output_file):
