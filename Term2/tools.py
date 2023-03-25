@@ -211,6 +211,8 @@ def get_table_name(conn):
     cur.execute(sql)
     data_lines = cur.fetchall()
     for data_line in data_lines:
+        if data_line[1] == "tags":
+            continue
         res.append(data_line[1])
     return res
 
