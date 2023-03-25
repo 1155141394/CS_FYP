@@ -129,7 +129,7 @@ if __name__ == "__main__":
         database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
     )
     table_name = 'cpu'
-    run_tsbs(table_name, conn, "2023-01-01 16:00:00", "2023-01-01 18:00:00")
+    run_tsbs(table_name, conn, "2023-01-01 18:00:00", "2023-01-01 20:00:00")
     # 提交数据
     conn.commit()
     # 关闭连接
