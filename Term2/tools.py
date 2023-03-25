@@ -47,7 +47,7 @@ def decompress_array(compressed_arr):
         if j >= cols:  # 如果当前行填满了，换到下一行
             i += 1
             j -= cols
-    return decompressed_arr
+    return decompressed_arr.tolist()
 
 def txt_to_list(filename):
     f = open(filename, 'r')
