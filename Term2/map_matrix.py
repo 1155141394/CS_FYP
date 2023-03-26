@@ -12,7 +12,7 @@ from multiprocessing import Pool
 
 
 def multi_thread_save_s3(table_name, begin_dt, end_dt, csv_folder):
-    p = Pool(40)
+    p = Pool(25)
     for csv_file in csv_folder:
         p.apply_async(save_data_to_s3, args=(table_name, begin_dt, end_dt, csv_file,))
     p.close()
