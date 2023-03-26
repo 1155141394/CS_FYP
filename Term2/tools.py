@@ -1,5 +1,5 @@
 import os
-import numpy as np
+# import numpy as np
 import csv
 from hash import *
 import subprocess
@@ -209,7 +209,7 @@ def get_col_name(conn, table_name):
     cur.execute(sql)
     col_names = cur.fetchall()
     for col_name in col_names:
-        if col_name in tags:
+        if col_name[0] in tags:
             continue
         else:
             res.append(col_name[0])
@@ -228,7 +228,6 @@ def get_table_name(conn):
             continue
         res.append(data_line[1])
     return res
-
 
 
 
