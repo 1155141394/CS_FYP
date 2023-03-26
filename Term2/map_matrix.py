@@ -134,7 +134,7 @@ if __name__ == "__main__":
     )
     table_names = get_table_name(conn)
     print(table_names)
-    for table_name in tqdm(table_names):
+    for table_name in table_names:
         print("Start transfer the data in table %s." % table_name)
         run_tsbs(table_name, conn, "2023-01-01 18:00:00", "2023-01-01 20:00:00")
     # 提交数据
