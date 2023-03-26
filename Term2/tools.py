@@ -1,5 +1,5 @@
 import os
-# import numpy as np
+import numpy as np
 import csv
 from hash import *
 import subprocess
@@ -203,7 +203,7 @@ def find_all_csv(dir):
 # get all the column name given a conn and table name
 def get_col_name(conn, table_name):
     res = []
-    tags = ["tags_id", "hostname"]
+    tags = ["time", "tags_id", "hostname"]
     cur = conn.cursor()
     sql = r"select column_name from information_schema.columns where table_schema='public' and table_name='%s';" % table_name
     cur.execute(sql)
