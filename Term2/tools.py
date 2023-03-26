@@ -47,7 +47,7 @@ def decompress_array(compressed_arr):
         if j >= cols:  # 如果当前行填满了，换到下一行
             i += 1
             j -= cols
-    return decompressed_arr
+    return decompressed_arr.tolist()
 
 def txt_to_list(filename):
     f = open(filename, 'r')
@@ -93,7 +93,7 @@ def save_data_to_s3(table_name, time_start, time_end, data_path):
     else:
         index = time_index(time_start, time_end)[0]
     file_name = f"{generated_date}_{index}.csv"
-    os.system("aws s3 cp %s s3://%s/%s/%s > /dev/null" % (data_path, table_name, tsid, file_name))
+    os.system("aws s3 cp %s s3://%s/%s/%s --profile csfyp > /dev/null" % (data_path, "csfyp2023", tsid, file_name))
     os.system("rm %s > /dev/null" % data_path)
 
 
@@ -150,6 +150,18 @@ def read_set_from_file(input_file):
     return output_set
 
 
+def write_dict_to_file(dict, output_file):
+    f = open(output_file, 'w')
+    f.write(str(dict))
+    f.close()
+
+
+def read_dict_from_file(input_file):
+    with open(input_file, 'r') as f:
+        a = f.read()
+        return eval(a)
+
+
 # 将hashtable写入文件
 def hash_to_file(hashtable, output_file):
     with open(output_file, "w") as f:
@@ -200,10 +212,21 @@ def get_col_name(conn, table_name):
         if col_name in tags:
             continue
         else:
-            res.append(col_name)
+            res.append(col_name[0])
     return res
 
 
+def get_table_name(conn):
+    res = []
+    cur = conn.cursor()
+    sql = "select * from pg_tables where schemaname = 'public';"
+    cur.execute(sql)
+    data_lines = cur.fetchall()
+    for data_line in data_lines:
+        if data_line[1] == "tags":
+            continue
+        res.append(data_line[1])
+    return res
 
 
 
