@@ -136,7 +136,7 @@ if __name__ == "__main__":
     print(table_names)
     for table_name in table_names:
         print("Start transfer the data in table %s." % table_name)
-        run_tsbs(table_name, conn, "2023-01-01 18:00:00", "2023-01-01 20:00:00")
+        run_tsbs(table_name, conn, "2023-01-01 20:00:00", "2023-01-01 22:00:00")
         break
     # 提交数据
     conn.commit()
