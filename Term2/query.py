@@ -158,7 +158,7 @@ def s3_select(tsid, beg_t, end_t):
 
 def find_id(tags_list):
     # 到s3寻找map
-    state = os.system(f"aws s3 cp s3://map_matrix.txt " + META_FOLDER + 'map_matrix.txt')
+    state = os.system(f"aws s3 cp s3://map_matrix.txt " + META_FOLDER + 'map_matrix.txt' + '--profile csfyp')
     if state != 0:
         print(f"There is no map in s3.")
 
