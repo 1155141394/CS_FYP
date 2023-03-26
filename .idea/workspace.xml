@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add set&amp;file">
+    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add get table names to tools">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Term2/map_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/map_matrix.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +37,12 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -87,13 +92,6 @@
       <workItem from="1677246963916" duration="6404000" />
       <workItem from="1677808005257" duration="10000" />
       <workItem from="1678066609702" duration="5843000" />
-    </task>
-    <task id="LOCAL-00038" summary="add read file to hashtable">
-      <created>1678110488970</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1678110488970</updated>
     </task>
     <task id="LOCAL-00039" summary="reformat the file">
       <created>1678110610234</created>
@@ -431,7 +429,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679733818755</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="add get table names to tools">
+      <created>1679837537496</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1679837537496</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -448,6 +453,17 @@
       </list>
     </option>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add map" />
     <MESSAGE value="add index and insert function to map_matrix.py" />
@@ -458,6 +474,21 @@
     <MESSAGE value="add read file to hashtable" />
     <MESSAGE value="reformat the file" />
     <MESSAGE value="add set&amp;file" />
-    <option name="LAST_COMMIT_MESSAGE" value="add set&amp;file" />
+    <MESSAGE value="add get table names to tools" />
+    <option name="LAST_COMMIT_MESSAGE" value="add get table names to tools" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>8</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/CS_FYP$tools.coverage" NAME="tools Coverage Results" MODIFIED="1679731755623" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Term2" />
   </component>
 </project>
