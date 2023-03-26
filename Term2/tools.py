@@ -213,6 +213,7 @@ def get_col_name(conn, table_name):
             continue
         else:
             res.append(col_name[0])
+    print(res)
     return res
 
 
