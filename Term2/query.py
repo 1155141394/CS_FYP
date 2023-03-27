@@ -58,7 +58,7 @@ def s3_data(expression, key):
         Expression=expression,
         InputSerialization={'CSV': {"FileHeaderInfo": "Use"}, 'CompressionType': 'NONE'},
         OutputSerialization={'CSV': {}},
-        ExpectedBucketOwner="5214091e8f0da4d33544abfe8f46d49de51cf18166ecdada5b9df1df0e300fbd",
+        ExpectedBucketOwner="664762885120",
     )
     com_rec = ""
     for event in resp['Payload']:
