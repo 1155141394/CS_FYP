@@ -1,5 +1,4 @@
 import psycopg2
-import pandas as pd
 from tools import *
 import time
 from hash import HashTable
