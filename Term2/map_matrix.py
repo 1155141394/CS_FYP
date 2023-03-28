@@ -16,14 +16,14 @@ def multi_thread_save_s3(table_name, begin_dt, end_dt, csv_folder):
         p.apply_async(save_data_to_s3, args=(table_name, begin_dt, end_dt, csv_file,))
     p.close()
     p.join()
-    print('Finish transferring data to s3.')
+    # print('Finish transferring data to s3.')
 
 
 def data_mapping(tags_name, value_name, des, lines, ts_name, map_matrix, tags_pair_set, index_map):
     attr = []
     for item in des:
         attr.append(item[0])
-    for line in tqdm(lines):
+    for line in lines:
         tags_value = []
         value = []
         index_list = []
@@ -99,7 +99,7 @@ def run_tsbs(table_name, conn, begin_t, end_t):
 
     # 判断是否第一次跑
     if os.path.exists(META_FOLDER + 'map_matrix.txt'):
-        print('Not first time to run')
+        # print('Not first time to run')
         index_map = HashTable.read_hash(META_FOLDER + 'query_hash')
         compress_arr = txt_to_list(META_FOLDER + 'map_matrix.txt')
         map_matrix = decompress_array(compress_arr)
@@ -121,9 +121,30 @@ def run_tsbs(table_name, conn, begin_t, end_t):
     begin_dt = datetime.datetime.strptime(begin_t, '%Y-%m-%d %H:%M:%S')
     end_dt = datetime.datetime.strptime(end_t, '%Y-%m-%d %H:%M:%S')
 
-    print("Transfer files to S3.")
+    # print("Transfer files to S3.")
     gc.collect()
     multi_thread_save_s3(table_name, begin_dt, end_dt, csv_folder)
+
+
+def transfer_to_s3():
+    while True:
+        now = datetime.datetime.now()
+        if now.hour & 1 == 0 and now.minute == 0:
+            conn = psycopg2.connect(
+                database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
+            )
+            start_time = now + datetime.timedelta(hours=-2)
+            end_time = now
+            table_names = get_table_name(conn)
+            for table_name in table_names:
+                # print("Start transfer the data in table %s." % table_name)
+                run_tsbs(table_name, conn, datetime.datetime.strftime(start_time, "%Y-%m-%d %H:%M:%S"),
+                         datetime.datetime.strftime(end_time, "%Y-%m-%d %H:%M:%S"))
+
+            # 提交数据
+            conn.commit()
+            # 关闭连接
+            conn.close()
 
 
 if __name__ == "__main__":
@@ -132,9 +153,9 @@ if __name__ == "__main__":
         database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
     )
     table_names = get_table_name(conn)
-    print(table_names)
+    # print(table_names)
     for table_name in table_names:
-        print("Start transfer the data in table %s." % table_name)
+        # print("Start transfer the data in table %s." % table_name)
         run_tsbs(table_name, conn, "2023-01-01 22:00:00", "2023-01-02 00:00:00")
     # 提交数据
     conn.commit()
