@@ -4,7 +4,6 @@ import time
 from hash import HashTable
 import json
 import datetime
-from tqdm import tqdm
 import sys
 import gc
 from multiprocessing import Pool
@@ -52,15 +51,7 @@ def data_mapping(tags_name, value_name, des, lines, ts_name, map_matrix, tags_pa
         is_exist = 1 if tags_str in tags_pair_set.keys() else 0
         if is_exist:
             tsid = tags_pair_set[tags_str]
-            # for i in range(len(map_matrix)):
-            #     flag = 1
-            #     for indexes in index_list:
-            #         if map_matrix[i][indexes] != 1:
-            #             flag = 0
-            #             break
-            #     if flag:
-            #         tsid = i
-            #         break
+
             insert(tsid, value, value_name)
             continue
         else:
