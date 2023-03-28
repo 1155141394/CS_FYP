@@ -118,6 +118,7 @@ def run_tsbs(table_name, conn, begin_t, end_t):
 
 
 def transfer_to_s3():
+    print("Transfer to s3 begin.")
     while True:
         now = datetime.datetime.now()
         if now.hour & 1 == 0 and now.minute == 0:
