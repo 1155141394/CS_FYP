@@ -133,6 +133,8 @@ std::vector<std::string> s3_select(std::string bucket_name, std::string object_k
         return rows;
     }
     else{
+        bool isRecordsEventReceived = false;
+        bool isStatsEventReceived = false;
         SelectObjectContentHandler handler;
         handler.SetRecordsEventCallback([&](const RecordsEvent& recordsEvent)
         {
