@@ -168,7 +168,7 @@ int main() {
     std::string key = "example-bucket/path/to/file.csv";
 
     // 调用 s3_data 函数获取数据
-    <std::vector<std::string>> data = s3_data(expression, key);
+    std::vector<std::string> data = s3_data(expression, key);
 
     // 打印数据
     for (const auto& row : data) {
