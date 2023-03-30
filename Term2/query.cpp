@@ -122,7 +122,7 @@ std::vector<std::string> s3_select(std::string bucket_name, std::string object_k
     CSVOutput csv_output;
     csv_output.SetFieldDelimiter(",");
     csv_output.SetRecordDelimiter("\n");
-    json_input.SetRecordDelimiter("\n");
+    csv_input.SetRecordDelimiter("\n");
     request.SetOutputSerialization(csv_output);
 
     // Execute the request and retrieve the results
