@@ -120,9 +120,9 @@ std::vector<std::string> s3_select(std::string bucket_name, std::string object_k
 
     // Set up the output serialization
     Aws::S3::Model::OutputSerialization csv_output;
-    csv_output.SetFieldDelimiter(",");
-    csv_output.SetRecordDelimiter("\n");
-    csv_input.SetRecordDelimiter("\n");
+    csv_output.SetCSV(Aws::S3::Model::CSVOutput());
+    csv_output.GetCSV().SetRecordDelimiter("\n");
+    csv_output.GetCSV().SetFieldDelimiter(",");
     request.SetOutputSerialization(csv_output);
 
     // Execute the request and retrieve the results
