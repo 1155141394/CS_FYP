@@ -3,7 +3,6 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/SelectObjectContentRequest.h>
-#include <aws/s3/model/SelectObjectContentResult.h>
 #include <aws/s3/model/CSVInput.h>
 #include <aws/s3/model/CSVOutput.h>
 #include <aws/s3/model/RecordsEvent.h>
