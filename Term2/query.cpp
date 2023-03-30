@@ -132,17 +132,24 @@ std::vector<std::string> s3_select(std::string bucket_name, std::string object_k
         std::cout << "Failed to retrieve data from S3: " << outcome.GetError().GetMessage() << std::endl;
         return rows;
     }
-
-    // Process the results
-    auto result = outcome.GetResult();
-    for (auto& event : result.GetPayload())
-    {
-        if (event.GetType() == RecordsEvent::Event::EventType)
+    else{
+        SelectObjectContentHandler handler;
+        handler.SetRecordsEventCallback([&](const RecordsEvent& recordsEvent)
         {
-            auto records_event = static_cast<const RecordsEvent*>(&event);
-            rows.emplace_back(Aws::Utils::StringUtils::FromUtf8(records_event->GetPayload()));
-        }
+            isRecordsEventReceived = true;
+            auto recordsVector = recordsEvent.GetPayload();
+            Aws::String records(recordsVector.begin(), recordsVector.end());
+            ASSERT_STREQ(firstColumn.c_str(), records.c_str());
+        });
+        selectObjectContentRequest.SetEventStreamHandler(handler);
+
+        auto selectObjectContentOutcome = Client->SelectObjectContent(request);
+        ASSERT_TRUE(selectObjectContentOutcome.IsSuccess());
+        ASSERT_TRUE(isRecordsEventReceived);
+        ASSERT_TRUE(isStatsEventReceived);
     }
+
+
 
     Aws::ShutdownAPI(options);
 
