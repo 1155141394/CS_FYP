@@ -11,6 +11,7 @@ from tools import *
 from hash import HashTable
 from tqdm import tqdm
 
+META_FOLDER = '/home/postgres/CS_FYP/meta/'
 def find_rows(arr, index1, index2):
     rows = []
     for i, row in enumerate(arr):
@@ -64,10 +65,7 @@ def s3_data(expression, key):
         if 'Records' in event:
             records = event['Records']['Payload'].decode('utf-8')
             com_rec = com_rec + records
-            # print(records)
-            # for line in (records.splitlines()):
-            # print(line)
-            #    data.append(line.split(","))
+
 
         elif 'Stats' in event:
             statsDetails = event['Stats']['Details']
@@ -175,24 +173,19 @@ def find_id(tags_list):
         tsid_list = [i for i in tsid_list if i in tmp_list]
     return tsid_list
 
-def query(attr_str, table_name, where_part):
-    with open("/var/lib/postgresql/sql.txt", "w") as f:
-        f.write(table_name)
-        f.write(attr_str)
-        f.write(where_part)
+if __name__ == "__main__":
+    table_name = 'cpu'
+    tsids = find_id(['42','host_41','usage_system'])
+    print(tsids)
+    df_list = []
 
-    # table_name = 'cpu'
-    # tsids = find_id(['42','host_41','usage_system'])
-    # print(tsids)
-    # df_list = []
-    #
-    # for tsid in tsids:
-    #     df = s3_select(tsid, '2023-01-01 18:01:54','2023-01-01 19:05:54')
-    #     df_list.append(df)
-    # if len(df_list) > 2:
-    #     result = pd.concat(df_list)
-    #     print(result)
-    #     result.to_csv(f'/home/postgres/CS_FYP/data/{table_name}/result.csv')
+    for tsid in tsids:
+        df = s3_select(tsid, '2023-01-01 18:01:54','2023-01-01 19:05:54')
+        df_list.append(df)
+    if len(df_list) > 2:
+        result = pd.concat(df_list)
+        print(result)
+        result.to_csv(f'/home/postgres/CS_FYP/data/{table_name}/result.csv')
 
 
 
