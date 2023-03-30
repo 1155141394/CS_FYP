@@ -168,14 +168,12 @@ int main() {
     std::string key = "example-bucket/path/to/file.csv";
 
     // 调用 s3_data 函数获取数据
-    std::vector<std::vector<std::string>> data = s3_data(expression, key);
+    <std::vector<std::string>> data = s3_data(expression, key);
 
     // 打印数据
     for (const auto& row : data) {
-        for (const auto& col : row) {
-            std::cout << col << "\t";
-        }
-        std::cout << std::endl;
+        std::cout << row << "\t";
+
     }
 
     return 0;
