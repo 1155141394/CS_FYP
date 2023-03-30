@@ -136,3 +136,51 @@ std::vector<std::string> s3_data(const std::string& expression, const std::strin
     return data;
 }
 
+std::vector<int> time_index(const std::tm* start_t, const std::tm* end_t) {
+    std::vector<int> hours;
+
+    if (start_t == nullptr) {
+        int end_h = end_t->tm_hour;
+        int end_index = end_h / 2 + 1;
+        for (int i = 1; i <= end_index; i++) {
+            hours.push_back(i);
+        }
+    } else if (end_t == nullptr) {
+        int start_h = start_t->tm_hour;
+        int start_index = start_h / 2 + 1;
+        for (int i = start_index; i <= 12; i++) {
+            hours.push_back(i);
+        }
+    } else {
+        int start_h = start_t->tm_hour;
+        int end_h = end_t->tm_hour;
+        int start_index = start_h / 2 + 1;
+        int end_index = end_h / 2 + 1;
+        for (int i = start_index; i <= end_index; i++) {
+            hours.push_back(i);
+        }
+    }
+
+    return hours;
+}
+
+int main() {
+    std::string expression = "SELECT * FROM s3object s WHERE s.\"column_name\" = 'value';";
+    std::string key = "example-bucket/path/to/file.csv";
+
+    // 调用 s3_data 函数获取数据
+    std::vector<std::vector<std::string>> data = s3_data(expression, key);
+
+    // 打印数据
+    for (const auto& row : data) {
+        for (const auto& col : row) {
+            std::cout << col << "\t";
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
+
+
+
