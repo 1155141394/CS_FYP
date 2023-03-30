@@ -3,8 +3,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/SelectObjectContentRequest.h>
-#include <aws/s3/model/InputSerialization.h>
-#include <aws/s3/model/OutputSerialization.h>
+
 #include <aws/s3/model/CSVInput.h>
 #include <aws/s3/model/CSVOutput.h>
 #include <aws/s3/model/RecordsEvent.h>
@@ -97,7 +96,58 @@ vector<int> find_rows(std::vector<std::vector<int>> arr, int index1, int index2)
 
 
 
+std::vector<std::string> s3_select(std::string bucket_name, std::string object_key, std::string expression)
+{
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
 
+    std::vector<std::string> rows;
+
+    // Create an S3Client object
+    Aws::Client::ClientConfiguration client_config;
+    client_config.region = "us-west-2"; // change the region as necessary
+    S3Client s3_client(client_config);
+
+    // Set up the SelectObjectContentRequest
+    SelectObjectContentRequest request;
+    request.SetBucket(bucket_name);
+    request.SetKey(object_key);
+    request.SetExpression(expression);
+
+    // Set up the input serialization
+    CSVInput csv_input;
+    request.SetInputSerialization(csv_input);
+
+    // Set up the output serialization
+    CSVOutput csv_output;
+    csv_output.SetFieldDelimiter(",");
+    csv_output.SetRecordDelimiter("\n");
+    csv_input.SetRecordDelimiter("\n");
+    request.SetOutputSerialization(csv_output);
+
+    // Execute the request and retrieve the results
+    auto outcome = s3_client.SelectObjectContent(request);
+    if (!outcome.IsSuccess())
+    {
+        std::cout << "Failed to retrieve data from S3: " << outcome.GetError().GetMessage() << std::endl;
+        return rows;
+    }
+
+    // Process the results
+    auto result = outcome.GetResult();
+    for (auto& event : result.GetPayload())
+    {
+        if (event.GetType() == RecordsEvent::Event::EventType)
+        {
+            auto records_event = static_cast<const RecordsEvent*>(&event);
+            rows.emplace_back(Aws::Utils::StringUtils::FromUtf8(records_event->GetPayload()));
+        }
+    }
+
+    Aws::ShutdownAPI(options);
+
+    return rows;
+}
 
 std::vector<int> time_index(const std::tm* start_t, const std::tm* end_t) {
     std::vector<int> hours;
@@ -127,53 +177,22 @@ std::vector<int> time_index(const std::tm* start_t, const std::tm* end_t) {
     return hours;
 }
 
+int main()
+{
+    std::string bucket_name = "my-bucket";
+    std::string object_key = "path/to/my-object";
+    std::string expression = "SELECT * FROM S3Object";
 
+    std::vector<std::string> rows = s3_select(bucket_name, object_key, expression);
 
-void s3_select() {
-    Aws::SDKOptions options;
-    Aws::InitAPI(options);
-
-    Aws::S3::S3Client s3_client;
-
-    // Set up the request
-    Aws::S3::Model::SelectObjectContentRequest request;
-    request.SetBucket("my-bucket");
-    request.SetKey("my-file.csv");
-    request.SetExpression("SELECT * FROM S3Object");
-    request.SetExpressionType(Aws::S3::Model::ExpressionType::SQL);
-
-    // Set up the input serialization
-    Aws::S3::Model::InputSerialization input_serialization;
-    input_serialization.SetCSV(Aws::S3::Model::CSVInput());
-    input_serialization.GetCSV().SetFileHeaderInfo(Aws::S3::Model::FileHeaderInfo::USE);
-    input_serialization.GetCSV().SetRecordDelimiter("\n");
-    input_serialization.GetCSV().SetFieldDelimiter(",");
-    request.SetInputSerialization(input_serialization);
-
-    // Set up the output serialization
-    Aws::S3::Model::OutputSerialization output_serialization;
-    output_serialization.SetCSV(Aws::S3::Model::CSVOutput());
-    output_serialization.GetCSV().SetRecordDelimiter("\n");
-    output_serialization.GetCSV().SetFieldDelimiter(",");
-    request.SetOutputSerialization(output_serialization);
-
-    // Make the request
-    auto outcome = s3_client.SelectObjectContent(request);
-
-    if (outcome.IsSuccess()) {
-        // Read the result and store it in a string
-        std::string result;
-        auto &response_payload = outcome.GetResult().GetPayload();
-        Aws::IOStreamToString(result, &response_payload);
-        std::cout << result << std::endl;
-    } else {
-        std::cout << "Error: " << outcome.GetError().GetMessage() << std::endl;
+    // Process the rows as necessary
+    for (const auto& row : rows)
+    {
+        std::cout << row << std::endl;
     }
 
-    Aws::ShutdownAPI(options);
+    return 0;
 }
-int main(){
-    s3_select();
-}
+
 
 
