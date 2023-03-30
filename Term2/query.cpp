@@ -96,44 +96,57 @@ vector<int> find_rows(std::vector<std::vector<int>> arr, int index1, int index2)
 
 
 
-std::vector<std::string> s3_data(const std::string& expression, const std::string& key) {
+std::vector<std::string> s3_select(std::string bucket_name, std::string object_key, std::string expression)
+{
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-    std::vector<std::string> data;
-    Aws::Client::ClientConfiguration config;
-    config.region = "us-west-2";
-    Aws::S3::S3Client s3_client(config);
-    Aws::S3::Model::SelectObjectContentRequest request;
-    request.SetBucket("fypts");
-    request.SetKey(key);
-    request.SetExpressionType(Aws::S3::Model::ExpressionType::SQL);
+
+    std::vector<std::string> rows;
+
+    // Create an S3Client object
+    Aws::Client::ClientConfiguration client_config;
+    client_config.region = "us-west-2"; // change the region as necessary
+    S3Client s3_client(client_config);
+
+    // Set up the SelectObjectContentRequest
+    SelectObjectContentRequest request;
+    request.SetBucket(bucket_name);
+    request.SetKey(object_key);
     request.SetExpression(expression);
-    request.SetInputSerialization(Aws::S3::Model::CSVInput().WithFileHeaderInfo(Aws::S3::Model::FileHeaderInfo::USE).WithCompressionType(Aws::S3::Model::CSVInput::CompressionType::NONE));
-    request.SetOutputSerialization(Aws::S3::Model::CSVOutput());
+
+    // Set up the input serialization
+    JSONInput json_input;
+    request.SetInputSerialization(json_input);
+
+    // Set up the output serialization
+    CSVOutput csv_output;
+    csv_output.SetFieldDelimiter(",");
+    csv_output.SetRecordDelimiter("\n");
+    json_input.SetRecordDelimiter("\n");
+    request.SetOutputSerialization(csv_output);
+
+    // Execute the request and retrieve the results
     auto outcome = s3_client.SelectObjectContent(request);
-    if (outcome.IsSuccess()) {
-        Aws::S3::Model::SelectObjectContentResult result = outcome.GetResult();
-        std::string com_rec;
-        for (const auto& event : result.GetPayload()) {
-            if (event.GetRecords()) {
-                auto records = event.GetRecords().GetPayload().Str();
-                com_rec = com_rec + records;
-            }
-            else if (event.GetStats()) {
-                const auto& statsDetails = event.GetStats().GetDetails();
-                std::cout << "Stats details bytesScanned: " << statsDetails.GetBytesScanned() << std::endl;
-                std::cout << "Stats details bytesProcessed: " << statsDetails.GetBytesProcessed() << std::endl;
-                std::cout << "Stats details bytesReturned: " << statsDetails.GetBytesReturned() << std::endl;
-            }
-        }
-        std::istringstream iss(com_rec);
-        std::string line;
-        while (std::getline(iss, line)) {
-            data.push_back(line);
+    if (!outcome.IsSuccess())
+    {
+        std::cout << "Failed to retrieve data from S3: " << outcome.GetError().GetMessage() << std::endl;
+        return rows;
+    }
+
+    // Process the results
+    auto result = outcome.GetResult();
+    for (auto& event : result.GetPayload())
+    {
+        if (event.GetType() == RecordsEvent::Event::EventType)
+        {
+            auto records_event = static_cast<const RecordsEvent*>(&event);
+            rows.emplace_back(Aws::Utils::StringUtils::FromUtf8(records_event->GetPayload()));
         }
     }
+
     Aws::ShutdownAPI(options);
-    return data;
+
+    return rows;
 }
 
 std::vector<int> time_index(const std::tm* start_t, const std::tm* end_t) {
@@ -164,17 +177,18 @@ std::vector<int> time_index(const std::tm* start_t, const std::tm* end_t) {
     return hours;
 }
 
-int main() {
-    std::string expression = "SELECT * FROM s3object s WHERE s.\"column_name\" = 'value';";
-    std::string key = "example-bucket/path/to/file.csv";
+int main()
+{
+    std::string bucket_name = "my-bucket";
+    std::string object_key = "path/to/my-object";
+    std::string expression = "SELECT * FROM S3Object";
 
-    // 调用 s3_data 函数获取数据
-    std::vector<std::string> data = s3_data(expression, key);
+    std::vector<std::string> rows = s3_select(bucket_name, object_key, expression);
 
-    // 打印数据
-    for (const auto& row : data) {
-        std::cout << row << "\t";
-
+    // Process the rows as necessary
+    for (const auto& row : rows)
+    {
+        std::cout << row << std::endl;
     }
 
     return 0;
