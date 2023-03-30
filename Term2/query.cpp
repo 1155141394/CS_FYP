@@ -115,15 +115,19 @@ std::vector<std::string> s3_select(std::string bucket_name, std::string object_k
     request.SetExpression(expression);
 
     // Set up the input serialization
-    CSVInput csv_input;
-    request.SetInputSerialization(csv_input);
+    Aws::S3::Model::InputSerialization input_serialization;
+    input_serialization.SetCSV(Aws::S3::Model::CSVInput());
+    input_serialization.GetCSV().SetFileHeaderInfo(Aws::S3::Model::FileHeaderInfo::USE);
+    input_serialization.GetCSV().SetRecordDelimiter("\n");
+    input_serialization.GetCSV().SetFieldDelimiter(",");
+    request.SetInputSerialization(input_serialization);
 
     // Set up the output serialization
-    CSVOutput csv_output;
-    csv_output.SetFieldDelimiter(",");
-    csv_output.SetRecordDelimiter("\n");
-    csv_input.SetRecordDelimiter("\n");
-    request.SetOutputSerialization(csv_output);
+    Aws::S3::Model::OutputSerialization output_serialization;
+    output_serialization.SetCSV(Aws::S3::Model::CSVOutput());
+    output_serialization.GetCSV().SetRecordDelimiter("\n");
+    output_serialization.GetCSV().SetFieldDelimiter(",");
+    request.SetOutputSerialization(output_serialization);
 
     // Execute the request and retrieve the results
     auto outcome = s3_client.SelectObjectContent(request);
