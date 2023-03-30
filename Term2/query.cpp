@@ -141,9 +141,9 @@ std::vector<std::string> s3_select(std::string bucket_name, std::string object_k
             isRecordsEventReceived = true;
             auto recordsVector = recordsEvent.GetPayload();
             Aws::String records(recordsVector.begin(), recordsVector.end());
-            ASSERT_STREQ(firstColumn.c_str(), records.c_str());
+
         });
-        selectObjectContentRequest.SetEventStreamHandler(handler);
+        request.SetEventStreamHandler(handler);
 
         auto selectObjectContentOutcome = Client->SelectObjectContent(request);
         ASSERT_TRUE(selectObjectContentOutcome.IsSuccess());
