@@ -115,11 +115,11 @@ std::vector<std::string> s3_select(std::string bucket_name, std::string object_k
     request.SetExpression(expression);
 
     // Set up the input serialization
-    CSVInput csv_input;
-    request.SetInputSerialization(csv_input);
+    Aws::S3::Model::InputSerialization input_serialization;
+    request.SetInputSerialization(input_serialization);
 
     // Set up the output serialization
-    CSVOutput csv_output;
+    Aws::S3::Model::OutputSerialization csv_output;
     csv_output.SetFieldDelimiter(",");
     csv_output.SetRecordDelimiter("\n");
     csv_input.SetRecordDelimiter("\n");
