@@ -115,8 +115,8 @@ std::vector<std::string> s3_select(std::string bucket_name, std::string object_k
     request.SetExpression(expression);
 
     // Set up the input serialization
-    JSONInput json_input;
-    request.SetInputSerialization(json_input);
+    CSVInput csv_input;
+    request.SetInputSerialization(csv_input);
 
     // Set up the output serialization
     CSVOutput csv_output;
