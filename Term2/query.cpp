@@ -108,7 +108,7 @@ std::vector<std::string> s3_data(const std::string& expression, const std::strin
     request.SetKey(key);
     request.SetExpressionType(Aws::S3::Model::ExpressionType::SQL);
     request.SetExpression(expression);
-    request.SetInputSerialization(Aws::S3::Model::CSVInput().WithFileHeaderInfo(Aws::S3::Model::FileHeaderInfo::Use).WithCompressionType(Aws::S3::Model::CSVInput::CompressionType::NONE));
+    request.SetInputSerialization(Aws::S3::Model::CSVInput().WithFileHeaderInfo(Aws::S3::Model::FileHeaderInfo::USE).WithCompressionType(Aws::S3::Model::CSVInput::CompressionType::NONE));
     request.SetOutputSerialization(Aws::S3::Model::CSVOutput());
     auto outcome = s3_client.SelectObjectContent(request);
     if (outcome.IsSuccess()) {
