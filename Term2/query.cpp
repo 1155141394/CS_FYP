@@ -161,7 +161,8 @@ vector<int> find_rows(std::vector<std::vector<int>> arr, int index1, int index2)
 
 tm StringToDatetime(std::string str)
 {
-    char *cha = (char*)str.data();             // 将string转换成char*。
+    char *cha = (char*)str.data();
+    cout << cha << endl;// 将string转换成char*。
     tm tm_;                                    // 定义tm结构体。
     int year, month, day, hour, minute, second;// 定义时间的各个int临时变量。
     sscanf(cha, "%d-%d-%d %d:%d:%d", &year, &month, &day, &hour, &minute, &second);// 将string存储的日期时间，转换为int临时变量。
