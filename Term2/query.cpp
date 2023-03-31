@@ -221,7 +221,7 @@ int main()
     cout << tm_.tm_year << endl;
     cout << tm_.tm_mon << endl;
     cout << tm_.tm_day << endl;
-    vcout << tm_.tm_sec << endl;
+    cout << tm_.tm_sec << endl;
 
 
 
