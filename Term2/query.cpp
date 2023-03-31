@@ -179,17 +179,24 @@ std::vector<int> time_index(const std::tm* start_t, const std::tm* end_t) {
 
 int main()
 {
-    std::string bucket_name = "my-bucket";
-    std::string object_key = "path/to/my-object";
-    std::string expression = "SELECT * FROM S3Object";
-
-    std::vector<std::string> rows = s3_select(bucket_name, object_key, expression);
-
-    // Process the rows as necessary
-    for (const auto& row : rows)
-    {
-        std::cout << row << std::endl;
+//    std::string bucket_name = "my-bucket";
+//    std::string object_key = "path/to/my-object";
+//    std::string expression = "SELECT * FROM S3Object";
+//
+//    std::vector<std::string> rows = s3_select(bucket_name, object_key, expression);
+//
+//    // Process the rows as necessary
+//    for (const auto& row : rows)
+//    {
+//        std::cout << row << std::endl;
+//    }
+    std::vector<std::vector<int>> vec = { { 0,1,0 },
+                                      { 1,0,0 } };
+    vector<int> path = compress_array(vec);
+    for (int i = 0; i < path.size(); i++) {
+        std::cout << apth[i] << ' ';
     }
+
 
     return 0;
 }
