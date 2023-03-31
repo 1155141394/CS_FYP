@@ -101,37 +101,58 @@ vector<int> find_rows(std::vector<std::vector<int>> arr, int index1, int index2)
 std::string s3_select(std::string bucket_name, std::string object_key, std::string expression)
 {
     Aws::SDKOptions options;
-    Aws::InitAPI(options);
-
-//    std::vector<std::string> rows;
-    std::string s3_result;
-    // Create an S3Client object
-    Aws::Client::ClientConfiguration client_config;
+    InitAPI(options);
+        Client::ClientConfiguration config;
+        config.region = Aws::Region::AP_NORTHEAST_1;
+        config.scheme = Http::Scheme::HTTPS;
+//        config.endpointOverride = "s3.us-west-2.amazonaws.com";
+        S3::S3Client client(config);
+        S3::Model::SelectObjectContentRequest request;
+        request.WithBucket(bucket_name)
+               .WithKey(object_key)
+               .WithExpression(expression)
+               .WithExpressionType(Aws::S3::Model::ExpressionType::SQL)
+               .WithInputSerialization(
+                         Aws::S3::Model::InputSerialization().WithCSV(
+                                       Aws::S3::Model::CSVInput().WithFileHeaderInfo(
+                                               Aws::S3::Model::FileHeaderInfo::USE
+                                       )
+                         )
+                )
+              .WithOutputSerialization(
+                         Aws::S3::Model::OutputSerialization().WithCSV(Aws::S3::Model::CSVOutput()));
+//        request.SetResponseStreamFactory([] { return new std::fstream("jianming.csv", std::ios_base::out); });
+//    Aws::InitAPI(options);
+//
+////    std::vector<std::string> rows;
+//    std::string s3_result;
+//    // Create an S3Client object
+//    Aws::Client::ClientConfiguration client_config;
 //    client_config.region = "us-west-2"; // change the region as necessary
-    S3Client s3_client(client_config);
-
-    // Set up the SelectObjectContentRequest
-    SelectObjectContentRequest request;
-    request.SetBucket(bucket_name);
-    request.SetKey(object_key);
-    request.SetExpression(expression);
-
-    // Set up the input serialization
-    CSVInput csvInput;
-    csvInput.SetFileHeaderInfo(FileHeaderInfo::NONE);
-    InputSerialization inputSerialization;
-    inputSerialization.SetCSV(csvInput);
-    request.SetInputSerialization(inputSerialization);
-
-    // Set up the output serialization
-    CSVOutput csvOutput;
-    OutputSerialization outputSerialization;
-    outputSerialization.SetCSV(csvOutput);
-    request.SetOutputSerialization(outputSerialization);
-
-    // Execute the request and retrieve the results
-    bool isRecordsEventReceived = false;
-    bool isStatsEventReceived = false;
+//    S3Client s3_client(client_config);
+//
+//    // Set up the SelectObjectContentRequest
+//    SelectObjectContentRequest request;
+//    request.SetBucket(bucket_name);
+//    request.SetKey(object_key);
+//    request.SetExpression(expression);
+//
+//    // Set up the input serialization
+//    CSVInput csvInput;
+//    csvInput.SetFileHeaderInfo(FileHeaderInfo::NONE);
+//    InputSerialization inputSerialization;
+//    inputSerialization.SetCSV(csvInput);
+//    request.SetInputSerialization(inputSerialization);
+//
+//    // Set up the output serialization
+//    CSVOutput csvOutput;
+//    OutputSerialization outputSerialization;
+//    outputSerialization.SetCSV(csvOutput);
+//    request.SetOutputSerialization(outputSerialization);
+//
+//    // Execute the request and retrieve the results
+//    bool isRecordsEventReceived = false;
+//    bool isStatsEventReceived = false;
 
     SelectObjectContentHandler handler;
     handler.SetRecordsEventCallback([&](const RecordsEvent& recordsEvent)
