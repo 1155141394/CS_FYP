@@ -151,8 +151,8 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
 //    request.SetOutputSerialization(outputSerialization);
 //
 //    // Execute the request and retrieve the results
-//    bool isRecordsEventReceived = false;
-//    bool isStatsEventReceived = false;
+    bool isRecordsEventReceived = false;
+    bool isStatsEventReceived = false;
 
     SelectObjectContentHandler handler;
     handler.SetRecordsEventCallback([&](const RecordsEvent& recordsEvent)
