@@ -5,4 +5,3 @@ set(CMAKE_CXX_STANDARD 11)
 add_executable(query "query.cpp")
 # list all deps for static linking
 target_link_libraries(query ${AWSSDK_LINK_LIBRARIES})
-target_compile_options(query PRIVATE "-Wall" "-Werror")
