@@ -96,67 +96,67 @@ vector<int> find_rows(std::vector<std::vector<int>> arr, int index1, int index2)
 
 
 
-std::vector<std::string> s3_select(std::string bucket_name, std::string object_key, std::string expression)
-{
-    Aws::SDKOptions options;
-    Aws::InitAPI(options);
-
-    std::vector<std::string> rows;
-
-    // Create an S3Client object
-    Aws::Client::ClientConfiguration client_config;
-    client_config.region = "us-west-2"; // change the region as necessary
-    S3Client s3_client(client_config);
-
-    // Set up the SelectObjectContentRequest
-    SelectObjectContentRequest request;
-    request.SetBucket(bucket_name);
-    request.SetKey(object_key);
-    request.SetExpression(expression);
-
-    // Set up the input serialization
-    Aws::S3::Model::InputSerialization input_serialization;
-    request.SetInputSerialization(input_serialization);
-
-    // Set up the output serialization
-    Aws::S3::Model::OutputSerialization csv_output;
-    csv_output.SetCSV(Aws::S3::Model::CSVOutput());
-//    csv_output.GetCSV().SetRecordDelimiter("\n");
-//    csv_output.GetCSV().SetFieldDelimiter(",");
-    request.SetOutputSerialization(csv_output);
-
-    // Execute the request and retrieve the results
-    auto outcome = s3_client.SelectObjectContent(request);
-    if (!outcome.IsSuccess())
-    {
-        std::cout << "Failed to retrieve data from S3: " << outcome.GetError().GetMessage() << std::endl;
-        return rows;
-    }
-    else{
-        bool isRecordsEventReceived = false;
-        bool isStatsEventReceived = false;
-        SelectObjectContentHandler handler;
-        handler.SetRecordsEventCallback([&](const RecordsEvent& recordsEvent)
-        {
-            isRecordsEventReceived = true;
-            auto recordsVector = recordsEvent.GetPayload();
-            Aws::String records(recordsVector.begin(), recordsVector.end());
-
-        });
-        request.SetEventStreamHandler(handler);
-
-        auto selectObjectContentOutcome = Client->SelectObjectContent(request);
-        ASSERT_TRUE(selectObjectContentOutcome.IsSuccess());
-        ASSERT_TRUE(isRecordsEventReceived);
-        ASSERT_TRUE(isStatsEventReceived);
-    }
-
-
-
-    Aws::ShutdownAPI(options);
-
-    return rows;
-}
+//std::vector<std::string> s3_select(std::string bucket_name, std::string object_key, std::string expression)
+//{
+//    Aws::SDKOptions options;
+//    Aws::InitAPI(options);
+//
+//    std::vector<std::string> rows;
+//
+//    // Create an S3Client object
+//    Aws::Client::ClientConfiguration client_config;
+//    client_config.region = "us-west-2"; // change the region as necessary
+//    S3Client s3_client(client_config);
+//
+//    // Set up the SelectObjectContentRequest
+//    SelectObjectContentRequest request;
+//    request.SetBucket(bucket_name);
+//    request.SetKey(object_key);
+//    request.SetExpression(expression);
+//
+//    // Set up the input serialization
+//    Aws::S3::Model::InputSerialization input_serialization;
+//    request.SetInputSerialization(input_serialization);
+//
+//    // Set up the output serialization
+//    Aws::S3::Model::OutputSerialization csv_output;
+//    csv_output.SetCSV(Aws::S3::Model::CSVOutput());
+////    csv_output.GetCSV().SetRecordDelimiter("\n");
+////    csv_output.GetCSV().SetFieldDelimiter(",");
+//    request.SetOutputSerialization(csv_output);
+//
+//    // Execute the request and retrieve the results
+//    auto outcome = s3_client.SelectObjectContent(request);
+//    if (!outcome.IsSuccess())
+//    {
+//        std::cout << "Failed to retrieve data from S3: " << outcome.GetError().GetMessage() << std::endl;
+//        return rows;
+//    }
+//    else{
+//        bool isRecordsEventReceived = false;
+//        bool isStatsEventReceived = false;
+//        SelectObjectContentHandler handler;
+//        handler.SetRecordsEventCallback([&](const RecordsEvent& recordsEvent)
+//        {
+//            isRecordsEventReceived = true;
+//            auto recordsVector = recordsEvent.GetPayload();
+//            Aws::String records(recordsVector.begin(), recordsVector.end());
+//
+//        });
+//        request.SetEventStreamHandler(handler);
+//
+//        auto selectObjectContentOutcome = Client->SelectObjectContent(request);
+//        ASSERT_TRUE(selectObjectContentOutcome.IsSuccess());
+//        ASSERT_TRUE(isRecordsEventReceived);
+//        ASSERT_TRUE(isStatsEventReceived);
+//    }
+//
+//
+//
+//    Aws::ShutdownAPI(options);
+//
+//    return rows;
+//}
 
 std::vector<int> time_index(const std::tm* start_t, const std::tm* end_t) {
     std::vector<int> hours;
@@ -203,7 +203,7 @@ int main()
                                       { 1,0,0 } };
     vector<int> path = compress_array(vec);
     for (int i = 0; i < path.size(); i++) {
-        std::cout << apth[i] << ' ';
+        std::cout << pth[i] << ' ';
     }
 
 
