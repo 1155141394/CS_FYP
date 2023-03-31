@@ -16,6 +16,7 @@
 #include <cstring>
 #include <algorithm>
 #include <cmath>
+#include <ctime>
 
 //using namespace Aws;
 //using namespace Aws::S3;
