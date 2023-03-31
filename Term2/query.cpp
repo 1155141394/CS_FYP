@@ -217,8 +217,12 @@ void PrintVecofVec1(vector<vector<int>>& res) {
 int main()
 {
     string test = "2023-01-01 12:00:12";
-    tm time = StringToDatetime(test);
-    cout << time.tm_mon << endl;
+    strptime(test, "%Y-%m-%d %H:%M:%S", &tm_);
+    cout << tm_.tm_year << endl;
+    cout << tm_.tm_mon << endl;
+    cout << tm_.tm_day << endl;
+    vcout << tm_.tm_sec << endl;
+
 
 
     return 0;
