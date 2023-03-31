@@ -216,7 +216,7 @@ void PrintVecofVec1(vector<vector<int>>& res) {
 
 int main()
 {
-    string test = "2023-01-01 12:00:12";
+    char* test = "2023-01-01 12:00:12";
     tm tm_;
     strptime(test, "%Y-%m-%d %H:%M:%S", &tm_);
     cout << tm_.tm_year << endl;
