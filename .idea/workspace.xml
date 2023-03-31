@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add set&amp;file">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Term2/query.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/query.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -104,13 +105,6 @@
       <workItem from="1677246963916" duration="6404000" />
       <workItem from="1677808005257" duration="10000" />
       <workItem from="1678066609702" duration="5843000" />
-    </task>
-    <task id="LOCAL-00063" summary="add set&amp;file">
-      <created>1679211556646</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1679211556646</updated>
     </task>
     <task id="LOCAL-00064" summary="add set&amp;file">
       <created>1679211614639</created>
@@ -448,7 +442,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680227122551</updated>
     </task>
-    <option name="localTasksCounter" value="112" />
+    <task id="LOCAL-00112" summary="add set&amp;file">
+      <created>1680227247962</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1680227247962</updated>
+    </task>
+    <option name="localTasksCounter" value="113" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -204,9 +204,12 @@ int main()
                                       { 1,0,0 } };
     vector<int> path = compress_array(vec);
     for (int i = 0; i < path.size(); i++) {
-        std::cout << path[i] << ' ';
+        std::cout << path[i] << '\n';
     }
-
+    std::vector<std::vector<int>> vec1 = decompress_array(path)
+    for (int i = 0; i < vec1.size(); i++) {
+        std::cout << vec1[i] << ' ';
+    }
 
     return 0;
 }
