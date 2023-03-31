@@ -19,9 +19,9 @@
 #include <ctime>
 #include <string>
 
-//using namespace Aws;
-//using namespace Aws::S3;
-//using namespace Aws::S3::Model;
+using namespace Aws;
+using namespace Aws::S3;
+using namespace Aws::S3::Model;
 using namespace std;
 
 vector<int> compress_array(vector<vector<int>> arr) {
