@@ -203,7 +203,7 @@ int main()
                                       { 1,0,0 } };
     vector<int> path = compress_array(vec);
     for (int i = 0; i < path.size(); i++) {
-        std::cout << pth[i] << ' ';
+        std::cout << path[i] << ' ';
     }
 
 
