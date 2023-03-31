@@ -221,7 +221,7 @@ int main()
     strptime(test, "%Y-%m-%d %H:%M:%S", &tm_);
     cout << tm_.tm_year << endl;
     cout << tm_.tm_mon << endl;
-    cout << tm_.tm_day << endl;
+    cout << tm_.tm_mday << endl;
     cout << tm_.tm_sec << endl;
 
 
