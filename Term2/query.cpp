@@ -98,7 +98,7 @@ vector<int> find_rows(std::vector<std::vector<int>> arr, int index1, int index2)
 
 
 
-std::vector<std::string> s3_select(std::string bucket_name, std::string object_key, std::string expression)
+std::string s3_select(std::string bucket_name, std::string object_key, std::string expression)
 {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
@@ -141,7 +141,7 @@ std::vector<std::string> s3_select(std::string bucket_name, std::string object_k
         Aws::String records(recordsVector.begin(), recordsVector.end());
         std::string s(records.c_str(), records.size());
         s3_result = s;
-        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
+//        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
     });
     handler.SetStatsEventCallback([&](const StatsEvent& statsEvent)
     {
