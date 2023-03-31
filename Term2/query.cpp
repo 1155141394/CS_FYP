@@ -159,6 +159,22 @@ vector<int> find_rows(std::vector<std::vector<int>> arr, int index1, int index2)
 //    return rows;
 //}
 
+tm StringToDatetime(std::string str)
+{
+    char *cha = (char*)str.data();             // 将string转换成char*。
+    tm tm_;                                    // 定义tm结构体。
+    int year, month, day, hour, minute, second;// 定义时间的各个int临时变量。
+    sscanf(cha, "%d-%d-%d %d:%d:%d", &year, &month, &day, &hour, &minute, &second);// 将string存储的日期时间，转换为int临时变量。
+    tm_.tm_year = year - 1900;                 // 年，由于tm结构体存储的是从1900年开始的时间，所以tm_year为int临时变量减去1900。
+    tm_.tm_mon = month - 1;                    // 月，由于tm结构体的月份存储范围为0-11，所以tm_mon为int临时变量减去1。
+    tm_.tm_mday = day;                         // 日。
+    tm_.tm_hour = hour;                        // 时。
+    tm_.tm_min = minute;                       // 分。
+    tm_.tm_sec = second;                       // 秒。
+    tm_.tm_isdst = 0;                          // 非夏令时。
+    return tm_;                                 // 返回值。
+}
+
 std::vector<int> time_index(const std::tm* start_t, const std::tm* end_t) {
     std::vector<int> hours;
 
@@ -200,25 +216,10 @@ void PrintVecofVec1(vector<vector<int>>& res) {
 
 int main()
 {
-//    std::string bucket_name = "my-bucket";
-//    std::string object_key = "path/to/my-object";
-//    std::string expression = "SELECT * FROM S3Object";
-//
-//    std::vector<std::string> rows = s3_select(bucket_name, object_key, expression);
-//
-//    // Process the rows as necessary
-//    for (const auto& row : rows)
-//    {
-//        std::cout << row << std::endl;
-//    }
-    std::vector<std::vector<int>> vec = { { 0,1,0 },
-                                      { 1,0,0 } };
-    vector<int> path = compress_array(vec);
-    for (int i = 0; i < path.size(); i++) {
-        std::cout << path[i] << '\n';
-    }
-    std::vector<std::vector<int>> vec1 = decompress_array(path);
-    PrintVecofVec1(vec1);
+    string test = "2023-01-01 12:00:12";
+    tm time = StringToDatetime(test);
+    cout << tm.tm_year << endl;
+
 
     return 0;
 }
