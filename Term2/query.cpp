@@ -218,7 +218,7 @@ int main()
 {
     string test = "2023-01-01 12:00:12";
     tm time = StringToDatetime(test);
-    cout << tm.tm_year << endl;
+    cout << time.tm_year << endl;
 
 
     return 0;
