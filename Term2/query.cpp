@@ -186,6 +186,17 @@ std::vector<int> time_index(const std::tm* start_t, const std::tm* end_t) {
 
     return hours;
 }
+// range-based loop
+void PrintVecofVec1(vector<vector<int>>& res) {
+  for (auto& rowV : res) {
+    for (auto& el : rowV) {
+      cout << el << " ";
+    }
+    cout << "; ";
+  }
+  cout << endl;
+}
+
 
 int main()
 {
@@ -207,9 +218,7 @@ int main()
         std::cout << path[i] << '\n';
     }
     std::vector<std::vector<int>> vec1 = decompress_array(path);
-    for (int i = 0; i < vec1.size(); i++) {
-        std::cout << vec1[i] << ' ';
-    }
+    PrintVecofVec1(vec1);
 
     return 0;
 }
