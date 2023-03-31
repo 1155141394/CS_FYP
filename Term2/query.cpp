@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include <aws/core/Aws.h>
-//#include <aws/s3/S3Client.h>
-//#include <aws/s3/model/SelectObjectContentRequest.h>
-//
-//#include <aws/s3/model/CSVInput.h>
-//#include <aws/s3/model/CSVOutput.h>
-//#include <aws/s3/model/RecordsEvent.h>
-//#include <aws/s3/model/StatsEvent.h>
+#include <aws/core/Aws.h>
+#include <aws/s3/S3Client.h>
+#include <aws/s3/model/SelectObjectContentRequest.h>
+
+#include <aws/s3/model/CSVInput.h>
+#include <aws/s3/model/CSVOutput.h>
+#include <aws/s3/model/RecordsEvent.h>
+#include <aws/s3/model/StatsEvent.h>
 #include <iostream>
 #include <fstream>
 #include <string>
