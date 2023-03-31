@@ -153,7 +153,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
 
     request.SetEventStreamHandler(handler);
 
-    auto selectObjectContentOutcome = s3_client->SelectObjectContent(request);
+//    auto selectObjectContentOutcome = s3_client->SelectObjectContent(request);
 
     Aws::ShutdownAPI(options);
 
