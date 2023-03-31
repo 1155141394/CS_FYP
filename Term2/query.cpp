@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <cmath>
 #include <ctime>
+#include <string>
 
 //using namespace Aws;
 //using namespace Aws::S3;
@@ -97,67 +98,67 @@ vector<int> find_rows(std::vector<std::vector<int>> arr, int index1, int index2)
 
 
 
-//std::vector<std::string> s3_select(std::string bucket_name, std::string object_key, std::string expression)
-//{
-//    Aws::SDKOptions options;
-//    Aws::InitAPI(options);
-//
+std::vector<std::string> s3_select(std::string bucket_name, std::string object_key, std::string expression)
+{
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
+
 //    std::vector<std::string> rows;
-//
-//    // Create an S3Client object
-//    Aws::Client::ClientConfiguration client_config;
+    std::string s3_result;
+    // Create an S3Client object
+    Aws::Client::ClientConfiguration client_config;
 //    client_config.region = "us-west-2"; // change the region as necessary
-//    S3Client s3_client(client_config);
-//
-//    // Set up the SelectObjectContentRequest
-//    SelectObjectContentRequest request;
-//    request.SetBucket(bucket_name);
-//    request.SetKey(object_key);
-//    request.SetExpression(expression);
-//
-//    // Set up the input serialization
-//    Aws::S3::Model::InputSerialization input_serialization;
-//    request.SetInputSerialization(input_serialization);
-//
-//    // Set up the output serialization
-//    Aws::S3::Model::OutputSerialization csv_output;
-//    csv_output.SetCSV(Aws::S3::Model::CSVOutput());
-////    csv_output.GetCSV().SetRecordDelimiter("\n");
-////    csv_output.GetCSV().SetFieldDelimiter(",");
-//    request.SetOutputSerialization(csv_output);
-//
-//    // Execute the request and retrieve the results
-//    auto outcome = s3_client.SelectObjectContent(request);
-//    if (!outcome.IsSuccess())
-//    {
-//        std::cout << "Failed to retrieve data from S3: " << outcome.GetError().GetMessage() << std::endl;
-//        return rows;
-//    }
-//    else{
-//        bool isRecordsEventReceived = false;
-//        bool isStatsEventReceived = false;
-//        SelectObjectContentHandler handler;
-//        handler.SetRecordsEventCallback([&](const RecordsEvent& recordsEvent)
-//        {
-//            isRecordsEventReceived = true;
-//            auto recordsVector = recordsEvent.GetPayload();
-//            Aws::String records(recordsVector.begin(), recordsVector.end());
-//
-//        });
-//        request.SetEventStreamHandler(handler);
-//
-//        auto selectObjectContentOutcome = Client->SelectObjectContent(request);
-//        ASSERT_TRUE(selectObjectContentOutcome.IsSuccess());
-//        ASSERT_TRUE(isRecordsEventReceived);
-//        ASSERT_TRUE(isStatsEventReceived);
-//    }
-//
-//
-//
-//    Aws::ShutdownAPI(options);
-//
-//    return rows;
-//}
+    S3Client s3_client(client_config);
+
+    // Set up the SelectObjectContentRequest
+    SelectObjectContentRequest request;
+    request.SetBucket(bucket_name);
+    request.SetKey(object_key);
+    request.SetExpression(expression);
+
+    // Set up the input serialization
+    CSVInput csvInput;
+    csvInput.SetFileHeaderInfo(FileHeaderInfo::NONE);
+    InputSerialization inputSerialization;
+    inputSerialization.SetCSV(csvInput);
+    request.SetInputSerialization(inputSerialization);
+
+    // Set up the output serialization
+    CSVOutput csvOutput;
+    OutputSerialization outputSerialization;
+    outputSerialization.SetCSV(csvOutput);
+    request.SetOutputSerialization(outputSerialization);
+
+    // Execute the request and retrieve the results
+    bool isRecordsEventReceived = false;
+    bool isStatsEventReceived = false;
+
+    SelectObjectContentHandler handler;
+    handler.SetRecordsEventCallback([&](const RecordsEvent& recordsEvent)
+    {
+        isRecordsEventReceived = true;
+        auto recordsVector = recordsEvent.GetPayload();
+        Aws::String records(recordsVector.begin(), recordsVector.end());
+        std::string s(aws_s.c_str(), aws_s.size());
+        s3_result = s
+        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
+    });
+    handler.SetStatsEventCallback([&](const StatsEvent& statsEvent)
+    {
+        isStatsEventReceived = true;
+        ASSERT_EQ(static_cast<long long>(objectSize), statsEvent.GetDetails().GetBytesScanned());
+        ASSERT_EQ(static_cast<long long>(objectSize), statsEvent.GetDetails().GetBytesProcessed());
+        ASSERT_EQ(static_cast<long long>(firstColumn.size()), statsEvent.GetDetails().GetBytesReturned());
+    });
+
+    request.SetEventStreamHandler(handler);
+
+    auto selectObjectContentOutcome = s3_client->SelectObjectContent(request);
+
+    Aws::ShutdownAPI(options);
+
+    return s3_result;
+}
 
 tm StringToDatetime(std::string str)
 {
@@ -222,6 +223,9 @@ int main()
     vector<int> vec = time_index(&time,nullptr);
     for (int i = 0; i < vec.size(); i++)
     std::cout << vec[i] << ' ';
+
+    std:string s3_result = s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object");
+    cout << s3_select <<endl;
 
 
 

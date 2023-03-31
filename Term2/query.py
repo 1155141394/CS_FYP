@@ -53,12 +53,13 @@ def s3_data(expression, key):
     data = []
     s3 = boto3.client('s3')
     resp = s3.select_object_content(
-        Bucket='fypts',
+        Bucket='csfyp2023',
         Key=key,
         ExpressionType='SQL',
         Expression=expression,
         InputSerialization={'CSV': {"FileHeaderInfo": "Use"}, 'CompressionType': 'NONE'},
         OutputSerialization={'CSV': {}},
+        ExpectedBucketOwner = '664762885120',
     )
     com_rec = ""
     for event in resp['Payload']:
