@@ -125,7 +125,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
 //    Aws::InitAPI(options);
 //
 ////    std::vector<std::string> rows;
-//    std::string s3_result;
+    std::string s3_result;
 //    // Create an S3Client object
 //    Aws::Client::ClientConfiguration client_config;
 //    client_config.region = "us-west-2"; // change the region as necessary
