@@ -139,7 +139,7 @@ std::vector<std::string> s3_select(std::string bucket_name, std::string object_k
         isRecordsEventReceived = true;
         auto recordsVector = recordsEvent.GetPayload();
         Aws::String records(recordsVector.begin(), recordsVector.end());
-        std::string s(aws_s.c_str(), aws_s.size());
+        std::string s(records.c_str(), records.size());
         s3_result = s;
         ASSERT_STREQ(firstColumn.c_str(), records.c_str());
     });
