@@ -216,14 +216,9 @@ void PrintVecofVec1(vector<vector<int>>& res) {
 
 int main()
 {
-    char* test = {0};
-    strcpy(test,"2023-01-01 12:00:12");
-    tm tm_;
-    strptime(test, "%Y-%m-%d %H:%M:%S", &tm_);
-    cout << tm_.tm_year << endl;
-    cout << tm_.tm_mon << endl;
-    cout << tm_.tm_mday << endl;
-    cout << tm_.tm_sec << endl;
+    string test = "2023-01-01 12:00:12";
+    tm time = StringToDatetime(test);
+    cout << time.tm_year << endl;
 
 
 
