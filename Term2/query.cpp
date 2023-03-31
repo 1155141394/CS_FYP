@@ -225,7 +225,7 @@ int main()
     std::cout << vec[i] << ' ';
 
     std::string s3_result = s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object");
-    cout << s3_relect <<endl;
+    cout << s3_result <<endl;
 
 
 
