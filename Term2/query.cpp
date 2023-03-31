@@ -219,7 +219,7 @@ int main()
 {
     string test = "2023-01-01 12:00:12";
     tm time = StringToDatetime(test);
-    vector<int> vec = time_index(time,nullptr);
+    vector<int> vec = time_index(&time,nullptr);
     for (int i = 0; i < vec.size(); i++)
     std::cout << vec[i] << ' ';
 
