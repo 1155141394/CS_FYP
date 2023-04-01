@@ -260,7 +260,6 @@ int main()
     cout << s3_result <<endl;
 
 
-
     return 0;
 }
 
