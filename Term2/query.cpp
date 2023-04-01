@@ -26,6 +26,7 @@ using namespace Aws;
 using namespace Aws::S3;
 using namespace Aws::S3::Model;
 using namespace std;
+using namespace Aws::Utils;
 
 vector<int> compress_array(vector<vector<int>> arr) {
     int rows = arr.size();
