@@ -108,13 +108,17 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     std::string s3_result;
     // Create an S3Client object
     Aws::Client::ClientConfiguration client_config;
-    client_config.region = "ap-northeast-1"; // change the region as necessary
-    S3Client s3_client(client_config);
-
+    Aws::String region = "ap-northeast-1";
+    client_config.region = region; // change the region as necessary
+//    S3Client s3_client(client_config);
+    S3::S3Client client(client_config,
+            Aws::Client::AWSAuthV4Signer::PayloadSigningPolicy::Never,
+            false);
     // Set up the SelectObjectContentRequest
     SelectObjectContentRequest request;
     request.SetBucket(bucket_name);
     request.SetKey(object_key);
+    request.SetExpressionType(S3::Model::ExpressionType::SQL);
     request.SetExpression(expression);
 
     // Set up the input serialization
