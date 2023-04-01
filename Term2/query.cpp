@@ -167,6 +167,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
 //        ASSERT_EQ(static_cast<long long>(firstColumn.size()), statsEvent.GetDetails().GetBytesReturned());
     });
     cout << "SetStatsEventCallback" << endl;
+
     request.SetEventStreamHandler(handler);
 
     auto selectObjectContentOutcome = s3_client.SelectObjectContent(request);
@@ -177,7 +178,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
     }
     else {
-        std::cout << "Successfully retrieved " << std::endl;
+        std::cout << "Successfully retrieved!" << std::endl;
     }
 
     Aws::ShutdownAPI(options);
