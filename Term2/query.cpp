@@ -141,6 +141,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     SelectObjectContentHandler handler;
     handler.SetRecordsEventCallback([&](const RecordsEvent& recordsEvent)
     {
+        cout << "Set records event callback" << endl;
         isRecordsEventReceived = true;
         auto recordsVector = recordsEvent.GetPayload();
         cout << "Get payload." << endl;
