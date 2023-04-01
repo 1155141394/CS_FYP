@@ -159,10 +159,10 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
 //        ASSERT_EQ(static_cast<long long>(objectSize), statsEvent.GetDetails().GetBytesProcessed());
 //        ASSERT_EQ(static_cast<long long>(firstColumn.size()), statsEvent.GetDetails().GetBytesReturned());
     });
-
+    cout << "Finish declaring the handler" << endl;
     request.SetEventStreamHandler(handler);
 
-    auto selectObjectContentOutcome = client->SelectObjectContent(request);
+//    auto selectObjectContentOutcome = client->SelectObjectContent(request);
 
     Aws::ShutdownAPI(options);
 
