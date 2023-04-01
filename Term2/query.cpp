@@ -139,6 +139,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     bool isStatsEventReceived = false;
     cout << "Query setting finished" << endl;
     SelectObjectContentHandler handler;
+    cout << "Set handler" << endl;
     handler.SetRecordsEventCallback([&](const RecordsEvent& recordsEvent)
     {
         cout << "Set records event callback" << endl;
