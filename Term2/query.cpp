@@ -152,7 +152,6 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
         cout << "Get string successfully." << endl;
         std::string s(records.c_str(), records.size());
         s3_result = s;
-        cout << s3_result << endl;
 //        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
     });
     handler.SetStatsEventCallback([&](const StatsEvent& statsEvent)
