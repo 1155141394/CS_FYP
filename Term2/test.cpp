@@ -107,7 +107,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     }
 
     std::string s(s3_result.c_str(), s3_result.size());
-    std::cout << s << endl;
+    std::cout << s << std::endl;
 
 
     Aws::ShutdownAPI(options);
@@ -119,5 +119,5 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
 int main(){
     std::string s3_result;
     s3_result = s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 5");
-    std::cout << s3_result <<endl;
+    std::cout << s3_result << std::endl;
 }

@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add set&amp;file">
-      <change beforePath="$PROJECT_DIR$/Term2/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Term2/test.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/test.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,20 +90,6 @@
       <workItem from="1678066609702" duration="5843000" />
       <workItem from="1680234883665" duration="4783000" />
       <workItem from="1680339287499" duration="11640000" />
-    </task>
-    <task id="LOCAL-00149" summary="update">
-      <created>1680348924129</created>
-      <option name="number" value="00149" />
-      <option name="presentableId" value="LOCAL-00149" />
-      <option name="project" value="LOCAL" />
-      <updated>1680348924129</updated>
-    </task>
-    <task id="LOCAL-00150" summary="update">
-      <created>1680349593227</created>
-      <option name="number" value="00150" />
-      <option name="presentableId" value="LOCAL-00150" />
-      <option name="project" value="LOCAL" />
-      <updated>1680349593227</updated>
     </task>
     <task id="LOCAL-00151" summary="update">
       <created>1680350215331</created>
@@ -434,7 +420,21 @@
       <option name="project" value="LOCAL" />
       <updated>1680362528650</updated>
     </task>
-    <option name="localTasksCounter" value="198" />
+    <task id="LOCAL-00198" summary="add set&amp;file">
+      <created>1680362585250</created>
+      <option name="number" value="00198" />
+      <option name="presentableId" value="LOCAL-00198" />
+      <option name="project" value="LOCAL" />
+      <updated>1680362585250</updated>
+    </task>
+    <task id="LOCAL-00199" summary="add set&amp;file">
+      <created>1680362661726</created>
+      <option name="number" value="00199" />
+      <option name="presentableId" value="LOCAL-00199" />
+      <option name="project" value="LOCAL" />
+      <updated>1680362661726</updated>
+    </task>
+    <option name="localTasksCounter" value="200" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
