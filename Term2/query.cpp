@@ -103,7 +103,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     Aws::SDKOptions options;
 //        request.SetResponseStreamFactory([] { return new std::fstream("jianming.csv", std::ios_base::out); });
     Aws::InitAPI(options);
-    std::string s3_result;
+    aws::string s3_result;
 //    std::vector<std::string> rows;
     // Create an S3Client object
     Aws::Client::ClientConfiguration client_config;
@@ -152,8 +152,8 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
         cout << "Get records" << endl;
 //        cout << "Get string successfully." << endl;
 //        return records.c_str();
-        std::string s(records.c_str(), records.size());
-        s3_result = s.c_str();
+//        std::string s(records.c_str(), records.size());
+        s3_result = records;
 //        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
     });
     cout << "SetRecordsEventCallback" << endl;
@@ -180,8 +180,9 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     }
 
     Aws::ShutdownAPI(options);
-    cout << s3_result << endl;
-    return s3_result;
+    std::string s(s3_result.c_str(), s3_result.size());
+    cout << s << endl;
+    return s;
 }
 
 tm StringToDatetime(std::string str)
