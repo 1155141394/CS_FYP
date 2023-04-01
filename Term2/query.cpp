@@ -150,7 +150,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
         cout << "Set records event callback" << endl;
         isRecordsEventReceived = true;
         auto recordsVector = recordsEvent.GetPayload();
-//        cout << "Get payload." << endl;
+        cout << "Get payload." << endl;
         Aws::String records(recordsVector.begin(), recordsVector.end());
 //        cout << "Get string successfully." << endl;
 //        return records.c_str();
