@@ -113,14 +113,11 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
 //    client_config.endpointOverride = "127.0.0.1/"
     client_config.scheme = Aws::Http::Scheme::HTTP;
     client_config.verifySSL = false;
-    Aws::String region = "ap-northeast-1";
-    client_config.region = region; // change the region as necessary
-//    S3Client s3_client(client_config);
+    client_config.region = "ap-northeast-1"; // change the region as necessary
+    S3Client s3_client(client_config);
 //    std::shared_ptr<S3Client> client;
     cout << "Create client" << endl;
-    S3::S3Client client(client_config,
-            Aws::Client::AWSAuthV4Signer::PayloadSigningPolicy::Never,
-            false);
+
     // Set up the SelectObjectContentRequest
     SelectObjectContentRequest request;
     request.SetBucket(bucket_name);
@@ -172,7 +169,16 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     cout << "SetStatsEventCallback" << endl;
     request.SetEventStreamHandler(handler);
 
-//    auto selectObjectContentOutcome = client->SelectObjectContent(request);
+    auto selectObjectContentOutcome = client.SelectObjectContent(request);
+
+    if (!selectObjectContentOutcome.IsSuccess()) {
+        const Aws::S3::S3Error &err = selectObjectContentOutcome.GetError();
+        std::cerr << "Error: GetObject: " <<
+                  err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
+    }
+    else {
+        std::cout << "Successfully retrieved " << std::endl;
+    }
 
     Aws::ShutdownAPI(options);
 
@@ -243,32 +249,8 @@ int main()
     for (int i = 0; i < vec.size(); i++)
     std::cout << vec[i] << ' ';
 
-//    std::string s3_result = s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 1");
-//    cout << s3_result <<endl;
-    Aws::SDKOptions options;
-    Aws::InitAPI(options);
-//    Aws::Auth::AWSCredentials credentials("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
-
-    // Set up your S3 client
-    Aws::Client::ClientConfiguration config;
-    config.region = "ap-northeast-1";
-//    config.endpointOverride = "s3.us-west-2.amazonaws.com";
-    Aws::S3::S3Client s3_client(config);
-
-    // Use the S3 client to perform operations on your S3 bucket
-    Aws::S3::Model::GetObjectRequest object_request;
-    object_request.SetBucket("fypts");
-    object_request.SetKey("0/2023-01-01_12.csv");
-    auto get_object_outcome = s3_client.GetObject(object_request);
-
-    if (!get_object_outcome.IsSuccess()) {
-        const Aws::S3::S3Error &err = get_object_outcome.GetError();
-        std::cerr << "Error: GetObject: " <<
-                  err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-    }
-    else {
-        std::cout << "Successfully retrieved " << std::endl;
-    }
+    std::string s3_result = s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 1");
+    cout << s3_result <<endl;
 
 
 
