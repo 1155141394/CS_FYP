@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <aws/core/Aws.h>
 
-#include <aws/s3/S3Client.h>
+//#include <aws/s3/S3Client.h>
 #include <aws/s3-crt/S3CrtClient.h>
 #include <aws/s3-crt/model/DeleteBucketRequest.h>
 #include <aws/s3-crt/model/CreateBucketRequest.h>
