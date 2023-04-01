@@ -174,18 +174,15 @@ Aws::String s3_select(std::string bucket_name, std::string object_key, std::stri
 
     if (!selectObjectContentOutcome.IsSuccess()) {
         const Aws::S3::S3Error &err = selectObjectContentOutcome.GetError();
-        std::cerr << "Error: GetObject: " <<
+        cerr << "Error: GetObject: " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
     }
     else {
-        std::cout << "Successfully retrieved!" << std::endl;
+        cout << "Successfully retrieved!" << endl;
     }
 
 
     cout << s3_result << endl;
-//    // 使用 AWSDeallocate 释放分配器分配的内存
-//    AWSDeallocate(AWSAllocator<char>(), s3_result.data());
-
 
     Aws::ShutdownAPI(options);
 
