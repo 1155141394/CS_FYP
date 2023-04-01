@@ -19,7 +19,7 @@
 #include <ctime>
 #include <string>
 
-#include <aws/external/gtest.h>
+
 #include <aws/core/auth/AWSCredentialsProviderChain.h>
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/core/client/CoreErrors.h>
