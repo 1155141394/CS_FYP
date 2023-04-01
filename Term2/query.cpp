@@ -169,7 +169,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     cout << "SetStatsEventCallback" << endl;
     request.SetEventStreamHandler(handler);
 
-    auto selectObjectContentOutcome = client.SelectObjectContent(request);
+    auto selectObjectContentOutcome = s3_client.SelectObjectContent(request);
 
     if (!selectObjectContentOutcome.IsSuccess()) {
         const Aws::S3::S3Error &err = selectObjectContentOutcome.GetError();
