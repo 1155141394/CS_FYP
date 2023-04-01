@@ -3,8 +3,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/SelectObjectContentRequest.h>
-#include <aws/core/utils/memory/stl/AWSString.h>
-#include <aws/core/utils/memory/stl/AWSAllocator.h>
+
 #include <aws/s3/model/CSVInput.h>
 #include <aws/s3/model/CSVOutput.h>
 #include <aws/s3/model/RecordsEvent.h>
@@ -26,7 +25,6 @@ using namespace Aws;
 using namespace Aws::S3;
 using namespace Aws::S3::Model;
 using namespace std;
-
 
 vector<int> compress_array(vector<vector<int>> arr) {
     int rows = arr.size();
@@ -100,7 +98,7 @@ vector<int> find_rows(std::vector<std::vector<int>> arr, int index1, int index2)
 
 
 
-Aws::String s3_select(std::string bucket_name, std::string object_key, std::string expression)
+std::string s3_select(std::string bucket_name, std::string object_key, std::string expression)
 {
     Aws::SDKOptions options;
 //        request.SetResponseStreamFactory([] { return new std::fstream("jianming.csv", std::ios_base::out); });
@@ -141,7 +139,7 @@ Aws::String s3_select(std::string bucket_name, std::string object_key, std::stri
     bool isRecordsEventReceived = false;
     bool isStatsEventReceived = false;
 
-    Aws::cout << "Query setting finished" << endl;
+    cout << "Query setting finished" << endl;
     SelectObjectContentHandler handler;
     cout << "Set handler" << endl;
     handler.SetRecordsEventCallback([&](const RecordsEvent& recordsEvent)
@@ -154,9 +152,9 @@ Aws::String s3_select(std::string bucket_name, std::string object_key, std::stri
         cout << "Get records" << endl;
 //        cout << "Get string successfully." << endl;
 //        return records.c_str();
-        //std::string s(records.c_str(), records.size());
+//        std::string s(records.c_str(), records.size());
         s3_result = records;
-//        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
+        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
     });
     cout << "SetRecordsEventCallback" << endl;
     handler.SetStatsEventCallback([&](const StatsEvent& statsEvent)
@@ -174,19 +172,20 @@ Aws::String s3_select(std::string bucket_name, std::string object_key, std::stri
 
     if (!selectObjectContentOutcome.IsSuccess()) {
         const Aws::S3::S3Error &err = selectObjectContentOutcome.GetError();
-        cerr << "Error: GetObject: " <<
+        std::cerr << "Error: GetObject: " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
     }
     else {
-        cout << "Successfully retrieved!" << endl;
+        std::cout << "Successfully retrieved!" << std::endl;
     }
 
+    std::string s(s3_result.c_str(), s3_result.size());
+    cout << s << endl;
 
-    cout << s3_result << endl;
 
     Aws::ShutdownAPI(options);
 
-    return s3_result;
+    return s;
 }
 
 tm StringToDatetime(std::string str)
@@ -252,9 +251,11 @@ int main()
     vector<int> vec = time_index(&time,nullptr);
     for (int i = 0; i < vec.size(); i++)
     std::cout << vec[i] << ' ';
-    Aws::String s3_result;
+    std::string s3_result;
     s3_result = s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 5");
     cout << s3_result <<endl;
+
+
 
 
     return 0;
