@@ -19,6 +19,49 @@
 #include <ctime>
 #include <string>
 
+#include <aws/external/gtest.h>
+#include <aws/core/auth/AWSCredentialsProviderChain.h>
+#include <aws/core/client/ClientConfiguration.h>
+#include <aws/core/client/CoreErrors.h>
+#include <aws/core/client/RetryStrategy.h>
+#include <aws/core/http/HttpClientFactory.h>
+#include <aws/core/http/HttpClient.h>
+#include <aws/core/utils/crypto/Cipher.h>
+#include <aws/core/utils/crypto/Factories.h>
+#include <aws/core/utils/DateTime.h>
+#include <aws/core/utils/HashingUtils.h>
+#include <aws/core/utils/memory/stl/AWSStringStream.h>
+#include <aws/core/utils/ratelimiter/DefaultRateLimiter.h>
+#include <aws/core/utils/StringUtils.h>
+#include <aws/core/utils/threading/Executor.h>
+#include <aws/core/utils/UUID.h>
+#include <aws/core/utils/Outcome.h>
+#include <aws/core/platform/Environment.h>
+#include <aws/core/platform/Platform.h>
+#include <aws/s3/S3Client.h>
+#include <aws/s3/S3ARN.h>
+#include <aws/s3/S3Endpoint.h>
+#include <aws/s3/model/DeleteBucketRequest.h>
+#include <aws/s3/model/CreateBucketRequest.h>
+#include <aws/s3/model/HeadBucketRequest.h>
+#include <aws/s3/model/PutObjectRequest.h>
+#include <aws/s3/model/CopyObjectRequest.h>
+#include <aws/s3/model/GetObjectRequest.h>
+#include <aws/s3/model/DeleteObjectRequest.h>
+#include <aws/s3/model/HeadObjectRequest.h>
+#include <aws/s3/model/CreateMultipartUploadRequest.h>
+#include <aws/s3/model/UploadPartRequest.h>
+#include <aws/s3/model/CompleteMultipartUploadRequest.h>
+#include <aws/s3/model/ListObjectsRequest.h>
+#include <aws/s3/model/GetBucketLocationRequest.h>
+#include <aws/s3/model/SelectObjectContentRequest.h>
+#include <aws/testing/ProxyConfig.h>
+#include <aws/testing/platform/PlatformTesting.h>
+#include <aws/testing/TestingEnvironment.h>
+#include <fstream>
+
+#include <aws/core/http/standard/StandardHttpRequest.h>
+
 using namespace Aws;
 using namespace Aws::S3;
 using namespace Aws::S3::Model;
