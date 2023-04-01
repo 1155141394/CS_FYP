@@ -168,7 +168,39 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     });
     cout << "SetStatsEventCallback" << endl;
 
-    request.SetEventStreamHandler(handler);
+//    request.SetEventStreamHandler(handler);
+    // Register a callback function to process the data
+    request.SetEventStreamHandler([](const Aws::S3::Model::SelectObjectContentEventStream& event_stream)
+    {
+        for (const auto& event : event_stream)
+        {
+            // Process the event here
+            if (event.GetEventHeader().GetEventType() == Aws::S3::Model::Event::Records)
+            {
+                auto records_event = dynamic_cast<const Aws::S3::Model::RecordsEvent*>(&event);
+                auto payload = records_event->GetPayload();
+                std::string s(records.c_str(), records.size());
+                s3_result = s;
+                // Do something with the payload data
+            }
+            else if (event.GetEventHeader().GetEventType() == Aws::S3::Model::Event::Progress)
+            {
+                auto progress_event = dynamic_cast<const Aws::S3::Model::ProgressEvent*>(&event);
+                auto bytes_processed = progress_event->GetDetails().GetBytesProcessed();
+                // Update progress information
+            }
+            else if (event.GetEventHeader().GetEventType() == Aws::S3::Model::Event::Stats)
+            {
+                auto stats_event = dynamic_cast<const Aws::S3::Model::StatsEvent*>(&event);
+                auto bytes_scanned = stats_event->GetDetails().GetBytesScanned();
+                // Update statistics information
+            }
+            else if (event.GetEventHeader().GetEventType() == Aws::S3::Model::Event::End)
+            {
+                // Handle end-of-stream event
+            }
+        }
+    });
 
     auto selectObjectContentOutcome = s3_client.SelectObjectContent(request);
 
