@@ -40,7 +40,7 @@
 #include <aws/core/platform/Platform.h>
 #include <aws/s3/S3Client.h>
 //#include <aws/s3/S3ARN.h>
-#include <aws/s3/S3Endpoint.h>
+//#include <aws/s3/S3Endpoint.h>
 #include <aws/s3/model/DeleteBucketRequest.h>
 #include <aws/s3/model/CreateBucketRequest.h>
 #include <aws/s3/model/HeadBucketRequest.h>
