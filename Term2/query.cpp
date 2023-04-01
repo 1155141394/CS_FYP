@@ -109,6 +109,9 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     std::string s3_result;
     // Create an S3Client object
     Aws::Client::ClientConfiguration client_config;
+//    client_config.endpointOverride = "127.0.0.1/"
+    client_config.scheme = Aws::Http::Scheme::HTTP;
+    client_config.verifySSL = false;
     Aws::String region = "ap-northeast-1";
     client_config.region = region; // change the region as necessary
 //    S3Client s3_client(client_config);
