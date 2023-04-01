@@ -179,9 +179,14 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
         std::cout << "Successfully retrieved!" << std::endl;
     }
 
-    Aws::ShutdownAPI(options);
     std::string s(s3_result.c_str(), s3_result.size());
     cout << s << endl;
+    // 使用 AWSDeallocate 释放分配器分配的内存
+    AWSDeallocate(AWSAllocator<char>(), s3_result.data());
+
+
+    Aws::ShutdownAPI(options);
+
     return s;
 }
 
