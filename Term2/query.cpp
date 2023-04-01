@@ -100,14 +100,13 @@ vector<int> find_rows(std::vector<std::vector<int>> arr, int index1, int index2)
 
 
 
-std::string s3_select(std::string bucket_name, std::string object_key, std::string expression)
+int s3_select(std::string s3_result, std::string bucket_name, std::string object_key, std::string expression)
 {
     Aws::SDKOptions options;
 //        request.SetResponseStreamFactory([] { return new std::fstream("jianming.csv", std::ios_base::out); });
     Aws::InitAPI(options);
 
 //    std::vector<std::string> rows;
-    std::string s3_result;
     // Create an S3Client object
     Aws::Client::ClientConfiguration client_config;
 //    client_config.endpointOverride = "127.0.0.1/"
@@ -184,7 +183,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
 
     Aws::ShutdownAPI(options);
     cout << s3_result << endl;
-    return &s3_result;
+    return 0
 }
 
 tm StringToDatetime(std::string str)
@@ -250,8 +249,8 @@ int main()
     vector<int> vec = time_index(&time,nullptr);
     for (int i = 0; i < vec.size(); i++)
     std::cout << vec[i] << ' ';
-
-    std::string s3_result = s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 5");
+    std::string s3_result;
+    s3_select(s3_result, "fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 5");
     cout << s3_result <<endl;
 
 
