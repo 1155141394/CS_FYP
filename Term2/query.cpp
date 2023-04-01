@@ -100,7 +100,7 @@ vector<int> find_rows(std::vector<std::vector<int>> arr, int index1, int index2)
 
 
 
-Aws::string s3_select(std::string bucket_name, std::string object_key, std::string expression)
+Aws::String s3_select(std::string bucket_name, std::string object_key, std::string expression)
 {
     Aws::SDKOptions options;
 //        request.SetResponseStreamFactory([] { return new std::fstream("jianming.csv", std::ios_base::out); });
@@ -255,7 +255,7 @@ int main()
     vector<int> vec = time_index(&time,nullptr);
     for (int i = 0; i < vec.size(); i++)
     std::cout << vec[i] << ' ';
-    Aws::string s3_result;
+    Aws::String s3_result;
     s3_result = s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 5");
     cout << s3_result <<endl;
 
