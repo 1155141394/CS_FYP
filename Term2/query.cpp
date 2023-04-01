@@ -4,10 +4,10 @@
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/SelectObjectContentRequest.h>
 
-#include <aws/s3/model/CSVInput.h>
-#include <aws/s3/model/CSVOutput.h>
-#include <aws/s3/model/RecordsEvent.h>
-#include <aws/s3/model/StatsEvent.h>
+#include <aws/s3-crt/model/CSVInput.h>
+#include <aws/s3-crt/model/CSVOutput.h>
+#include <aws/s3-crt/model/RecordsEvent.h>
+#include <aws/s3-crt/model/StatsEvent.h>
 #include <iostream>
 #include <fstream>
 #include <string>
