@@ -105,7 +105,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     Aws::SDKOptions options;
 //        request.SetResponseStreamFactory([] { return new std::fstream("jianming.csv", std::ios_base::out); });
     Aws::InitAPI(options);
-    std::string s3_result
+    std::string s3_result;
 //    std::vector<std::string> rows;
     // Create an S3Client object
     Aws::Client::ClientConfiguration client_config;
