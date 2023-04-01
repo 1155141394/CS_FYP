@@ -251,7 +251,7 @@ int main()
     for (int i = 0; i < vec.size(); i++)
     std::cout << vec[i] << ' ';
 
-    std::string s3_result = s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 1");
+    std::string s3_result = s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 5");
     cout << s3_result <<endl;
 
 
