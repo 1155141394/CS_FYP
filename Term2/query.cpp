@@ -8,6 +8,7 @@
 #include <aws/s3/model/CSVOutput.h>
 #include <aws/s3/model/RecordsEvent.h>
 #include <aws/s3/model/StatsEvent.h>
+#include <aws/s3/model/GetObjectRequest.h>
 #include <iostream>
 #include <fstream>
 #include <string>
