@@ -252,7 +252,7 @@ int main()
     Aws::Client::ClientConfiguration config;
     config.region = "ap-northeast-1";
 //    config.endpointOverride = "s3.us-west-2.amazonaws.com";
-    Aws::S3::S3Client s3_client(credentials, config);
+    Aws::S3::S3Client s3_client(config);
 
     // Use the S3 client to perform operations on your S3 bucket
     Aws::S3::Model::GetObjectRequest object_request;
