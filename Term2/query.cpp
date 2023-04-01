@@ -141,7 +141,7 @@ Aws::String s3_select(std::string bucket_name, std::string object_key, std::stri
     bool isRecordsEventReceived = false;
     bool isStatsEventReceived = false;
 
-    cout << "Query setting finished" << endl;
+    Aws::cout << "Query setting finished" << endl;
     SelectObjectContentHandler handler;
     cout << "Set handler" << endl;
     handler.SetRecordsEventCallback([&](const RecordsEvent& recordsEvent)
