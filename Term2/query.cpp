@@ -1,13 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <aws/core/Aws.h>
-#include <aws/s3/S3Client.h>
-#include <aws/s3/model/SelectObjectContentRequest.h>
 
-#include <aws/s3-crt/model/CSVInput.h>
-#include <aws/s3-crt/model/CSVOutput.h>
-#include <aws/s3-crt/model/RecordsEvent.h>
-#include <aws/s3-crt/model/StatsEvent.h>
+#include <aws/s3/S3Client.h>
+#include <aws/s3-crt/S3CrtClient.h>
+#include <aws/s3-crt/model/DeleteBucketRequest.h>
+#include <aws/s3-crt/model/CreateBucketRequest.h>
+#include <aws/s3-crt/model/HeadBucketRequest.h>
+#include <aws/s3-crt/model/PutObjectRequest.h>
+#include <aws/s3-crt/model/CopyObjectRequest.h>
+#include <aws/s3-crt/model/GetObjectRequest.h>
+#include <aws/s3-crt/model/DeleteObjectRequest.h>
+#include <aws/s3-crt/model/HeadObjectRequest.h>
+#include <aws/s3-crt/model/CreateMultipartUploadRequest.h>
+#include <aws/s3-crt/model/UploadPartRequest.h>
+#include <aws/s3-crt/model/CompleteMultipartUploadRequest.h>
+#include <aws/s3-crt/model/ListObjectsRequest.h>
+#include <aws/s3-crt/model/GetBucketLocationRequest.h>
+#include <aws/s3-crt/model/SelectObjectContentRequest.h>
+#include <aws/s3-crt/model/Tagging.h>
+#include <aws/s3-crt/model/PutBucketTaggingRequest.h>
+#include <aws/s3-crt/ClientConfiguration.h>
+
 #include <iostream>
 #include <fstream>
 #include <string>
