@@ -96,32 +96,6 @@ vector<int> find_rows(std::vector<std::vector<int>> arr, int index1, int index2)
 }
 
 
-//现代写法完成String深拷贝
-String::String(const char* str)
-    : _str(new char[strlen(str) + 1])
-{
-    strcpy(_str, str);
-}
-
-String::String(const String& s)
-{
-    String tmp(s._str); // 用s._str定义一个tmp对象
-    swap(_str, tmp._str); // 将指针进行交换
-}
-
-String& String::operator=(String s) // 形参调用构造函数
-{
-    swap(_str, s._str);
-    return *this;
-}
-
-String::~String()
-{
-    if (NULL != _str)
-    {
-        delete[] _str;
-    }
-
 
 
 std::string s3_select(std::string bucket_name, std::string object_key, std::string expression)
