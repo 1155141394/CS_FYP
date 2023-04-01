@@ -183,7 +183,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
 
     Aws::ShutdownAPI(options);
 
-    return s3_result;
+//    return s3_result;
 }
 
 tm StringToDatetime(std::string str)
