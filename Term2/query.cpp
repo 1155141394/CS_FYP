@@ -242,8 +242,23 @@ int main()
     for (int i = 0; i < vec.size(); i++)
     std::cout << vec[i] << ' ';
 
-    std::string s3_result = s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 1");
-    cout << s3_result <<endl;
+//    std::string s3_result = s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 1");
+//    cout << s3_result <<endl;
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
+//    Aws::Auth::AWSCredentials credentials("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
+
+    // Set up your S3 client
+    Aws::Client::ClientConfiguration config;
+    config.region = "ap-northeast-1";
+//    config.endpointOverride = "s3.us-west-2.amazonaws.com";
+    Aws::S3::S3Client s3_client(credentials, config);
+
+    // Use the S3 client to perform operations on your S3 bucket
+    Aws::S3::Model::GetObjectRequest object_request;
+    object_request.SetBucket("fypts");
+    object_request.SetKey("0/2023-01-01_12.csv");
+    auto get_object_outcome = s3_client.GetObject(object_request);
 
 
 
