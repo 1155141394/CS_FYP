@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="update">
       <change beforePath="$PROJECT_DIR$/Term2/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Term2/query.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/query.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,42 +89,7 @@
       <workItem from="1677808005257" duration="10000" />
       <workItem from="1678066609702" duration="5843000" />
       <workItem from="1680234883665" duration="4783000" />
-      <workItem from="1680339287499" duration="3644000" />
-    </task>
-    <task id="LOCAL-00091" summary="add get table names to tools">
-      <created>1679751255076</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1679751255076</updated>
-    </task>
-    <task id="LOCAL-00092" summary="debug">
-      <created>1679844587475</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1679844587475</updated>
-    </task>
-    <task id="LOCAL-00093" summary="debug">
-      <created>1679844676263</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1679844676263</updated>
-    </task>
-    <task id="LOCAL-00094" summary="debug">
-      <created>1679844811208</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1679844811208</updated>
-    </task>
-    <task id="LOCAL-00095" summary="debug">
-      <created>1679844999282</created>
-      <option name="number" value="00095" />
-      <option name="presentableId" value="LOCAL-00095" />
-      <option name="project" value="LOCAL" />
-      <updated>1679844999282</updated>
+      <workItem from="1680339287499" duration="4277000" />
     </task>
     <task id="LOCAL-00096" summary="debug">
       <created>1679845054488</created>
@@ -435,7 +399,42 @@
       <option name="project" value="LOCAL" />
       <updated>1680342731671</updated>
     </task>
-    <option name="localTasksCounter" value="140" />
+    <task id="LOCAL-00140" summary="update">
+      <created>1680342942730</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1680342942730</updated>
+    </task>
+    <task id="LOCAL-00141" summary="update">
+      <created>1680343040239</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1680343040239</updated>
+    </task>
+    <task id="LOCAL-00142" summary="update">
+      <created>1680343171988</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1680343171988</updated>
+    </task>
+    <task id="LOCAL-00143" summary="update">
+      <created>1680343179263</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1680343179263</updated>
+    </task>
+    <task id="LOCAL-00144" summary="update">
+      <created>1680343198838</created>
+      <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
+      <option name="project" value="LOCAL" />
+      <updated>1680343198838</updated>
+    </task>
+    <option name="localTasksCounter" value="145" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
