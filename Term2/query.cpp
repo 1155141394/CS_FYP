@@ -262,7 +262,7 @@ int main()
     auto get_object_outcome = s3_client.GetObject(object_request);
 
     if (!get_object_outcome.IsSuccess()) {
-        const Aws::S3::S3Error &err = outcome.GetError();
+        const Aws::S3::S3Error &err = get_object_outcome.GetError();
         std::cerr << "Error: GetObject: " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
     }
