@@ -153,9 +153,9 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
 //        cout << "Get payload." << endl;
         Aws::String records(recordsVector.begin(), recordsVector.end());
 //        cout << "Get string successfully." << endl;
-        return records.c_str();
-//        std::string s(records.c_str(), records.size());
-//        s3_result = s;
+//        return records.c_str();
+        std::string s(records.c_str(), records.size());
+        s3_result = s;
 //        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
     });
     cout << "SetRecordsEventCallback" << endl;
