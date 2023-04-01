@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="update">
+    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add set&amp;file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Term2/query.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/query.cpp" afterDir="false" />
     </list>
@@ -91,13 +91,6 @@
       <workItem from="1678066609702" duration="5843000" />
       <workItem from="1680234883665" duration="4783000" />
       <workItem from="1680339287499" duration="11640000" />
-    </task>
-    <task id="LOCAL-00133" summary="update">
-      <created>1680342313746</created>
-      <option name="number" value="00133" />
-      <option name="presentableId" value="LOCAL-00133" />
-      <option name="project" value="LOCAL" />
-      <updated>1680342313746</updated>
     </task>
     <task id="LOCAL-00134" summary="update">
       <created>1680342340048</created>
@@ -435,7 +428,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680358978255</updated>
     </task>
-    <option name="localTasksCounter" value="182" />
+    <task id="LOCAL-00182" summary="add set&amp;file">
+      <created>1680360447684</created>
+      <option name="number" value="00182" />
+      <option name="presentableId" value="LOCAL-00182" />
+      <option name="project" value="LOCAL" />
+      <updated>1680360447684</updated>
+    </task>
+    <option name="localTasksCounter" value="183" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -461,7 +461,6 @@
     <MESSAGE value="add hashtable to string" />
     <MESSAGE value="add read file to hashtable" />
     <MESSAGE value="reformat the file" />
-    <MESSAGE value="add set&amp;file" />
     <MESSAGE value="change nd array to list" />
     <MESSAGE value="add get table names to tools and test" />
     <MESSAGE value="add get table names to tools" />
@@ -469,6 +468,7 @@
     <MESSAGE value="Update s3_select" />
     <MESSAGE value="add cmake" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="add set&amp;file" />
+    <option name="LAST_COMMIT_MESSAGE" value="add set&amp;file" />
   </component>
 </project>

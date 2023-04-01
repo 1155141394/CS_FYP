@@ -3,7 +3,8 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/SelectObjectContentRequest.h>
-
+#include <aws/core/utils/memory/stl/AWSString.h>
+#include <aws/core/utils/memory/stl/AWSAllocator.h>
 #include <aws/s3/model/CSVInput.h>
 #include <aws/s3/model/CSVOutput.h>
 #include <aws/s3/model/RecordsEvent.h>
@@ -103,7 +104,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     Aws::SDKOptions options;
 //        request.SetResponseStreamFactory([] { return new std::fstream("jianming.csv", std::ios_base::out); });
     Aws::InitAPI(options);
-    Aws::String s3_result;
+    std::basic_string<char, std::char_traits<char>, AWSAllocator<char>> s3_result(AWSAllocator<char>());
 //    std::vector<std::string> rows;
     // Create an S3Client object
     Aws::Client::ClientConfiguration client_config;
@@ -152,8 +153,8 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
         cout << "Get records" << endl;
 //        cout << "Get string successfully." << endl;
 //        return records.c_str();
-//        std::string s(records.c_str(), records.size());
-        s3_result = records;
+        std::string s(records.c_str(), records.size());
+        s3_result = s;
 //        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
     });
     cout << "SetRecordsEventCallback" << endl;
@@ -179,10 +180,10 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
         std::cout << "Successfully retrieved!" << std::endl;
     }
 
-    std::string s(s3_result.c_str(), s3_result.size());
-    cout << s << endl;
-    // 使用 AWSDeallocate 释放分配器分配的内存
-    AWSDeallocate(AWSAllocator<char>(), s3_result.data());
+
+    cout << s3_result << endl;
+//    // 使用 AWSDeallocate 释放分配器分配的内存
+//    AWSDeallocate(AWSAllocator<char>(), s3_result.data());
 
 
     Aws::ShutdownAPI(options);
