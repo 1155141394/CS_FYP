@@ -155,8 +155,8 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
         cout << "Get records" << endl;
 //        cout << "Get string successfully." << endl;
 //        return records.c_str();
-//        std::string s(records.c_str(), records.size());
-//        s3_result = s;
+        std::string s(records.c_str(), records.size());
+        s3_result = s;
 //        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
     });
     cout << "SetRecordsEventCallback" << endl;
@@ -183,7 +183,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     }
 
     Aws::ShutdownAPI(options);
-
+    cout << s3_result << endl;
     return s3_result;
 }
 
