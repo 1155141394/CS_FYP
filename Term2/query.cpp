@@ -152,6 +152,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
         auto recordsVector = recordsEvent.GetPayload();
         cout << "Get payload." << endl;
         Aws::String records(recordsVector.begin(), recordsVector.end());
+        cout << "Get records" << endl;
 //        cout << "Get string successfully." << endl;
 //        return records.c_str();
 //        std::string s(records.c_str(), records.size());
