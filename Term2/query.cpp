@@ -267,7 +267,7 @@ int main()
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
     }
     else {
-        std::cout << "Successfully retrieved " std::endl;
+        std::cout << "Successfully retrieved " << std::endl;
     }
 
 
