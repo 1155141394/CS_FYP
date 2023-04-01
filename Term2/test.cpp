@@ -40,7 +40,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     client_config.region = "ap-northeast-1"; // change the region as necessary
     S3Client s3_client(client_config);
 //    std::shared_ptr<S3Client> client;
-    cout << "Create client" << endl;
+    //cout << "Create client" << endl;
 
     // Set up the SelectObjectContentRequest
     SelectObjectContentRequest request;
@@ -66,24 +66,24 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     bool isRecordsEventReceived = false;
     bool isStatsEventReceived = false;
 
-    cout << "Query setting finished" << endl;
+    //cout << "Query setting finished" << endl;
     SelectObjectContentHandler handler;
-    cout << "Set handler" << endl;
+    //cout << "Set handler" << endl;
     handler.SetRecordsEventCallback([&](const RecordsEvent& recordsEvent)
     {
-        cout << "Set records event callback" << endl;
+        //cout << "Set records event callback" << endl;
         isRecordsEventReceived = true;
         auto recordsVector = recordsEvent.GetPayload();
-        cout << "Get payload." << endl;
+        //cout << "Get payload." << endl;
         Aws::String records(recordsVector.begin(), recordsVector.end());
-        cout << "Get records" << endl;
+        //cout << "Get records" << endl;
 //        cout << "Get string successfully." << endl;
 //        return records.c_str();
 //        std::string s(records.c_str(), records.size());
         s3_result = records;
         ASSERT_STREQ(firstColumn.c_str(), records.c_str());
     });
-    cout << "SetRecordsEventCallback" << endl;
+    //cout << "SetRecordsEventCallback" << endl;
     handler.SetStatsEventCallback([&](const StatsEvent& statsEvent)
     {
         isStatsEventReceived = true;
@@ -91,7 +91,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
 //        ASSERT_EQ(static_cast<long long>(objectSize), statsEvent.GetDetails().GetBytesProcessed());
 //        ASSERT_EQ(static_cast<long long>(firstColumn.size()), statsEvent.GetDetails().GetBytesReturned());
     });
-    cout << "SetStatsEventCallback" << endl;
+    //cout << "SetStatsEventCallback" << endl;
 
     request.SetEventStreamHandler(handler);
 
@@ -107,7 +107,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     }
 
     std::string s(s3_result.c_str(), s3_result.size());
-    cout << s << endl;
+    std::cout << s << endl;
 
 
     Aws::ShutdownAPI(options);
@@ -119,5 +119,5 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
 int main(){
     std::string s3_result;
     s3_result = s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 5");
-    cout << s3_result <<endl;
+    std::cout << s3_result <<endl;
 }
