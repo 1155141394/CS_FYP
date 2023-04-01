@@ -146,15 +146,15 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     cout << "Set handler" << endl;
     handler.SetRecordsEventCallback([&](const RecordsEvent& recordsEvent)
     {
-        cout << "Set records event callback" << endl;
+//        cout << "Set records event callback" << endl;
         isRecordsEventReceived = true;
         auto recordsVector = recordsEvent.GetPayload();
-        cout << "Get payload." << endl;
+//        cout << "Get payload." << endl;
         Aws::String records(recordsVector.begin(), recordsVector.end());
-        cout << "Get string successfully." << endl;
-        std::string s(records.c_str(), records.size());
-        s3_result = s;
-//        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
+//        cout << "Get string successfully." << endl;
+//        std::string s(records.c_str(), records.size());
+//        s3_result = s;
+        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
     });
     cout << "SetRecordsEventCallback" << endl;
     handler.SetStatsEventCallback([&](const StatsEvent& statsEvent)
