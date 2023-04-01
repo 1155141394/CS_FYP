@@ -113,6 +113,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     client_config.region = region; // change the region as necessary
 //    S3Client s3_client(client_config);
 //    std::shared_ptr<S3Client> client;
+    count << "Create client" << endl;
     S3::S3Client client(client_config,
             Aws::Client::AWSAuthV4Signer::PayloadSigningPolicy::Never,
             false);
