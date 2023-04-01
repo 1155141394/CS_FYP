@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="update">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Term2/query.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/query.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,35 +89,7 @@
       <workItem from="1677808005257" duration="10000" />
       <workItem from="1678066609702" duration="5843000" />
       <workItem from="1680234883665" duration="4783000" />
-      <workItem from="1680339287499" duration="7936000" />
-    </task>
-    <task id="LOCAL-00106" summary="Update s3_select">
-      <created>1680234932558</created>
-      <option name="number" value="00106" />
-      <option name="presentableId" value="LOCAL-00106" />
-      <option name="project" value="LOCAL" />
-      <updated>1680234932558</updated>
-    </task>
-    <task id="LOCAL-00107" summary="add cmake">
-      <created>1680270570576</created>
-      <option name="number" value="00107" />
-      <option name="presentableId" value="LOCAL-00107" />
-      <option name="project" value="LOCAL" />
-      <updated>1680270570576</updated>
-    </task>
-    <task id="LOCAL-00108" summary="add cmake">
-      <created>1680270850025</created>
-      <option name="number" value="00108" />
-      <option name="presentableId" value="LOCAL-00108" />
-      <option name="project" value="LOCAL" />
-      <updated>1680270850025</updated>
-    </task>
-    <task id="LOCAL-00109" summary="add cmake">
-      <created>1680270863773</created>
-      <option name="number" value="00109" />
-      <option name="presentableId" value="LOCAL-00109" />
-      <option name="project" value="LOCAL" />
-      <updated>1680270863773</updated>
+      <workItem from="1680339287499" duration="8261000" />
     </task>
     <task id="LOCAL-00110" summary="add cmake">
       <created>1680271018614</created>
@@ -435,7 +406,35 @@
       <option name="project" value="LOCAL" />
       <updated>1680351265984</updated>
     </task>
-    <option name="localTasksCounter" value="155" />
+    <task id="LOCAL-00155" summary="update">
+      <created>1680352652634</created>
+      <option name="number" value="00155" />
+      <option name="presentableId" value="LOCAL-00155" />
+      <option name="project" value="LOCAL" />
+      <updated>1680352652634</updated>
+    </task>
+    <task id="LOCAL-00156" summary="update">
+      <created>1680352731470</created>
+      <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
+      <option name="project" value="LOCAL" />
+      <updated>1680352731470</updated>
+    </task>
+    <task id="LOCAL-00157" summary="update">
+      <created>1680352795793</created>
+      <option name="number" value="00157" />
+      <option name="presentableId" value="LOCAL-00157" />
+      <option name="project" value="LOCAL" />
+      <updated>1680352795793</updated>
+    </task>
+    <task id="LOCAL-00158" summary="update">
+      <created>1680352949920</created>
+      <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
+      <option name="project" value="LOCAL" />
+      <updated>1680352949920</updated>
+    </task>
+    <option name="localTasksCounter" value="159" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
