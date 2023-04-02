@@ -152,7 +152,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
         isRecordsEventReceived = true;
         auto recordsVector = recordsEvent.GetPayload();
         cout << "Get payload." << endl;
-        Aws::String records(recordsVector.begin(), recordsVector.end());
+        auto records(recordsVector.begin(), recordsVector.end());
         cout << "Get records" << endl;
 //        cout << "Get string successfully." << endl;
 //        return records.c_str();
@@ -183,7 +183,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
         std::cout << "Successfully retrieved!" << std::endl;
     }
 
-    std::string s(s3_result.c_str());
+    std::string s(s3_result.c_str(), s3_result.size());
     cout << s << endl;
 
 
