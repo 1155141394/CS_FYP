@@ -117,7 +117,7 @@ void s3_select(std::string bucket_name, std::string object_key, std::string expr
     client_config.region = "ap-northeast-1"; // change the region as necessary
     S3Client s3_client(client_config);
 //    std::shared_ptr<S3Client> client;
-    cout << "Create client" << endl;
+//    cout << "Create client" << endl;
 
     // Set up the SelectObjectContentRequest
     SelectObjectContentRequest request;
@@ -251,11 +251,11 @@ void PrintVecofVec1(vector<vector<int>>& res) {
 
 int main()
 {
-    string test = "2023-01-01 12:00:12";
-    tm time = StringToDatetime(test);
-    vector<int> vec = time_index(&time,nullptr);
-    for (int i = 0; i < vec.size(); i++)
-    std::cout << vec[i] << ' ';
+//    string test = "2023-01-01 12:00:12";
+//    tm time = StringToDatetime(test);
+//    vector<int> vec = time_index(&time,nullptr);
+//    for (int i = 0; i < vec.size(); i++)
+//    std::cout << vec[i] << ' ';
 //    std::string s3_result;
     s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 5");
 //    cout << s3_result <<endl;
