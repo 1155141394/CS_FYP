@@ -80,7 +80,7 @@ Aws::String s3_select(std::string bucket_name, std::string object_key, std::stri
 //        cout << "Get string successfully." << endl;
 //        return records.c_str();
 //        std::string s(records.c_str(), records.size());
-        s3_result = records;
+//        s3_result = records;
         //ASSERT_STREQ(firstColumn.c_str(), records.c_str());
     });
     //cout << "SetRecordsEventCallback" << endl;
