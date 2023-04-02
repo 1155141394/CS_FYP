@@ -25,7 +25,7 @@ using namespace Aws::S3;
 using namespace Aws::S3::Model;
 
 
-Aws::string s3_select(std::string bucket_name, std::string object_key, std::string expression)
+Aws::String s3_select(std::string bucket_name, std::string object_key, std::string expression)
 {
     Aws::SDKOptions options;
 //        request.SetResponseStreamFactory([] { return new std::fstream("jianming.csv", std::ios_base::out); });
@@ -117,7 +117,7 @@ Aws::string s3_select(std::string bucket_name, std::string object_key, std::stri
 
 
 int main(){
-    Aws::string s3_result;
+    Aws::String s3_result;
     s3_result = s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 5");
     std::cout << s3_result << std::endl;
 }
