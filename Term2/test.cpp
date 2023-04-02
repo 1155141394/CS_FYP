@@ -107,7 +107,7 @@ Aws::String s3_select(std::string bucket_name, std::string object_key, std::stri
     }
 
 //    std::string s(s3_result.c_str(), s3_result.size());
-//    std::cout << s << std::endl;
+    std::cout << s3_result << std::endl;
 
 
     Aws::ShutdownAPI(options);
