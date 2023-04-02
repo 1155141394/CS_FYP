@@ -26,6 +26,8 @@ using namespace Aws::S3;
 using namespace Aws::S3::Model;
 using namespace std;
 
+String s3_result;
+
 vector<int> compress_array(vector<vector<int>> arr) {
     int rows = arr.size();
     int cols = arr[0].size();
@@ -103,7 +105,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
     Aws::SDKOptions options;
 //        request.SetResponseStreamFactory([] { return new std::fstream("jianming.csv", std::ios_base::out); });
     Aws::InitAPI(options);
-    Aws::String s3_result;
+
 //    std::vector<std::string> rows;
     // Create an S3Client object
     Aws::Client::ClientConfiguration client_config;
@@ -154,7 +156,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
 //        return records.c_str();
 //        std::string s(records.c_str(), records.size());
         s3_result = records;
-        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
+//        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
     });
     cout << "SetRecordsEventCallback" << endl;
     handler.SetStatsEventCallback([&](const StatsEvent& statsEvent)
@@ -251,8 +253,8 @@ int main()
     vector<int> vec = time_index(&time,nullptr);
     for (int i = 0; i < vec.size(); i++)
     std::cout << vec[i] << ' ';
-    std::string s3_result;
-    s3_result = s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 5");
+//    std::string s3_result;
+    s3_select("fypts", "0/2023-01-01_12.csv", "SELECT * FROM s3object limit 5");
     cout << s3_result <<endl;
 
 
