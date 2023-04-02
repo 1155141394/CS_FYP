@@ -183,7 +183,7 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
         std::cout << "Successfully retrieved!" << std::endl;
     }
 
-    std::string s(s3_result.c_str(), s3_result.size());
+    std::string s(s3_result.c_str());
     cout << s << endl;
 
 
