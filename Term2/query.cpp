@@ -102,7 +102,7 @@ vector<int> find_rows(std::vector<std::vector<int>> arr, int index1, int index2)
 
 
 
-std::string s3_select(std::string bucket_name, std::string object_key, std::string expression)
+void s3_select(std::string bucket_name, std::string object_key, std::string expression)
 {
     Aws::SDKOptions options;
 //        request.SetResponseStreamFactory([] { return new std::fstream("jianming.csv", std::ios_base::out); });
@@ -152,12 +152,13 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
         isRecordsEventReceived = true;
         auto recordsVector = recordsEvent.GetPayload();
         cout << "Get payload." << endl;
-        auto records(recordsVector.begin(), recordsVector.end());
+        Aws::String records(recordsVector.begin(), recordsVector.end());
         cout << "Get records" << endl;
+        cout << records << endl;
 //        cout << "Get string successfully." << endl;
 //        return records.c_str();
 //        std::string s(records.c_str(), records.size());
-        s3_result = records;
+//        s3_result = records;
 //        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
     });
     cout << "SetRecordsEventCallback" << endl;
@@ -183,13 +184,13 @@ std::string s3_select(std::string bucket_name, std::string object_key, std::stri
         std::cout << "Successfully retrieved!" << std::endl;
     }
 
-    std::string s(s3_result.c_str(), s3_result.size());
-    cout << s << endl;
-
-
+//    std::string s(s3_result.c_str(), s3_result.size());
+//    cout << s << endl;
+//
+//
     Aws::ShutdownAPI(options);
-
-    return s;
+//
+//    return s;
 }
 
 tm StringToDatetime(std::string str)
