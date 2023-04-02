@@ -143,25 +143,25 @@ void s3_select(std::string bucket_name, std::string object_key, std::string expr
     bool isRecordsEventReceived = false;
     bool isStatsEventReceived = false;
 
-    cout << "Query setting finished" << endl;
+//    cout << "Query setting finished" << endl;
     SelectObjectContentHandler handler;
-    cout << "Set handler" << endl;
+//    cout << "Set handler" << endl;
     handler.SetRecordsEventCallback([&](const RecordsEvent& recordsEvent)
     {
-        cout << "Set records event callback" << endl;
+//        cout << "Set records event callback" << endl;
         isRecordsEventReceived = true;
         auto recordsVector = recordsEvent.GetPayload();
-        cout << "Get payload." << endl;
+//        cout << "Get payload." << endl;
         Aws::String records(recordsVector.begin(), recordsVector.end());
-        cout << "Get records" << endl;
-        cout << records << endl;
+//        cout << "Get records" << endl;
+//        cout << records << endl;
 //        cout << "Get string successfully." << endl;
 //        return records.c_str();
 //        std::string s(records.c_str(), records.size());
 //        s3_result = records;
 //        ASSERT_STREQ(firstColumn.c_str(), records.c_str());
     });
-    cout << "SetRecordsEventCallback" << endl;
+//    cout << "SetRecordsEventCallback" << endl;
     handler.SetStatsEventCallback([&](const StatsEvent& statsEvent)
     {
         isStatsEventReceived = true;
@@ -169,7 +169,7 @@ void s3_select(std::string bucket_name, std::string object_key, std::string expr
 //        ASSERT_EQ(static_cast<long long>(objectSize), statsEvent.GetDetails().GetBytesProcessed());
 //        ASSERT_EQ(static_cast<long long>(firstColumn.size()), statsEvent.GetDetails().GetBytesReturned());
     });
-    cout << "SetStatsEventCallback" << endl;
+//    cout << "SetStatsEventCallback" << endl;
 
     request.SetEventStreamHandler(handler);
 
@@ -177,11 +177,11 @@ void s3_select(std::string bucket_name, std::string object_key, std::string expr
 
     if (!selectObjectContentOutcome.IsSuccess()) {
         const Aws::S3::S3Error &err = selectObjectContentOutcome.GetError();
-        std::cerr << "Error: GetObject: " <<
-                  err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
+//        std::cerr << "Error: GetObject: " <<
+//                  err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
     }
     else {
-        std::cout << "Successfully retrieved!" << std::endl;
+//        std::cout << "Successfully retrieved!" << std::endl;
     }
 
 //    std::string s(s3_result.c_str(), s3_result.size());
