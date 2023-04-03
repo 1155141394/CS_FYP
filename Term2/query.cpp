@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <aws/core/Aws.h>
-#include <aws/s3/S3Client.h>
-#include <aws/s3/model/SelectObjectContentRequest.h>
+//#include <aws/s3/S3Client.h>
+#include <aws/s3-crt/S3CrtClient.h>
+#include <aws/s3-crt/model/SelectObjectContentRequest.h>
 
-#include <aws/s3/model/CSVInput.h>
-#include <aws/s3/model/CSVOutput.h>
-#include <aws/s3/model/RecordsEvent.h>
-#include <aws/s3/model/StatsEvent.h>
-#include <aws/s3/model/GetObjectRequest.h>
+#include <aws/s3-crt/model/CSVInput.h>
+#include <aws/s3-crt/model/CSVOutput.h>
+#include <aws/s3-crt/model/RecordsEvent.h>
+#include <aws/s3-crt/model/StatsEvent.h>
+#include <aws/s3-crt/model/GetObjectRequest.h>
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -22,8 +24,8 @@
 
 
 using namespace Aws;
-using namespace Aws::S3;
-using namespace Aws::S3::Model;
+using namespace Aws::S3Crt;
+using namespace Aws::S3Crt::Model;
 using namespace std;
 
 String s3_result;
@@ -110,12 +112,20 @@ void s3_select(std::string bucket_name, std::string object_key, std::string expr
 //    Aws::String s3_result;
 //    std::vector<std::string> rows;
     // Create an S3Client object
-    Aws::Client::ClientConfiguration client_config;
+    Aws::S3Crt::ClientConfiguration client_config;
 //    client_config.endpointOverride = "127.0.0.1/"
-    client_config.scheme = Aws::Http::Scheme::HTTP;
-    client_config.verifySSL = false;
-    client_config.region = "ap-northeast-1"; // change the region as necessary
-    S3Client s3_client(client_config);
+    s3ClientConfig.region = Aws::Region::AP_NORTHEAST_1;
+    s3ClientConfig.scheme = Scheme::HTTPS;
+    s3ClientConfig.executor = Aws::MakeShared<Aws::Utils::Threading::PooledThreadExecutor>(ALLOCATION_TAG, 4);
+    s3ClientConfig.throughputTargetGbps = 2.0;
+    s3ClientConfig.partSize = 5 * 1024 * 1024; // change the region as necessary
+
+    std::shared_ptr<S3CrtClient> Client;
+    Client = Aws::MakeShared<S3CrtClient>(ALLOCATION_TAG,
+                Aws::MakeShared<DefaultAWSCredentialsProviderChain>(ALLOCATION_TAG), s3ClientConfig,
+                AWSAuthV4Signer::PayloadSigningPolicy::Never /*signPayloads*/, true /*useVirtualAddressing*/,
+                Aws::S3Crt::US_EAST_1_REGIONAL_ENDPOINT_OPTION::LEGACY);
+//    S3Client s3_client(client_config);
 //    std::shared_ptr<S3Client> client;
 //    cout << "Create client" << endl;
 
@@ -123,7 +133,7 @@ void s3_select(std::string bucket_name, std::string object_key, std::string expr
     SelectObjectContentRequest request;
     request.SetBucket(bucket_name);
     request.SetKey(object_key);
-    request.SetExpressionType(S3::Model::ExpressionType::SQL);
+    request.SetExpressionType(ExpressionType::SQL);
     request.SetExpression(expression);
 
     // Set up the input serialization
@@ -173,15 +183,14 @@ void s3_select(std::string bucket_name, std::string object_key, std::string expr
 
     request.SetEventStreamHandler(handler);
 
-    auto selectObjectContentOutcome = s3_client.SelectObjectContent(request);
+    auto selectObjectContentOutcome = Client -> SelectObjectContent(request);
 
     if (!selectObjectContentOutcome.IsSuccess()) {
-        const Aws::S3::S3Error &err = selectObjectContentOutcome.GetError();
-//        std::cerr << "Error: GetObject: " <<
-//                  err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
+//        const Aws::S3Crt:: &err = selectObjectContentOutcome.GetError();
+        std::cout << "Error: GetObject: " << endl;
     }
     else {
-//        std::cout << "Successfully retrieved!" << std::endl;
+        std::cout << "Successfully retrieved!" << std::endl;
     }
 
 //    std::string s(s3_result.c_str(), s3_result.size());
