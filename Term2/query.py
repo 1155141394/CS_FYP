@@ -148,6 +148,7 @@ def s3_select(tsid, where_clause):
         expression = basic_exp + "s.\"time\" between '%s' and '%s';" % (beg_t_str, end_t_str)
         key = retrieve_file[0]
         print(key)
+        print(expression)
         data = s3_data(expression, key)
         df = pd.DataFrame(data)
         print(df)
