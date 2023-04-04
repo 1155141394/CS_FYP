@@ -60,7 +60,7 @@ def s3_data(expression, key):
         )
     except Exception as e:
         print(f'Exception is {e}')
-        return data
+        return data.append('NoSuchKey')
 
     com_rec = ""
     for event in resp['Payload']:
@@ -171,7 +171,10 @@ def s3_select(tsid, where_clause):
                 basic_exp += ' WHERE '
                 basic_exp += attr_con
             key = retrieve_file[i]
-            data = data + s3_data(expression, key)
+            ret_data = s3_data(expression, key)
+            if 'NoSuchKey' == ret_data[0]:
+                break
+            data = data + ret_data
 
         before_expression = basic_exp + "s.\"time\" < '%s';" % (end_t_str)
         key = retrieve_file[len(retrieve_file) - 1]
