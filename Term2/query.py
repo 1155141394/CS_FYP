@@ -161,9 +161,12 @@ def s3_select(tsid, where_clause):
         print(df)
         df.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv', index=False, header=False)
     else:
+        data = []
         after_expression = basic_exp + "s.\"time\" > '%s';" % (beg_t_str)
         key = retrieve_file[0]
-        data = s3_data(after_expression, key)
+        ret_data = s3_data(after_expression, key)
+        if ret_data is not None:
+            data += ret_data
 
         for i in range(1, len(retrieve_file) - 1):
             expression = "SELECT * FROM s3object s"
@@ -172,13 +175,15 @@ def s3_select(tsid, where_clause):
                 basic_exp += attr_con
             key = retrieve_file[i]
             ret_data = s3_data(expression, key)
-            if ret_data == None:
+            if ret_data is None:
                 break
-            data = data + ret_data
+            data += ret_data
 
         before_expression = basic_exp + "s.\"time\" < '%s';" % (end_t_str)
         key = retrieve_file[len(retrieve_file) - 1]
-        data = data + s3_data(before_expression, key)
+        ret_data = s3_data(before_expression, key)
+        if ret_data is not None:
+            data += ret_data
         df = pd.DataFrame(data)
         return df
 
