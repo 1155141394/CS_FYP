@@ -60,7 +60,7 @@ def s3_data(expression, key):
         )
     except Exception as e:
         print(f'Exception is {e}')
-        return data.append('NoSuchKey')
+        return None
 
     com_rec = ""
     for event in resp['Payload']:
@@ -172,7 +172,7 @@ def s3_select(tsid, where_clause):
                 basic_exp += attr_con
             key = retrieve_file[i]
             ret_data = s3_data(expression, key)
-            if 'NoSuchKey' in ret_data:
+            if ret_data == None:
                 break
             data = data + ret_data
 
