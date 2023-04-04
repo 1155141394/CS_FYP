@@ -224,7 +224,9 @@ def query(query_dict):
     where_clause = query_dict['where_clause']
     tsid = query_dict['tsid']
     attr = query_dict['attr']
+    findid_b = time.time()
     tsids = find_id(tsid, attr)
+    findid_e = time.time()
     print(tsids)
     df_list = []
     df = pd.DataFrame([])
@@ -232,9 +234,12 @@ def query(query_dict):
         df = s3_select(tsid, where_clause)
         df_list.append(df)
     end_time = time.time()
-    cost = end_time - begin_time
+    total_cost = end_time - begin_time
+    findid_cost = findid_e - findid_b
     print(df_list)
-    print(f'Query cost: {cost} second')
+    print(f'Find id cost:{findid_cost} sec')
+    print(f'Query cost: {total_cost} sec')
+
     if len(df_list) < 2:
         df.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv')
     else:
