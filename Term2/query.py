@@ -231,7 +231,7 @@ if __name__ == "__main__":
         df = s3_select(tsid, where_clause)
         df_list.append(df)
     print(df_list)
-    if len(df_list == 1):
+    if len(df_list) == 1:
         df.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv')
     else:
         df_list = pd.concat(df_list)
