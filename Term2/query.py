@@ -202,7 +202,7 @@ def find_id(tags_list,attr_list):
 
 if __name__ == "__main__":
     table_name = 'cpu'
-    tsids = find_id(['0','host_1'], ['usage_system'])
+    tsids = find_id(['1','host_0'], ['usage_system'])
     where_clause = []
     where_clause.append("time > '2023-4-2 08:01:00'")
     where_clause.append("time < '2023-4-2 09:00:00'")
