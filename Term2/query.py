@@ -49,14 +49,20 @@ def get_params_from_sql(sql_query):
 def s3_data(expression, key):
     data = []
     s3 = boto3.client('s3')
-    resp = s3.select_object_content(
-        Bucket='fypts',
-        Key=key,
-        ExpressionType='SQL',
-        Expression=expression,
-        InputSerialization={'CSV': {"FileHeaderInfo": "Use"}, 'CompressionType': 'NONE'},
-        OutputSerialization={'CSV': {}},
-    )
+    try:
+        resp = s3.select_object_content(
+            Bucket='fypts',
+            Key=key,
+            ExpressionType='SQL',
+            Expression=expression,
+            InputSerialization={'CSV': {"FileHeaderInfo": "Use"}, 'CompressionType': 'NONE'},
+            OutputSerialization={'CSV': {}},
+        )
+    except Exception as e:
+        print(f'Exception is {e}')
+        df = pd.DataFrame(data)
+        return df
+
     com_rec = ""
     for event in resp['Payload']:
         if 'Records' in event:
