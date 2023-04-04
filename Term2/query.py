@@ -109,7 +109,7 @@ def s3_select(tsid, where_clause):
     times = []  # record the date used to retrieve data
     retrieve_file = []
 
-    print(beg_t_str, end_t_str)
+    # print(beg_t_str, end_t_str)
 
     # Change the string to datetime type
     beg_t = datetime.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
@@ -223,9 +223,6 @@ def query(query_dict):
     tsid = query_dict['tsid']
     attr = query_dict['attr']
     tsids = find_id(tsid, attr)
-    where_clause = []
-    where_clause.append("time > '2023-4-2 08:01:00'")
-    where_clause.append("time < '2023-4-2 08:04:00'")
     # where_clause.append("time < '2023-4-2 09:00:00'")
     where_clause.append("\"usage_system\" > '8'")
     print(tsids)
