@@ -349,12 +349,12 @@ def parse_query(attr, table, where_input):
             value_list.append(byte_to_int(byte_list[i]))
 
 
-    print(BoolEXPR)
-    print(opno_list)
-    print(col_indx_list)
-    print(vartype_list)
-    print(byte_list)
-    print(value_list)
+    # print(BoolEXPR)
+    # print(opno_list)
+    # print(col_indx_list)
+    # print(vartype_list)
+    # print(byte_list)
+    # print(value_list)
 
     # put all the need things into a dictionary
     res = {'where_clause': [], 'conn': [], 'tsid': [], 'attr': attrs_res}
