@@ -230,10 +230,12 @@ if __name__ == "__main__":
     for tsid in tsids:
         df = s3_select(tsid, where_clause)
         df_list.append(df)
-    if len(df_list) > 2:
-        df_list = pd.concat(df_list)
     print(df_list)
-    df_list.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv')
+    if len(df_list == 1):
+        df.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv')
+    else:
+        df_list = pd.concat(df_list)
+        df_list.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv')
 
 
 
