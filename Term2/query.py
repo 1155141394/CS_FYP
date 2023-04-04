@@ -89,12 +89,12 @@ def s3_select(tsid, where_clause):
             pattern = r"'(.*?)'"
             if '>' in elem:
                 # 找到单引号内的数据
-                beg_t = re.findall(pattern, elem)
+                beg_t = re.findall(pattern, elem)[0]
                 time_tuple = time.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
                 beg_t_str = str(int(time.mktime(time_tuple)))
                 continue
             elif '<' in elem:
-                end_t = re.findall(pattern, elem)
+                end_t = re.findall(pattern, elem)[0]
                 time_tuple = time.strptime(end_t, '%Y-%m-%d %H:%M:%S')
                 end_t_str = str(int(time.mktime(time_tuple)))
         else:
