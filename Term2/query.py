@@ -151,7 +151,7 @@ def s3_select(tsid, where_clause):
         data = s3_data(expression, key)
         df = pd.DataFrame(data)
         print(df)
-        df.to_csv(f'/home/postgresql/CS_FYP/data/result.csv', index=False, header=False)
+        df.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv', index=False, header=False)
     else:
         after_expression = basic_exp + "s.\"time\" > '%s';" % (beg_t_str)
         key = retrieve_file[0]
@@ -215,7 +215,7 @@ if __name__ == "__main__":
     if len(df_list) > 2:
         result = pd.concat(df_list)
         print(result)
-        result.to_csv(f'/home/postgresql/CS_FYP/data/result.csv')
+        result.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv')
 
 
 
