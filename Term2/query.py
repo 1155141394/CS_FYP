@@ -78,7 +78,7 @@ def s3_data(expression, key):
     return data
 
 
-def s3_select(tsid, where_clause,con_clause):
+def s3_select(tsid, where_clause):
     beg_t = '2023-4-2 09:00:00'
     end_t = '2099-4-2 09:00:00'
     # 判断除了time还有没有其他的条件
