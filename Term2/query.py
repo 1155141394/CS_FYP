@@ -216,9 +216,12 @@ def find_id(tags_list,attr_list):
 
     return tsid_list
 
-if __name__ == "__main__":
-    table_name = 'cpu'
-    tsids = find_id([], ['usage_system'])
+
+def query(query_dict):
+    where_clause = query_dict['where_clause']
+    tsid = query_dict['tsid']
+    attr = query_dict['attr']
+    tsids = find_id(tsid, attr)
     where_clause = []
     where_clause.append("time > '2023-4-2 08:01:00'")
     where_clause.append("time < '2023-4-2 08:04:00'")
@@ -238,5 +241,28 @@ if __name__ == "__main__":
         df_list.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv')
 
 
-
+if __name__ == "__main__":
+    # tsids = find_id([], ['usage_system'])
+    # where_clause = []
+    # where_clause.append("time > '2023-4-2 08:01:00'")
+    # where_clause.append("time < '2023-4-2 08:04:00'")
+    # # where_clause.append("time < '2023-4-2 09:00:00'")
+    # where_clause.append("\"usage_system\" > '8'")
+    # print(tsids)
+    # df_list = []
+    #
+    # for tsid in tsids:
+    #     df = s3_select(tsid, where_clause)
+    #     df_list.append(df)
+    # print(df_list)
+    # if len(df_list) == 1:
+    #     df.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv')
+    # else:
+    #     df_list = pd.concat(df_list)
+    #     df_list.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv')
+    attr = 'usage_system'
+    table = 'cpu'
+    input = '{BOOLEXPR :boolop and :args ({OPEXPR :opno 1324 :opfuncid 1157 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 1 :vartype 1184 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 1 :location 24} {CONST :consttype 1184 :consttypmod -1 :constcollid 0 :constlen 8 :constbyval true :constisnull false :location 31 :constvalue 8 [ 0 36 -8 -70 78 -101 2 0 ]}) :location 29} {OPEXPR :opno 1322 :opfuncid 1154 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 1 :vartype 1184 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 1 :location 57} {CONST :consttype 1184 :consttypmod -1 :constcollid 0 :constlen 8 :constbyval true :constisnull false :location 64 :constvalue 8 [ 0 40 99 -81 99 -101 2 0 ]}) :location 62} {OPEXPR :opno 98 :opfuncid 67 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 100 :args ({VAR :varno 1 :varattno 3 :vartype 25 :vartypmod -1 :varcollid 100 :varlevelsup 0 :varnosyn 1 :varattnosyn 3 :location 90} {CONST :consttype 25 :consttypmod -1 :constcollid 100 :constlen -1 :constbyval false :constisnull false :location 99 :constvalue 12 [ 48 0 0 0 104 111 115 116 95 49 51 48 ]}) :location 98} {OPEXPR :opno 96 :opfuncid 65 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 2 :vartype 23 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 2 :location 114} {CONST :consttype 23 :consttypmod -1 :constcollid 0 :constlen 4 :constbyval true :constisnull false :location 124 :constvalue 4 [ -127 0 0 0 0 0 0 0 ]}) :location 122}) :location 53}'
+    query_dict = parse_query(attr,table,input)
+    query(query_dict)
 
