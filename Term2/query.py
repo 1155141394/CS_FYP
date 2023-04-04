@@ -204,8 +204,8 @@ if __name__ == "__main__":
     table_name = 'cpu'
     tsids = find_id(['42','host_41'], ['usage_system'])
     where_clause = []
-    where_clause.append("time > '2023-4-2 00:00:00'")
-    where_clause.append("time < '2023-4-2 01:00:00'")
+    where_clause.append("time > '2023-4-2 08:01:00'")
+    where_clause.append("time < '2023-4-2 09:00:00'")
     print(tsids)
     df_list = []
 
