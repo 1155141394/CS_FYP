@@ -180,7 +180,6 @@ def find_id(tags_list,attr_list):
 
     compress_arr = txt_to_list(META_FOLDER + 'map_matrix.txt')
     content = decompress_array(compress_arr)
-    print(content)
     # 读取query_hash
     index_map = HashTable.read_hash(META_FOLDER + 'query_hash')
     tsid_list = []
@@ -189,6 +188,7 @@ def find_id(tags_list,attr_list):
     for tag in tags_list:
         tag_index = index(index_map,tag)
         tmp_list = find_rows(content,tag_index,-1)
+        print(tsid_list)
         tsid_list = [i for i in tsid_list if i in tmp_list]
 
     if len(attr_list) != 0:
