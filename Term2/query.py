@@ -172,7 +172,7 @@ def s3_select(tsid, where_clause):
                 basic_exp += attr_con
             key = retrieve_file[i]
             ret_data = s3_data(expression, key)
-            if 'NoSuchKey' == ret_data[0]:
+            if 'NoSuchKey' in ret_data:
                 break
             data = data + ret_data
 
