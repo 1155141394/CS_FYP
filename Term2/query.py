@@ -8,7 +8,7 @@ import numpy as np
 from tools import *
 from hash import HashTable
 
-META_FOLDER = '/home/postgres/CS_FYP/meta/'
+META_FOLDER = '/var/lib/postgres/CS_FYP/meta/'
 def find_rows(arr, index1, index2):
     rows = []
     for i, row in enumerate(arr):

@@ -5,7 +5,7 @@ from hash import *
 import subprocess
 import json
 
-META_FOLDER = '/home/postgres/CS_FYP/meta/'
+META_FOLDER = '/var/lib/postgres/CS_FYP/meta/'
 
 def compress_array(arr):
     """将一个二维的数组压缩为一个一维的数组，并返回一个元组，包含压缩后的数组和压缩前后数组的行列数"""
