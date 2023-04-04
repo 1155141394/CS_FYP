@@ -157,7 +157,6 @@ def read_set_from_file(input_file):
 
 
 def write_dict_to_file(dict, output_file):
-
     f = open(output_file, 'w')
     f.write(str(dict))
     f.close()
@@ -236,7 +235,7 @@ def byte_to_time(byte_date):
 
     # 计算 Unix 纪元的日期时间
     epoch = datetime.datetime(2000, 1, 1)
-    timestamp = epoch + datetime.timedelta(hours=8,microseconds=microseconds)
+    timestamp = epoch + datetime.timedelta(hours=8, microseconds=microseconds)
 
     # 将日期时间格式化为字符串
     formatted_timestamp = timestamp.strftime('%Y-%m-%d %H:%M:%S')
@@ -251,6 +250,11 @@ def byte_to_int(byte_data):
 
 
 def parse_where_part(input):
+    cpu_col = {1: 'time', 2: 'tags_id', 3: 'hostname', 4: 'usage_user', 5: 'usage_system', 6: 'usage_idle',
+               7: 'usage_nice',
+               8: 'usage_iowait', 9: 'usage_irq', 10: 'usage_softirq', 11: 'usage_steal', 12: 'usage_guest',
+               13: 'usage_guest_nice', 14: 'additional_tags'}
+
     opno_dict = {'96': '=', '97': '<', '521': '>', '523': '<=', '525': '>=',  # int4
                  '1320': '=', '1322': '<', '1323': '<=', '1324': '>', '1325': '>='  # timestamptz
                  }
@@ -301,6 +305,10 @@ def parse_where_part(input):
     print(byte_list)
     print(value_list)
 
+    wheres = []
+
+
+
 
 def get_table_name(conn):
     res = []
@@ -315,11 +323,6 @@ def get_table_name(conn):
     return res
 
 
-
-
-
-
 if __name__ == '__main__':
     input = "{BOOLEXPR :boolop and :args ({OPEXPR :opno 1322 :opfuncid 1154 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 1 :vartype 1184 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 1 :location 24} {CONST :consttype 1184 :consttypmod -1 :constcollid 0 :constlen 8 :constbyval true :constisnull false :location 31 :constvalue 8 [ 0 85 -108 -80 99 -101 2 0 ]}) :location 29} {OPEXPR :opno 525 :opfuncid 150 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 2 :vartype 23 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 2 :location 55} {CONST :consttype 23 :consttypmod -1 :constcollid 0 :constlen 4 :constbyval true :constisnull false :location 66 :constvalue 4 [ 44 1 0 0 0 0 0 0 ]}) :location 63}) :location 51}"
     parse_where_part(input)
-
