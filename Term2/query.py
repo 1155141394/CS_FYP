@@ -153,6 +153,7 @@ def s3_select(tsid, where_clause):
         basic_exp += ' AND '
     if len(retrieve_file) == 1:
         expression = basic_exp + "s.\"time\" > '%s' AND s.\"time\" < '%s';" % (beg_t_str, end_t_str)
+        print(expression)
         key = retrieve_file[0]
         # print(key)
         # print(expression)
