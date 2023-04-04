@@ -144,7 +144,7 @@ def s3_select(tsid, where_clause):
         for index in indexes:
             retrieve_file.append(file_name + str(index) + '.csv')
 
-    print(retrieve_file)
+    # print(retrieve_file)
 
     # loop to retrieve the data from s3
     basic_exp = "SELECT * FROM s3object s WHERE "  # Base expression
@@ -158,8 +158,8 @@ def s3_select(tsid, where_clause):
         print(expression)
         data = s3_data(expression, key)
         df = pd.DataFrame(data)
-        print(df)
-        df.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv', index=False, header=False)
+        return df
+
     else:
         data = []
         after_expression = basic_exp + "s.\"time\" > '%s';" % (beg_t_str)
@@ -231,9 +231,9 @@ if __name__ == "__main__":
         df = s3_select(tsid, where_clause)
         df_list.append(df)
     if len(df_list) > 2:
-        result = pd.concat(df_list)
-        print(result)
-        result.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv')
+        df_list = pd.concat(df_list)
+    print(df_list)
+    df_list.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv')
 
 
 
