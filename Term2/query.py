@@ -86,15 +86,20 @@ def s3_select(tsid, where_clause):
     for elem in where_clause:
         if 'time' in elem:
             pattern = r"'(.*?)'"
-            # 找到单引号内的数据
-            beg_t = re.findall(pattern, elem)[0]
-            time_tuple = time.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
-            beg_t_str = str(int(time.mktime(time_tuple)))
-            end_t = re.findall(pattern, elem)[0]
-            time_tuple = time.strptime(end_t, '%Y-%m-%d %H:%M:%S')
-            end_t_str = str(int(time.mktime(time_tuple)))
+            if '>' in elem:
+                # 找到单引号内的数据
+                beg_t = re.findall(pattern, elem)[0]
+
+            if '<' in elem:
+                end_t = re.findall(pattern, elem)[0]
+
         else:
             attr_con = elem
+
+    time_tuple = time.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
+    beg_t_str = str(int(time.mktime(time_tuple)))
+    time_tuple = time.strptime(end_t, '%Y-%m-%d %H:%M:%S')
+    end_t_str = str(int(time.mktime(time_tuple)))
 
     times = []  # record the date used to retrieve data
     retrieve_file = []
