@@ -10,7 +10,7 @@ from multiprocessing import Pool
 
 
 def multi_thread_save_s3(table_name, begin_dt, end_dt, csv_folder):
-    p = Pool(25)
+    p = Pool()
     for csv_file in csv_folder:
         p.apply_async(save_data_to_s3, args=(table_name, begin_dt, end_dt, csv_file,))
     p.close()
@@ -151,7 +151,7 @@ if __name__ == "__main__":
     # print(table_names)
     for table_name in table_names:
         # print("Start transfer the data in table %s." % table_name)
-        run_tsbs(table_name, conn, "2023-04-02 00:00:00", "2023-04-02 02:00:00")
+        run_tsbs(table_name, conn, "2023-04-02 08:00:00", "2023-04-02 10:00:00")
     # 提交数据
     conn.commit()
     # 关闭连接

@@ -151,6 +151,7 @@ def read_set_from_file(input_file):
 
 
 def write_dict_to_file(dict, output_file):
+
     f = open(output_file, 'w')
     f.write(str(dict))
     f.close()
