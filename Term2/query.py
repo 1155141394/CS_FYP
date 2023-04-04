@@ -233,7 +233,7 @@ def query(query_dict):
     for tsid in tsids:
         df = s3_select(tsid, where_clause)
         df_list.append(df)
-    end_time = datetime.datetime.now()
+    end_time = time.time()
     cost = end_time - begin_time
     print(df_list)
     print(f'Query cost: {cost} second')
