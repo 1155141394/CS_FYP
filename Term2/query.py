@@ -195,7 +195,7 @@ def find_id(tags_list,attr_list):
             attr_index = index(index_map, attr)
             tmp_list = find_rows(content, attr_index, -1)
             attr_tsid += [i for i in tsid_list if i in tmp_list]
-        return attr_list
+        return attr_tsid
 
     return tsid_list
 
