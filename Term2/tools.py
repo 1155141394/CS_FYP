@@ -289,11 +289,12 @@ def parse_query(attr, table, where_input):
     # operation dictionary (oid: operation)
     opno_dict = {'96': '=', '97': '<', '521': '>', '523': '<=', '525': '>=',  # int4
                  '1320': '=', '1322': '<', '1323': '<=', '1324': '>', '1325': '>=',  # timestamptz
-                 '98': '='  #text
+                 '98': '=',  #text
+                 '674': '>'
                  }
 
     # variable type dictionary
-    var_oid_dict = {'23': 'int4', '1184': 'timestamptz', '25': 'text'}
+    var_oid_dict = {'23': 'int4', '1184': 'timestamptz', '25': 'text', '701': 'float8'}
 
     BoolEXPR = []
     opno_list = []
@@ -344,6 +345,9 @@ def parse_query(attr, table, where_input):
         elif vartype_list[i] == 'text':
             value_list.append(byte_to_str(byte_list[i]))
 
+        elif vartype_list[i] == 'float8':
+            value_list.append(byte_to_int(byte_list[i]))
+
 
     # print(BoolEXPR)
     # print(opno_list)
@@ -392,5 +396,5 @@ def get_table_name(conn):
 # if __name__ == '__main__':
 #     attr = 'time,tags_id,hostname,usage_user,usage_system,usage_idle,usage_nice,usage_iowait,usage_irq,usage_softirq,usage_steal,usage_guest,usage_guest_nice,additional_tags'
 #     table = 'cpu'
-#     input = "{BOOLEXPR :boolop and :args ({OPEXPR :opno 1324 :opfuncid 1157 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 1 :vartype 1184 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 1 :location 24} {CONST :consttype 1184 :consttypmod -1 :constcollid 0 :constlen 8 :constbyval true :constisnull false :location 31 :constvalue 8 [ 0 36 -8 -70 78 -101 2 0 ]}) :location 29} {OPEXPR :opno 1322 :opfuncid 1154 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 1 :vartype 1184 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 1 :location 57} {CONST :consttype 1184 :consttypmod -1 :constcollid 0 :constlen 8 :constbyval true :constisnull false :location 64 :constvalue 8 [ 0 40 99 -81 99 -101 2 0 ]}) :location 62} {OPEXPR :opno 98 :opfuncid 67 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 100 :args ({VAR :varno 1 :varattno 3 :vartype 25 :vartypmod -1 :varcollid 100 :varlevelsup 0 :varnosyn 1 :varattnosyn 3 :location 90} {CONST :consttype 25 :consttypmod -1 :constcollid 100 :constlen -1 :constbyval false :constisnull false :location 99 :constvalue 12 [ 48 0 0 0 104 111 115 116 95 49 51 48 ]}) :location 98} {OPEXPR :opno 96 :opfuncid 65 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 2 :vartype 23 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 2 :location 114} {CONST :consttype 23 :consttypmod -1 :constcollid 0 :constlen 4 :constbyval true :constisnull false :location 124 :constvalue 4 [ -127 0 0 0 0 0 0 0 ]}) :location 122}) :location 53}"
+#     input = "{BOOLEXPR :boolop and :args ({OPEXPR :opno 1324 :opfuncid 1157 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 1 :vartype 1184 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 1 :location 24} {CONST :consttype 1184 :consttypmod -1 :constcollid 0 :constlen 8 :constbyval true :constisnull false :location 31 :constvalue 8 [ 0 36 -8 -70 78 -101 2 0 ]}) :location 29} {OPEXPR :opno 1322 :opfuncid 1154 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 1 :vartype 1184 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 1 :location 57} {CONST :consttype 1184 :consttypmod -1 :constcollid 0 :constlen 8 :constbyval true :constisnull false :location 64 :constvalue 8 [ 0 40 99 -81 99 -101 2 0 ]}) :location 62} {OPEXPR :opno 98 :opfuncid 67 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 100 :args ({VAR :varno 1 :varattno 3 :vartype 25 :vartypmod -1 :varcollid 100 :varlevelsup 0 :varnosyn 1 :varattnosyn 3 :location 90} {CONST :consttype 25 :consttypmod -1 :constcollid 100 :constlen -1 :constbyval false :constisnull false :location 99 :constvalue 12 [ 48 0 0 0 104 111 115 116 95 49 51 48 ]}) :location 98} {OPEXPR :opno 96 :opfuncid 65 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 2 :vartype 23 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 2 :location 114} {CONST :consttype 23 :consttypmod -1 :constcollid 0 :constlen 4 :constbyval true :constisnull false :location 124 :constvalue 4 [ -127 0 0 0 0 0 0 0 ]}) :location 122} {OPEXPR :opno 674 :opfuncid 297 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 5 :vartype 701 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 5 :location 132} {FUNCEXPR :funcid 316 :funcresulttype 701 :funcretset false :funcvariadic false :funcformat 2 :funccollid 0 :inputcollid 0 :args ({CONST :consttype 23 :consttypmod -1 :constcollid 0 :constlen 4 :constbyval true :constisnull false :location 147 :constvalue 4 [ 9 0 0 0 0 0 0 0 ]}) :location -1}) :location 145}) :location 53}"
 #     parse_query(attr, table, input)
