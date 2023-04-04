@@ -59,7 +59,7 @@ def s3_data(expression, key):
             OutputSerialization={'CSV': {}},
         )
     except Exception as e:
-        print(f'Exception is {e}')
+        # print(f'Exception is {e}')
         return None
 
     com_rec = ""
@@ -154,8 +154,8 @@ def s3_select(tsid, where_clause):
     if len(retrieve_file) == 1:
         expression = basic_exp + "s.\"time\" > '%s' AND s.\"time\" < '%s';" % (beg_t_str, end_t_str)
         key = retrieve_file[0]
-        print(key)
-        print(expression)
+        # print(key)
+        # print(expression)
         data = s3_data(expression, key)
         df = pd.DataFrame(data)
         return df
