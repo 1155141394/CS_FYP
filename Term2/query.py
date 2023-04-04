@@ -140,7 +140,7 @@ def s3_select(tsid, where_clause):
     print(retrieve_file)
 
     # loop to retrieve the data from s3
-    basic_exp = "SELECT * FROM s3object s where "  # Base expression
+    basic_exp = "SELECT * FROM s3object s WHERE "  # Base expression
     if attr_con != '':
         basic_exp += attr_con
         basic_exp += ' AND '
@@ -207,7 +207,7 @@ if __name__ == "__main__":
     where_clause = []
     where_clause.append("time > '2023-4-2 08:01:00'")
     where_clause.append("time < '2023-4-2 09:00:00'")
-    where_clause.append("s.\"usage_system\" > 8")
+    where_clause.append("s.\"usage_system\" > '8'")
     print(tsids)
     df_list = []
 
