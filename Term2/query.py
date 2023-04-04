@@ -229,7 +229,7 @@ def query(query_dict):
     where_clause.append("\"usage_system\" > '8'")
     print(tsids)
     df_list = []
-
+    df = pd.DataFrame([])
     for tsid in tsids:
         df = s3_select(tsid, where_clause)
         df_list.append(df)
