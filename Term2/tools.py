@@ -376,10 +376,10 @@ def parse_query(attr, table, where_input):
                 res['conn'].append(BoolEXPR[0])
 
 
-    print(res['where_clause'])
-    print(res['conn'])
-    print(res['tsid'])
-    print(res['attr'])
+    # print(res['where_clause'])
+    # print(res['conn'])
+    # print(res['tsid'])
+    # print(res['attr'])
     return res
 
 
