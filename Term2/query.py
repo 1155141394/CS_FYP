@@ -50,7 +50,7 @@ def s3_data(expression, key):
     data = []
     s3 = boto3.client('s3')
     resp = s3.select_object_content(
-        Bucket='csfyp2023',
+        Bucket='fypts',
         Key=key,
         ExpressionType='SQL',
         Expression=expression,
