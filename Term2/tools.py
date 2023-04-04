@@ -229,7 +229,6 @@ def byte_to_time(byte_date):
         if i < 0:
             i += 256
         byte_data_new.append(i)
-    print(byte_data_new)
     binary_data = bytes(byte_data_new)
     microseconds = struct.unpack('q', binary_data)[0]
 
@@ -248,66 +247,122 @@ def byte_to_int(byte_data):
     value = struct.unpack("<q", byte_stream)[0]
     return value
 
+def byte_to_str(byte_data):
+    result = ''.join(chr(int(num)) for num in byte_data if int(num) > 0)
 
-def parse_where_part(input):
+    return result[1:]
+
+
+
+def parse_query(attr, table, where_input):
+
+    # parse attribute:
+    attrs = attr.split(',')
+    attrs_res = []
+    for i in attrs:
+        if i == 'tags_id' or i == 'hostname':
+            continue
+        else:
+            attrs_res.append(i)
+
+    # parse tabel
+
     cpu_col = {1: 'time', 2: 'tags_id', 3: 'hostname', 4: 'usage_user', 5: 'usage_system', 6: 'usage_idle',
                7: 'usage_nice',
                8: 'usage_iowait', 9: 'usage_irq', 10: 'usage_softirq', 11: 'usage_steal', 12: 'usage_guest',
                13: 'usage_guest_nice', 14: 'additional_tags'}
 
-    opno_dict = {'96': '=', '97': '<', '521': '>', '523': '<=', '525': '>=',  # int4
-                 '1320': '=', '1322': '<', '1323': '<=', '1324': '>', '1325': '>='  # timestamptz
-                 }
-    var_oid_dict = {'23': 'int4', '1184': 'timestamptz'}
 
-    BoolEXPR = -1
+    # parse where part
+
+    # operation dictionary (oid: operation)
+    opno_dict = {'96': '=', '97': '<', '521': '>', '523': '<=', '525': '>=',  # int4
+                 '1320': '=', '1322': '<', '1323': '<=', '1324': '>', '1325': '>=',  # timestamptz
+                 '98': '='  #text
+                 }
+
+    # variable type dictionary
+    var_oid_dict = {'23': 'int4', '1184': 'timestamptz', '25': 'text'}
+
+    BoolEXPR = []
     opno_list = []
     col_indx_list = []
     vartype_list = []
     byte_list = []
     value_list = []
-    split_res = input.split(' ')
+
+    split_res = where_input.split(' ')
+    # print(split_res)
     for indx, word in enumerate(split_res):
 
+        # get and / or
         if "BOOLEXPR" in word:
-            BoolEXPR = split_res[indx + 2]
+            BoolEXPR.append(split_res[indx + 2])
 
+        # get operations in the where part
         if "opno" in word:
             opexpr = split_res[indx + 1]
             opno_list.append(opno_dict[opexpr])
 
+        # get attribution in which column
         if "varattnosyn" in word:
             col = split_res[indx + 1]
             col_indx_list.append(int(col))
 
+        # get variable type
         if "vartype" in word:
             vartype = split_res[indx + 1]
             vartype_list.append(var_oid_dict[vartype])
 
+        # get value
         if "constvalue" in word:
-            data = split_res[indx + 3: indx + 11]
+            length = int(split_res[indx+1]) if int(split_res[indx+1]) > 8 else 8
+            data = split_res[indx + 3: indx + 3 + length]
+            print(data)
             byte_list.append([int(i) for i in data])
 
     where_len = len(opno_list)
 
     for i in range(where_len):
-
         if vartype_list[i] == "timestamptz":
             value_list.append(byte_to_time(byte_list[i]))
 
         elif vartype_list[i] == "int4":
             value_list.append(byte_to_int(byte_list[i]))
 
-    print(BoolEXPR)
-    print(opno_list)
-    print(col_indx_list)
-    print(vartype_list)
-    print(byte_list)
-    print(value_list)
-
-    wheres = []
+        elif vartype_list[i] == 'text':
+            value_list.append(byte_to_str(byte_list[i]))
 
 
+    # print(BoolEXPR)
+    # print(opno_list)
+    # print(col_indx_list)
+    # print(vartype_list)
+    # print(byte_list)
+    # print(value_list)
+
+    # put all the need things into a dictionary
+    res = {'where_clause': [], 'conn': [], 'tsid': [], 'attr': attrs_res}
+    flag = 0
+    for i in range(where_len):
+        if cpu_col[col_indx_list[i]] == 'tags_id' or cpu_col[col_indx_list[i]] == 'hostname':
+            res['tsid'].append(str(value_list[i]))
+            flag = 1
+            # res['conn'].pop()
+        else:
+            tmp = cpu_col[col_indx_list[i]] + ' ' + opno_list[i] + " '" + str(value_list[i]) + "'"
+            res['where_clause'].append(tmp)
+            if flag == 1:
+                flag = 0
+            elif i < where_len - 1:
+                res['conn'].append(BoolEXPR[0])
+
+
+    # print(res['where_clause'])
+    # print(res['conn'])
+    # print(res['tsid'])
+    # print(res['attr'])
+    return res
 
 
 def get_table_name(conn):
@@ -324,5 +379,7 @@ def get_table_name(conn):
 
 
 if __name__ == '__main__':
-    input = "{BOOLEXPR :boolop and :args ({OPEXPR :opno 1322 :opfuncid 1154 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 1 :vartype 1184 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 1 :location 24} {CONST :consttype 1184 :consttypmod -1 :constcollid 0 :constlen 8 :constbyval true :constisnull false :location 31 :constvalue 8 [ 0 85 -108 -80 99 -101 2 0 ]}) :location 29} {OPEXPR :opno 525 :opfuncid 150 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 2 :vartype 23 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 2 :location 55} {CONST :consttype 23 :consttypmod -1 :constcollid 0 :constlen 4 :constbyval true :constisnull false :location 66 :constvalue 4 [ 44 1 0 0 0 0 0 0 ]}) :location 63}) :location 51}"
-    parse_where_part(input)
+    attr = 'time,tags_id,hostname,usage_user,usage_system,usage_idle,usage_nice,usage_iowait,usage_irq,usage_softirq,usage_steal,usage_guest,usage_guest_nice,additional_tags'
+    table = 'cpu'
+    input = "{BOOLEXPR :boolop and :args ({OPEXPR :opno 1324 :opfuncid 1157 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 1 :vartype 1184 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 1 :location 24} {CONST :consttype 1184 :consttypmod -1 :constcollid 0 :constlen 8 :constbyval true :constisnull false :location 31 :constvalue 8 [ 0 36 -8 -70 78 -101 2 0 ]}) :location 29} {OPEXPR :opno 96 :opfuncid 65 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 2 :vartype 23 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 2 :location 57} {CONST :consttype 23 :consttypmod -1 :constcollid 0 :constlen 4 :constbyval true :constisnull false :location 67 :constvalue 4 [ 50 0 0 0 0 0 0 0 ]}) :location 65} {OPEXPR :opno 1322 :opfuncid 1154 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 1 :vartype 1184 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 1 :location 74} {CONST :consttype 1184 :consttypmod -1 :constcollid 0 :constlen 8 :constbyval true :constisnull false :location 81 :constvalue 8 [ 0 40 99 -81 99 -101 2 0 ]}) :location 79} {OPEXPR :opno 98 :opfuncid 67 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 100 :args ({VAR :varno 1 :varattno 3 :vartype 25 :vartypmod -1 :varcollid 100 :varlevelsup 0 :varnosyn 1 :varattnosyn 3 :location 107} {CONST :consttype 25 :consttypmod -1 :constcollid 100 :constlen -1 :constbyval false :constisnull false :location 116 :constvalue 12 [ 48 0 0 0 104 111 115 116 95 49 51 48 ]}) :location 115}) :location 53}"
+    parse_query(attr, table, input)
