@@ -349,12 +349,12 @@ def parse_query(attr, table, where_input):
             value_list.append(byte_to_int(byte_list[i]))
 
 
-    # print(BoolEXPR)
-    # print(opno_list)
-    # print(col_indx_list)
-    # print(vartype_list)
-    # print(byte_list)
-    # print(value_list)
+    print(BoolEXPR)
+    print(opno_list)
+    print(col_indx_list)
+    print(vartype_list)
+    print(byte_list)
+    print(value_list)
 
     # put all the need things into a dictionary
     res = {'where_clause': [], 'conn': [], 'tsid': [], 'attr': attrs_res}
@@ -365,7 +365,10 @@ def parse_query(attr, table, where_input):
             flag = 1
             # res['conn'].pop()
         else:
-            tmp = cpu_col[col_indx_list[i]] + ' ' + opno_list[i] + " '" + str(value_list[i]) + "'"
+            if vartype_list[i] == "float8":
+                tmp = "CAST("+ cpu_col[col_indx_list[i]] + ' AS FLOAT) ' + opno_list[i] + " " + str(value_list[i])
+            else:
+                tmp = cpu_col[col_indx_list[i]] + ' ' + opno_list[i] + " '" + str(value_list[i]) + "'"
             res['where_clause'].append(tmp)
             if flag == 1:
                 flag = 0
