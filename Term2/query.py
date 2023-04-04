@@ -60,8 +60,7 @@ def s3_data(expression, key):
         )
     except Exception as e:
         print(f'Exception is {e}')
-        df = pd.DataFrame(data)
-        return df
+        return data
 
     com_rec = ""
     for event in resp['Payload']:
