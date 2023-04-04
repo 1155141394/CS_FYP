@@ -221,7 +221,7 @@ if __name__ == "__main__":
     tsids = find_id(['1','host_0'], ['usage_system'])
     where_clause = []
     where_clause.append("time > '2023-4-2 08:01:00'")
-    where_clause.append("OR")
+    where_clause.append("time < '2023-4-2 08:04:00'")
     # where_clause.append("time < '2023-4-2 09:00:00'")
     where_clause.append("\"usage_system\" > '8'")
     print(tsids)
