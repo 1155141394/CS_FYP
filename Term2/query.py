@@ -215,7 +215,7 @@ if __name__ == "__main__":
     if len(df_list) > 2:
         result = pd.concat(df_list)
         print(result)
-        result.to_csv(f'/home/postgresql/CS_FYP/data/{table_name}/result.csv')
+        result.to_csv(f'/home/postgresql/CS_FYP/data/result.csv')
 
 
 
