@@ -188,7 +188,6 @@ def find_id(tags_list,attr_list):
     for tag in tags_list:
         tag_index = index(index_map,tag)
         tmp_list = find_rows(content,tag_index,-1)
-        print(tsid_list)
         tsid_list = [i for i in tsid_list if i in tmp_list]
 
     if len(attr_list) != 0:
@@ -203,7 +202,7 @@ def find_id(tags_list,attr_list):
 
 if __name__ == "__main__":
     table_name = 'cpu'
-    tsids = find_id(['42','host_41'], ['usage_system'])
+    tsids = find_id(['0','host_1'], ['usage_system'])
     where_clause = []
     where_clause.append("time > '2023-4-2 08:01:00'")
     where_clause.append("time < '2023-4-2 09:00:00'")
