@@ -100,7 +100,7 @@ def s3_select(tsid, where_clause):
 
         else:
             attr_con = elem
-
+    print(beg_t,end_t)
     time_tuple = time.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
     beg_t_str = str(int(time.mktime(time_tuple)))
     time_tuple = time.strptime(end_t, '%Y-%m-%d %H:%M:%S')
