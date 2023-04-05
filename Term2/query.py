@@ -9,6 +9,8 @@ from tools import *
 from hash import HashTable
 
 META_FOLDER = '/var/lib/postgresql/CS_FYP/meta/'
+
+# 找到index1和index2列都为1的行
 def find_rows(arr, index1, index2):
     rows = []
     for i, row in enumerate(arr):
@@ -59,7 +61,6 @@ def s3_data(expression, key):
             OutputSerialization={'CSV': {}},
         )
     except Exception as e:
-        # print(f'Exception is {e}')
         return None
 
     com_rec = ""
@@ -75,8 +76,8 @@ def s3_data(expression, key):
             # print(statsDetails['BytesScanned'])
             # print("Stats details bytesProcessed: ")
             # print(statsDetails['BytesProcessed'])
-            # print("Stats details bytesReturned: ")
-            # print(statsDetails['BytesReturned'])
+            print("Stats details bytesReturned: ")
+            print(statsDetails['BytesReturned'])
     for line in (com_rec.splitlines()):
         # print(line)
         data.append(line.split(","))
@@ -190,17 +191,19 @@ def s3_select(tsid, where_clause):
 
 
 def find_id(tags_list,attr_list):
+    tsid_list = []
     if not os.path.exists(META_FOLDER + 'map_matrix.txt'):
         # 到s3寻找map
         state = os.system(f"aws s3 cp s3://map_matrix.txt " + META_FOLDER + 'map_matrix.txt' + '--profile csfyp')
         if state != 0:
             print(f"There is no map in s3.")
+            return tsid_list
+
 
     compress_arr = txt_to_list(META_FOLDER + 'map_matrix.txt')
     content = decompress_array(compress_arr)
     # 读取query_hash
     index_map = HashTable.read_hash(META_FOLDER + 'query_hash')
-    tsid_list = []
     for i in range(len(content)):
         tsid_list.append(i)
     for tag in tags_list:
