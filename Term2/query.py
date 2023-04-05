@@ -190,10 +190,11 @@ def s3_select(tsid, where_clause):
 
 
 def find_id(tags_list,attr_list):
-    # 到s3寻找map
-    state = os.system(f"aws s3 cp s3://map_matrix.txt " + META_FOLDER + 'map_matrix.txt' + '--profile csfyp')
-    if state != 0:
-        print(f"There is no map in s3.")
+    if not os.path.exists(META_FOLDER + 'map_matrix.txt'):
+        # 到s3寻找map
+        state = os.system(f"aws s3 cp s3://map_matrix.txt " + META_FOLDER + 'map_matrix.txt' + '--profile csfyp')
+        if state != 0:
+            print(f"There is no map in s3.")
 
     compress_arr = txt_to_list(META_FOLDER + 'map_matrix.txt')
     content = decompress_array(compress_arr)
@@ -224,10 +225,12 @@ def query(query_dict):
     where_clause = query_dict['where_clause']
     tsid = query_dict['tsid']
     attr = query_dict['attr']
+
     findid_b = time.time()
     tsids = find_id(tsid, attr)
     findid_e = time.time()
     print(tsids)
+
     df_list = []
     df = pd.DataFrame([])
     for tsid in tsids:
