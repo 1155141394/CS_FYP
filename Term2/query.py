@@ -26,28 +26,6 @@ def find_rows(arr, index1, index2):
     return rows
 
 
-def get_params_from_sql(sql_query):
-    import re
-    # 用于提取表名的正则表达式
-    table_regex = r'from\s+`?(\w+)`?'
-    # 用于提取其他参数的正则表达式
-    params_regex = r'(select|from|where|order by|limit|group by)\s+`?(\w+)`?(.*?)(?=(select|from|where|order by|limit|group by|$))'
-
-    result = {}
-
-    # 提取表名
-    table_name = re.search(table_regex, sql_query)
-    if table_name:
-        result['table_name'] = table_name.group(1)
-
-    # 提取其他参数
-    params = re.findall(params_regex, sql_query, re.IGNORECASE)
-    for param in params:
-        result[param[0]] = (param[1], param[2])
-
-    return result
-
-
 def s3_data(expression, key):
     data = []
     s3 = boto3.client('s3')
