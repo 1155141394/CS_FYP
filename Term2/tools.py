@@ -301,7 +301,7 @@ def parse_query(attr, table, where_input):
     attrs_res = []
     if len(attrs) > 1:
         for i in attrs:
-            if i == 'tags_id' or i == 'hostname':
+            if i == 'tags_id' or i == 'hostname' or i == '':
                 continue
             else:
                 attrs_res.append(i)
