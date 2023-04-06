@@ -292,13 +292,25 @@ def byte_to_str(byte_data):
 def parse_query(attr, table, where_input):
 
     # parse attribute:
+    attr_type = ''
     attrs = attr.split(',')
     attrs_res = []
-    for i in attrs:
-        if i == 'tags_id' or i == 'hostname':
-            continue
-        else:
-            attrs_res.append(i)
+    if len(attrs) > 1:
+        for i in attrs:
+            if i == 'tags_id' or i == 'hostname':
+                continue
+            else:
+                attrs_res.append(i)
+    else:
+        attr = attrs[0]
+        if "max" in attr:
+            attr_type = 'max'
+        elif "avg" in attr:
+            attr_type = 'avg'
+        elif "min" in attr:
+            attr_type = 'min'
+        attrs_res.append(attr)
+
 
     # parse tabel
 
@@ -381,7 +393,7 @@ def parse_query(attr, table, where_input):
     # print(value_list)
 
     # put all the need things into a dictionary
-    res = {'where_clause': [], 'conn': [], 'tsid': [], 'attr': attrs_res}
+    res = {'where_clause': [], 'conn': [], 'tsid': [], 'attr': attrs_res, 'attr_type': attr_type}
     flag = 0
     for i in range(where_len):
         if cpu_col[col_indx_list[i]] == 'tags_id' or cpu_col[col_indx_list[i]] == 'hostname':
