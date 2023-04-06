@@ -16,6 +16,7 @@ def group_by_mins(data):
     group_max = []
     group_min = []
     group_avg = []
+    group_time = []
     flag = int(data[0][0]) - 300
     for i in range(len(data)):
         print(data[i][0])
@@ -25,6 +26,7 @@ def group_by_mins(data):
             group_max.append(max(group_data))
             group_min.append(min(group_data))
             group_avg.append(sum(group_data)/len(group_data))
+            group_time.append(data[i][0])
             flag -= 300
             group_data = []
             group_data.append(float(data[i][1]))
@@ -32,6 +34,8 @@ def group_by_mins(data):
         group_max.append(max(group_data))
         group_min.append(min(group_data))
         group_avg.append(sum(group_data) / len(group_data))
+        group_time.append(data[i][0])
+    print(group_time)
     return group_min,group_max,group_avg
 
 
