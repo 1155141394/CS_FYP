@@ -313,9 +313,9 @@ def parse_query(attr, table, where_input):
     attr_type = ''
     attrs = attr.split(',')
     attrs_res = []
-    if len(attrs) > 1:
+    if len(attrs) > 1 and attrs[1] != '':
         for i in attrs:
-            if i == 'tags_id' or i == 'hostname' or i == '':
+            if i == 'tags_id' or i == 'hostname':
                 continue
             else:
                 attrs_res.append(i)
