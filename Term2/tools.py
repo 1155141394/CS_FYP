@@ -259,7 +259,7 @@ def byte_to_time(byte_data):
 
     # 计算 Unix 纪元的日期时间
     epoch = datetime(2000, 1, 1)
-    timestamp = epoch + timedelta(hours=8, microseconds=microseconds)
+    timestamp = epoch + timedelta(hours=0, microseconds=microseconds)
 
     # 将日期时间格式化为字符串
     formatted_timestamp = timestamp.strftime('%Y-%m-%d %H:%M:%S')
