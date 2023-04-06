@@ -11,6 +11,27 @@ import struct
 
 META_FOLDER = '/var/lib/postgresql/CS_FYP/meta/'
 
+def group_by_mins(data):
+    timestamps = []
+    for line in data:
+        timestamps.append(line[0])
+    group_data = []
+    group_max = []
+    group_min = []
+    group_avg = []
+    flag = timestamps[0] + 300
+    for i in range(len(data)):
+        if data[i][0] < flag:
+            group_data.append(float(data[i][1]))
+        else:
+            group_max.append(max(group_data))
+            group_min.append(min(group_data))
+            group_avg.append(sum(group_data)/len(group_data))
+            flag += 300
+            group_data = []
+    print(group_min,group_max,group_avg)
+
+
 
 def compress_array(arr):
     """将一个二维的数组压缩为一个一维的数组，并返回一个元组，包含压缩后的数组和压缩前后数组的行列数"""

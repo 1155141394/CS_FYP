@@ -58,9 +58,9 @@ def s3_data(expression, key):
             print(statsDetails['BytesReturned'])
     for line in (com_rec.splitlines()):
         data_line = line.split(",")
-        print(data_line)
         data.append(data_line)
     # print(data)
+    group_by_mins(data)
     return data
 
 
