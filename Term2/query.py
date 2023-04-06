@@ -59,8 +59,9 @@ def s3_data(expression, key):
     for line in (com_rec.splitlines()):
         data_line = line.split(",")
         data.append(data_line)
-    # print(data)
-    group_by_mins(data)
+    print(data)
+    min_group, max_group, avg_group = group_by_mins(data)
+    print(min_group,max_group,avg_group)
     return data
 
 

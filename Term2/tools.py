@@ -32,7 +32,7 @@ def group_by_mins(data):
         group_max.append(max(group_data))
         group_min.append(min(group_data))
         group_avg.append(sum(group_data) / len(group_data))
-    print(group_min,group_max,group_avg)
+    return group_min,group_max,group_avg
 
 
 
