@@ -142,7 +142,7 @@ def s3_select(tsid, where_clause, attr_type):
         expression = basic_exp + "s.\"time\" > '%s' AND s.\"time\" < '%s';" % (beg_t_str, end_t_str)
         print(expression)
         key = retrieve_file[0]
-        data = s3_data(expression, key)
+        data = s3_data(expression, key, attr_type)
         df = pd.DataFrame(data)
         return df
 
@@ -150,7 +150,7 @@ def s3_select(tsid, where_clause, attr_type):
         data = []
         after_expression = basic_exp + "s.\"time\" > '%s';" % (beg_t_str)
         key = retrieve_file[0]
-        ret_data = s3_data(after_expression, key)
+        ret_data = s3_data(after_expression, key, attr_type)
         if ret_data is not None:
             data += ret_data
 
@@ -160,14 +160,14 @@ def s3_select(tsid, where_clause, attr_type):
                 basic_exp += ' WHERE '
                 basic_exp += attr_con
             key = retrieve_file[i]
-            ret_data = s3_data(expression, key)
+            ret_data = s3_data(expression, key, attr_type)
             if ret_data is None:
                 break
             data += ret_data
 
         before_expression = basic_exp + "s.\"time\" < '%s';" % (end_t_str)
         key = retrieve_file[len(retrieve_file) - 1]
-        ret_data = s3_data(before_expression, key)
+        ret_data = s3_data(before_expression, key, attr_type)
         if ret_data is not None:
             data += ret_data
         df = pd.DataFrame(data)
