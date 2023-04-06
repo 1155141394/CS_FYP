@@ -59,7 +59,7 @@ def s3_data(expression, key):
     for line in (com_rec.splitlines()):
         data_line = line.split(",")
         data.append(data_line)
-    print(data)
+    # print(data)
     group_by_mins(data)
     return data
 
