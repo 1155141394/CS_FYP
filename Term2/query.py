@@ -26,7 +26,7 @@ def find_rows(arr, index1, index2):
     return rows
 
 
-def s3_data(expression, key):
+def s3_data(expression, key, attr_type):
     data = []
     s3 = boto3.client('s3')
     try:
@@ -59,13 +59,21 @@ def s3_data(expression, key):
     for line in (com_rec.splitlines()):
         data_line = line.split(",")
         data.append(data_line)
+    # 需要进行分组处理一段时间的数据
+    if attr_type != '':
+        time_group, min_group, max_group, avg_group = group_by_mins(data)
+        data = []
+        if attr_type == 'max':
+            data = list_combine(time_group,max_group)
+        elif attr_type == 'min':
+            data = list_combine(time_group,min_group)
+        elif attr_type == 'avg':
+            data = list_combine(time_group,avg_group)
     print(data)
-    min_group, max_group, avg_group = group_by_mins(data)
-    print(min_group,max_group,avg_group)
     return data
 
 
-def s3_select(tsid, where_clause):
+def s3_select(tsid, where_clause, attr_type):
     beg_t = '2023-4-2 09:00:00'
     end_t = '2024-4-2 09:00:00'
     # 判断除了time还有没有其他的条件
@@ -206,6 +214,7 @@ def query(attr,table,input):
     where_clause = query_dict['where_clause']
     tsid = query_dict['tsid']
     attr = query_dict['attr']
+    attr_type = query_dict['attr_type']
 
     findid_b = time.time()
     tsids = find_id(tsid, attr)
@@ -215,7 +224,7 @@ def query(attr,table,input):
     df_list = []
     df = pd.DataFrame([])
     for tsid in tsids:
-        df = s3_select(tsid, where_clause)
+        df = s3_select(tsid, where_clause, attr_type)
         df_list.append(df)
     end_time = time.time()
     total_cost = end_time - begin_time
