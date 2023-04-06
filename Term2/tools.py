@@ -327,7 +327,7 @@ def parse_query(attr, table, where_input):
             attr_type = 'avg'
         elif "min" in attr:
             attr_type = 'min'
-        attrs_res.append(attr[5:])
+        attrs_res.append(attr[4:])
 
 
     # parse tabel
