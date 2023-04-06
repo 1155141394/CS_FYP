@@ -18,7 +18,7 @@ def group_by_mins(data):
     group_avg = []
     flag = int(data[0][0]) - 300
     for i in range(len(data)):
-        if int(data[i][0]) < flag:
+        if int(data[i][0]) > flag:
             group_data.append(float(data[i][1]))
         else:
             group_max.append(max(group_data))
