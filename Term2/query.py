@@ -26,7 +26,7 @@ def find_rows(arr, index1, index2):
     return rows
 
 
-def s3_data(expression, key):
+def s3_data(expression, key, attr_type):
     data = []
     s3 = boto3.client('s3')
     try:
@@ -59,13 +59,21 @@ def s3_data(expression, key):
     for line in (com_rec.splitlines()):
         data_line = line.split(",")
         data.append(data_line)
+    # 需要进行分组处理一段时间的数据
+    if attr_type != '':
+        time_group, min_group, max_group, avg_group = group_by_mins(data)
+        data = []
+        if attr_type == 'max':
+            data = list_combine(time_group,max_group)
+        elif attr_type == 'min':
+            data = list_combine(time_group,min_group)
+        elif attr_type == 'avg':
+            data = list_combine(time_group,avg_group)
     print(data)
-    min_group, max_group, avg_group = group_by_mins(data)
-    print(min_group,max_group,avg_group)
     return data
 
 
-def s3_select(tsid, where_clause):
+def s3_select(tsid, where_clause, attr_type):
     beg_t = '2023-4-2 09:00:00'
     end_t = '2024-4-2 09:00:00'
     # 判断除了time还有没有其他的条件
@@ -134,7 +142,7 @@ def s3_select(tsid, where_clause):
         expression = basic_exp + "s.\"time\" > '%s' AND s.\"time\" < '%s';" % (beg_t_str, end_t_str)
         print(expression)
         key = retrieve_file[0]
-        data = s3_data(expression, key)
+        data = s3_data(expression, key, attr_type)
         df = pd.DataFrame(data)
         return df
 
@@ -142,7 +150,7 @@ def s3_select(tsid, where_clause):
         data = []
         after_expression = basic_exp + "s.\"time\" > '%s';" % (beg_t_str)
         key = retrieve_file[0]
-        ret_data = s3_data(after_expression, key)
+        ret_data = s3_data(after_expression, key, attr_type)
         if ret_data is not None:
             data += ret_data
 
@@ -152,14 +160,14 @@ def s3_select(tsid, where_clause):
                 basic_exp += ' WHERE '
                 basic_exp += attr_con
             key = retrieve_file[i]
-            ret_data = s3_data(expression, key)
+            ret_data = s3_data(expression, key, attr_type)
             if ret_data is None:
                 break
             data += ret_data
 
         before_expression = basic_exp + "s.\"time\" < '%s';" % (end_t_str)
         key = retrieve_file[len(retrieve_file) - 1]
-        ret_data = s3_data(before_expression, key)
+        ret_data = s3_data(before_expression, key, attr_type)
         if ret_data is not None:
             data += ret_data
         df = pd.DataFrame(data)
@@ -206,6 +214,7 @@ def query(attr,table,input):
     where_clause = query_dict['where_clause']
     tsid = query_dict['tsid']
     attr = query_dict['attr']
+    attr_type = query_dict['attr_type']
 
     findid_b = time.time()
     tsids = find_id(tsid, attr)
@@ -215,7 +224,7 @@ def query(attr,table,input):
     df_list = []
     df = pd.DataFrame([])
     for tsid in tsids:
-        df = s3_select(tsid, where_clause)
+        df = s3_select(tsid, where_clause, attr_type)
         df_list.append(df)
     end_time = time.time()
     total_cost = end_time - begin_time
@@ -232,7 +241,7 @@ def query(attr,table,input):
 
 
 if __name__ == "__main__":
-    attr = 'usage_system'
+    attr = 'max_usage_system'
     table = 'cpu'
     input = 'BOOLEXPR :boolop and :args ({OPEXPR :opno 96 :opfuncid 65 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 2 :vartype 23 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 2 :location 35} {CONST :consttype 23 :consttypmod -1 :constcollid 0 :constlen 4 :constbyval true :constisnull false :location 45 :constvalue 4 [ 1 0 0 0 0 0 0 0 ]}) :location 43} {OPEXPR :opno 98 :opfuncid 67 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 100 :args ({VAR :varno 1 :varattno 3 :vartype 25 :vartypmod -1 :varcollid 100 :varlevelsup 0 :varnosyn 1 :varattnosyn 3 :location 51} {CONST :consttype 25 :consttypmod -1 :constcollid 100 :constlen -1 :constbyval false :constisnull false :location 62 :constvalue 10 [ 40 0 0 0 104 111 115 116 95 48 ]}) :location 60} {OPEXPR :opno 1324 :opfuncid 1157 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 1 :vartype 1184 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 1 :location 75} {CONST :consttype 1184 :consttypmod -1 :constcollid 0 :constlen 8 :constbyval true :constisnull false :location 82 :constvalue 8 [ -18 -76 36 78 85 -101 2 0 ]}) :location 80} {OPEXPR :opno 1322 :opfuncid 1154 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 1 :vartype 1184 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 1 :location 120} {CONST :consttype 1184 :consttypmod -1 :constcollid 0 :constlen 8 :constbyval true :constisnull false :location 127 :constvalue 8 [ -18 88 -72 36 86 -101 2 0 ]}) :location 125}) :location 47'
     query(attr,table,input)

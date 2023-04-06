@@ -11,6 +11,21 @@ import struct
 
 META_FOLDER = '/var/lib/postgresql/CS_FYP/meta/'
 
+# 将两个list合并
+def list_combine(list1,list2):
+    total_list = []
+    if len(list1) != len(list2):
+        return total_list
+    for i in range(len(list1)):
+        tmp_list = []
+        tmp_list.append(list1[i])
+        tmp_list.append(list2[i])
+        total_list.append(tmp_list)
+    return total_list
+
+
+
+
 def group_by_mins(data):
     group_data = []
     group_max = []
@@ -19,7 +34,6 @@ def group_by_mins(data):
     group_time = []
     flag = int(data[0][0]) - 300
     for i in range(len(data)):
-        print(data[i][0])
         if int(data[i][0]) > flag:
             group_data.append(float(data[i][1]))
         else:
@@ -35,8 +49,8 @@ def group_by_mins(data):
         group_min.append(min(group_data))
         group_avg.append(sum(group_data) / len(group_data))
         group_time.append(data[i][0])
-    print(group_time)
-    return group_min,group_max,group_avg
+
+    return group_time, group_min, group_max, group_avg
 
 
 
@@ -313,7 +327,7 @@ def parse_query(attr, table, where_input):
             attr_type = 'avg'
         elif "min" in attr:
             attr_type = 'min'
-        attrs_res.append(attr[5:])
+        attrs_res.append(attr[4:])
 
 
     # parse tabel
