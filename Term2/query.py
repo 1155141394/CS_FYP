@@ -59,6 +59,7 @@ def s3_data(expression, key):
     for line in (com_rec.splitlines()):
         # print(line)
         data.append(line.split(","))
+    print(data)
     return data
 
 
@@ -200,7 +201,9 @@ def find_id(tags_list,attr_list):
     return tsid_list
 
 
-def query(query_dict):
+def query(attr,table,input):
+    query_dict = parse_query(attr,table,input)
+
     begin_time = time.time()
 
     where_clause = query_dict['where_clause']
@@ -220,7 +223,7 @@ def query(query_dict):
     end_time = time.time()
     total_cost = end_time - begin_time
     findid_cost = findid_e - findid_b
-    print(df_list)
+    # print(df_list)
     print(f'Find id cost:{findid_cost} sec')
     print(f'Query cost: {total_cost} sec')
 
@@ -232,24 +235,6 @@ def query(query_dict):
 
 
 if __name__ == "__main__":
-    # tsids = find_id([], ['usage_system'])
-    # where_clause = []
-    # where_clause.append("time > '2023-4-2 08:01:00'")
-    # where_clause.append("time < '2023-4-2 08:04:00'")
-    # # where_clause.append("time < '2023-4-2 09:00:00'")
-    # where_clause.append("\"usage_system\" > '8'")
-    # print(tsids)
-    # df_list = []
-    #
-    # for tsid in tsids:
-    #     df = s3_select(tsid, where_clause)
-    #     df_list.append(df)
-    # print(df_list)
-    # if len(df_list) == 1:
-    #     df.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv')
-    # else:
-    #     df_list = pd.concat(df_list)
-    #     df_list.to_csv(f'/var/lib/postgresql/CS_FYP/data/result.csv')
     attr = 'usage_system'
     table = 'cpu'
     input = '{BOOLEXPR :boolop and :args ({OPEXPR :opno 1324 :opfuncid 1157 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 1 :vartype 1184 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 1 :location 35} {CONST :consttype 1184 :consttypmod -1 :constcollid 0 :constlen 8 :constbyval true :constisnull false :location 42 :constvalue 8 [ 0 -128 100 -28 77 -101 2 0 ]}) :location 40} {OPEXPR :opno 1322 :opfuncid 1154 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 1 :vartype 1184 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 1 :location 68} {CONST :consttype 1184 :consttypmod -1 :constcollid 0 :constlen 8 :constbyval true :constisnull false :location 75 :constvalue 8 [ 0 -56 -117 -111 79 -101 2 0 ]}) :location 73} {OPEXPR :opno 98 :opfuncid 67 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 100 :args ({VAR :varno 1 :varattno 3 :vartype 25 :vartypmod -1 :varcollid 100 :varlevelsup 0 :varnosyn 1 :varattnosyn 3 :location 101} {CONST :consttype 25 :consttypmod -1 :constcollid 100 :constlen -1 :constbyval false :constisnull false :location 110 :constvalue 10 [ 40 0 0 0 104 111 115 116 95 48 ]}) :location 109} {OPEXPR :opno 96 :opfuncid 65 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 2 :vartype 23 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 2 :location 123} {CONST :consttype 23 :consttypmod -1 :constcollid 0 :constlen 4 :constbyval true :constisnull false :location 133 :constvalue 4 [ 1 0 0 0 0 0 0 0 ]}) :location 131} {OPEXPR :opno 674 :opfuncid 297 :opresulttype 16 :opretset false :opcollid 0 :inputcollid 0 :args ({VAR :varno 1 :varattno 5 :vartype 701 :vartypmod -1 :varcollid 0 :varlevelsup 0 :varnosyn 1 :varattnosyn 5 :location 139} {FUNCEXPR :funcid 316 :funcresulttype 701 :funcretset false :funcvariadic false :funcformat 2 :funccollid 0 :inputcollid 0 :args ({CONST :consttype 23 :consttypmod -1 :constcollid 0 :constlen 4 :constbyval true :constisnull false :location 154 :constvalue 4 [ 9 0 0 0 0 0 0 0 ]}) :location -1}) :location 152}) :location 64}'
