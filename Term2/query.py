@@ -57,9 +57,10 @@ def s3_data(expression, key):
             print("Stats details bytesReturned: ")
             print(statsDetails['BytesReturned'])
     for line in (com_rec.splitlines()):
-        # print(line)
-        data.append(line.split(","))
-    print(data)
+        data_line = line.split(",")
+        print(data_line)
+        data.append(data_line)
+    # print(data)
     return data
 
 
@@ -88,8 +89,6 @@ def s3_select(tsid, where_clause):
 
     times = []  # record the date used to retrieve data
     retrieve_file = []
-
-    # print(beg_t_str, end_t_str)
 
     # Change the string to datetime type
     beg_t = datetime.strptime(beg_t, '%Y-%m-%d %H:%M:%S')
@@ -124,7 +123,6 @@ def s3_select(tsid, where_clause):
         for index in indexes:
             retrieve_file.append(file_name + str(index) + '.csv')
 
-    # print(retrieve_file)
 
     # loop to retrieve the data from s3
     basic_exp = "SELECT * FROM s3object s WHERE "  # Base expression
@@ -135,8 +133,6 @@ def s3_select(tsid, where_clause):
         expression = basic_exp + "s.\"time\" > '%s' AND s.\"time\" < '%s';" % (beg_t_str, end_t_str)
         print(expression)
         key = retrieve_file[0]
-        # print(key)
-        # print(expression)
         data = s3_data(expression, key)
         df = pd.DataFrame(data)
         return df
