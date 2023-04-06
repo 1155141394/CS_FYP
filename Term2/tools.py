@@ -27,7 +27,7 @@ def group_by_mins(data):
             group_avg.append(sum(group_data)/len(group_data))
             flag += 300
             group_data = []
-    print(group_min,group_max,group_avg)
+    print(group_data,group_min,group_max,group_avg)
 
 
 
