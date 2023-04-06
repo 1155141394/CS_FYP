@@ -13,15 +13,13 @@ META_FOLDER = '/var/lib/postgresql/CS_FYP/meta/'
 
 def group_by_mins(data):
     timestamps = []
-    for line in data:
-        timestamps.append(line[0])
     group_data = []
     group_max = []
     group_min = []
     group_avg = []
-    flag = timestamps[0] + 300
+    flag = int(data[0][0]) + 300
     for i in range(len(data)):
-        if data[i][0] < flag:
+        if int(data[i][0]) < flag:
             group_data.append(float(data[i][1]))
         else:
             group_max.append(max(group_data))
