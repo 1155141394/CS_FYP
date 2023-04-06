@@ -12,7 +12,6 @@ import struct
 META_FOLDER = '/var/lib/postgresql/CS_FYP/meta/'
 
 def group_by_mins(data):
-    timestamps = []
     group_data = []
     group_max = []
     group_min = []
