@@ -65,7 +65,7 @@ for i in range(6):
     # cur.execute(sql_delete_chunk)
     # print(cur.fetchall())
     conn.commit()
-    os.system("aws s3 cp /var/lib/postgresql/%s s3://csfyp2023/benchmark/%s" % (file_name_1, file_name_1))
+    os.system("aws s3 cp /var/lib/postgresql/%s s3://fypts/benchmark/%s" % (file_name_1, file_name_1))
     os.system("rm -rf /var/lib/postgresql/%s" % (file_name_1))
 
     # # get data from readings
