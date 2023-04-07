@@ -103,7 +103,7 @@ def s3_select(table_name, beg_t, end_t):
 
 if __name__ == "__main__":
     # Connect to Postgresql database
-    conn = psycopg2.connect(database="example", user="postgres", password="1234", host="localhost", port="5432")
+    conn = psycopg2.connect(database="benchmark", user="postgres", password="1234", host="localhost", port="5432")
 
     # Let user input command
     table_name = 'cpu'
