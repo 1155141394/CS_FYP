@@ -62,7 +62,7 @@ for i in range(6):
     csv.to_csv('/var/lib/postgresql/%s' % file_name_1, index=False)
 
     # sql_delete_chunk = r"SELECT drop_chunks('diagnostics', older_than => DATE '%s');" % end_date
-    cur.execute(sql_delete_chunk)
+    # cur.execute(sql_delete_chunk)
     # print(cur.fetchall())
     conn.commit()
     os.system("aws s3 cp /var/lib/postgresql/%s s3://csfyp2023/benchmark/%s" % (file_name_1, file_name_1))
