@@ -124,7 +124,7 @@ if __name__ == "__main__":
     # else:
     # Data is stored in S3. Retrieve data from S3
     print("Data is not in the TimescaleDB.\nSearch for data in S3.")
-    opt = input('Select your query method:')
+    # opt = input('Select your query method:')
 
     begin = time.time()
     # if opt == '1':
@@ -143,8 +143,8 @@ if __name__ == "__main__":
         #
         # os.system("rm -rf /var/lib/postgresql/%s/tempt.csv"%(table_name))
     # elif opt == '2' :
-    s3_select(table_name, start_time, end_time)
-    sql_copy = "COPY hardware_usage from '/var/lib/postgresql/%s' DELIMITER ',' CSV HEADER;"%(s3)
+    s3 = s3_select(table_name, start_time, end_time)
+    sql_copy = "COPY cpu from '/var/lib/postgresql/%s' DELIMITER ',' CSV HEADER;"%(s3)
     cur.execute(sql_copy)
     conn.commit()
     os.system("rm -rf ./%s"%(s3))
