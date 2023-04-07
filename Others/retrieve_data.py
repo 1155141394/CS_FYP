@@ -111,11 +111,7 @@ if __name__ == "__main__":
     start_time = '2023-04-03 10:00:00'
     end_time = '2023-04-03 11:59:59'
 
-    sql_select = """SELECT time_bucket('60 seconds', time) AS minute,
-        max(usage_user) as max_usage_user
-        FROM cpu
-        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_0')) AND time >= '2023-04-03 11:03:51.080812 +0000' AND time < '2023-04-03 12:03:51.080812 +0000'
-        GROUP BY minute ORDER BY minute;"""
+    sql_select = "select * from %s where time > '%s' and time < '%s';"%(table_name, start_time, end_time)
 
     cur = conn.cursor()
 
@@ -154,7 +150,11 @@ if __name__ == "__main__":
     conn.commit()
     os.system("rm -rf ./%s"%(s3))
 
-    cur.execute(sql_select)
+    cur.execute("""SELECT time_bucket('60 seconds', time) AS minute,
+        max(usage_user) as max_usage_user
+        FROM cpu
+        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_0')) AND time >= '%s' AND time < '%s'
+        GROUP BY minute ORDER BY minute;"""%(start_time,end_time))
     conn.commit()
     print(cur.fetchall())
 
