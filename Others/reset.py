@@ -34,7 +34,8 @@ for i in range(6):
     beg_time = time.time()
     end_date = beg_date + timedelta(days=1)
     beg_day = beg_date.date()
-    file_name_1 = "cpu_" + str(beg_day) + ".csv"
+    end_day = end_date.date()
+    file_name_1 = "cpu_" + str(beg_day) + '-' + str(end_day) + ".csv"
     # file_name_2 = "readings_" + str(beg_day) + ".csv"
 
     # get data from diagnostics
