@@ -56,8 +56,6 @@ def s3_select(table_name, beg_t, end_t):
     elif end_t_date == beg_t_date:
         times.append([beg_t, end_t])
 
-    # Get the start time
-    pg_beg = time.time()
     data = []
     # loop to retrieve the data from s3
     for i in times:
@@ -67,11 +65,10 @@ def s3_select(table_name, beg_t, end_t):
         else:
             file_name = table_name + "_%s-%s.csv" % (i[0].strftime("%Y-%m-%d"), i[1].strftime("%Y-%m-%d"))
         expression = basic_exp + "'%s' and '%s';" % (i[0], i[1])
-        key = table_name + r"/" + file_name
-        # print(expression)
-        # print(key)
+        key = 'benchmark' + r"/" + file_name
+        print(key)
         resp = s3.select_object_content(
-            Bucket='csfyp2023',
+            Bucket='fypts',
             Key=key,
             ExpressionType='SQL',
             Expression=expression,
@@ -101,56 +98,58 @@ def s3_select(table_name, beg_t, end_t):
             data.append(line.split(","))
     df = pd.DataFrame(data)
     file_name = 'tmp.csv'
-    df.to_csv('/var/lib/postgresql/'+file_name, index=False, header=False
+    df.to_csv('/var/lib/postgresql/'+file_name, index=False, header=False)
     return(file_name)
 
-# Connect to Postgresql database
-conn = psycopg2.connect(database="example", user="postgres", password="1234", host="localhost", port="5432")
 
-# Let user input command
-table_name = input("Please enter your query table name:")
-start_time = input("Your query start time:")
-end_time = input("Your query end time:")
+if __name__ == "__main__":
+    # Connect to Postgresql database
+    conn = psycopg2.connect(database="benchmark", user="postgres", password="1234", host="localhost", port="5432")
 
-sql_select = "select * from %s where time > '%s' and time < '%s';"%(table_name, start_time, end_time)
+    # Let user input command
+    table_name = 'cpu'
+    start_time = '2023-04-03 10:00:00'
+    end_time = '2023-04-03 11:59:59'
 
-cur = conn.cursor()
+    sql_select = "select * from %s where time > '%s' and time < '%s';"%(table_name, start_time, end_time)
 
-cur.execute(sql_select)
-conn.commit()
-data = cur.fetchall()
+    cur = conn.cursor()
 
-if data:
-    # Data in database
-    print(data)
-else:
+    cur.execute(sql_select)
+    conn.commit()
+    data = cur.fetchall()
+
+    # if data:
+    #     # Data in database
+    #     print(data)
+    # else:
     # Data is stored in S3. Retrieve data from S3
     print("Data is not in the TimescaleDB.\nSearch for data in S3.")
-    opt = input('Select your query method:')
+    # opt = input('Select your query method:')
 
     begin = time.time()
-    if opt == '1': 
-        s3 = s3_files(table_name, start_time, end_time)
+    # if opt == '1':
+    #     s3 = s3_files(table_name, start_time, end_time)
         # Copy the s3 files into PostgresqlDB
-        for i in range(0, len(s3)):
-            print("We need data from " + s3[i])
-            state = os.system("aws s3 cp s3://csfyp2023/%s/%s /var/lib/postgresql/%s/tempt.csv"%(table_name,s3[i],table_name))
-            if state != 0:
-                print("There is no data in " + s3[i])
-                continue
-            else:
-                sql_copy = "COPY hardware_usage from '/var/lib/postgresql/%s/tempt.csv' DELIMITER ',' CSV HEADER;" % (table_name)
-                cur.execute(sql_copy)
-                conn.commit()
+        # for i in range(0, len(s3)):
+        #     print("We need data from " + s3[i])
+        #     state = os.system("aws s3 cp s3://csfyp2023/%s/%s /var/lib/postgresql/%s/tempt.csv"%(table_name,s3[i],table_name))
+        #     if state != 0:
+        #         print("There is no data in " + s3[i])
+        #         continue
+        #     else:
+        #         sql_copy = "COPY hardware_usage from '/var/lib/postgresql/%s/tempt.csv' DELIMITER ',' CSV HEADER;" % (table_name)
+        #         cur.execute(sql_copy)
+        #         conn.commit()
+        #
+        # os.system("rm -rf /var/lib/postgresql/%s/tempt.csv"%(table_name))
+    # elif opt == '2' :
+    s3 = s3_select(table_name, start_time, end_time)
+    sql_copy = "COPY cpu from '/var/lib/postgresql/%s' DELIMITER ',' CSV HEADER;"%(s3)
+    cur.execute(sql_copy)
+    conn.commit()
+    os.system("rm -rf ./%s"%(s3))
 
-        os.system("rm -rf /var/lib/postgresql/%s/tempt.csv"%(table_name))
-    elif opt == '2' :
-        s3 = s3_select(table_name, start_time, end_time)
-        sql_copy = "COPY hardware_usage from '/var/lib/postgresql/%s' DELIMITER ',' CSV HEADER;"%(s3)
-        cur.execute(sql_copy)
-        conn.commit()
-        os.system("rm -rf ./%s"%(s3))
-    
     cur.execute(sql_select)
     conn.commit()
     print(cur.fetchall())
@@ -169,7 +168,7 @@ else:
     cur.execute(sql_drop)
     conn.commit()
     #print(cur.fetchall())
-    
+
 
 
 
