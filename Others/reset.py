@@ -38,7 +38,7 @@ for i in range(6):
     # file_name_2 = "readings_" + str(beg_day) + ".csv"
 
     # get data from diagnostics
-    sql_get_chunks = r"SELECT show_chunks('diagnostics', older_than => DATE '%s');" % (end_date)
+    sql_get_chunks = r"SELECT show_chunks('cpu', older_than => DATE '%s');" % (end_date)
     cur.execute(sql_get_chunks)
     data = cur.fetchall()
     print(data)
