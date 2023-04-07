@@ -66,6 +66,7 @@ def s3_select(table_name, beg_t, end_t):
             file_name = table_name + "_%s-%s.csv" % (i[0].strftime("%Y-%m-%d"), i[1].strftime("%Y-%m-%d"))
         expression = basic_exp + "'%s' and '%s';" % (i[0], i[1])
         key = 'benchmark' + r"/" + file_name
+        print(key)
         resp = s3.select_object_content(
             Bucket='fypts',
             Key=key,
