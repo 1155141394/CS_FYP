@@ -42,7 +42,7 @@ for i in range(6):
     cur.execute(sql_get_chunks)
     data = cur.fetchall()
     print(data)
-    latest_chunk = data[0][0]
+    latest_chunk = data[0][-1]
 
     sql_get_data = r"copy %s to" \
                    " '/var/lib/postgresql/%s' delimiter as ',' null as '' escape as '\"' CSV quote as '\"'" % (
