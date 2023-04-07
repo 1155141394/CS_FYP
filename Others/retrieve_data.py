@@ -65,9 +65,9 @@ def s3_select(table_name, beg_t, end_t):
         else:
             file_name = table_name + "_%s-%s.csv" % (i[0].strftime("%Y-%m-%d"), i[1].strftime("%Y-%m-%d"))
         expression = basic_exp + "'%s' and '%s';" % (i[0], i[1])
-        key = table_name + r"/" + file_name
+        key = 'benchmark' + r"/" + file_name
         resp = s3.select_object_content(
-            Bucket='csfyp2023',
+            Bucket='fypts',
             Key=key,
             ExpressionType='SQL',
             Expression=expression,
