@@ -29,7 +29,7 @@ import numpy as np
 conn = psycopg2.connect(host="localhost", port=5432, user="postgres", password="1234", database="benchmark")
 cur = conn.cursor()
 # today = date.today()
-beg_date = datetime.strptime("2023-04-02 00:00:00", '%Y-%m-%d %H:%M:%S')
+beg_date = datetime.strptime("2023-04-03 00:00:00", '%Y-%m-%d %H:%M:%S')
 for i in range(6):
     beg_time = time.time()
     end_date = beg_date + timedelta(days=1)
@@ -50,7 +50,7 @@ for i in range(6):
     print("File name is %s" % (file_name_1))
     cur.execute(sql_get_data)
 
-    sql_get_fields = r"select column_name from information_schema.columns where table_schema='public' and table_name='diagnostics';"
+    sql_get_fields = r"select column_name from information_schema.columns where table_schema='public' and table_name='cpu';"
     cur.execute(sql_get_fields)
     fields = cur.fetchall()
     print(fields)
