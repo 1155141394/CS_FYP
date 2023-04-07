@@ -150,7 +150,11 @@ if __name__ == "__main__":
     conn.commit()
     os.system("rm -rf ./%s"%(s3))
 
-    cur.execute(sql_select)
+    cur.execute("""SELECT time_bucket('60 seconds', time) AS minute,
+        max(usage_user) as max_usage_user
+        FROM cpu
+        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_0')) AND time >= '%s' AND time < '%s'
+        GROUP BY minute ORDER BY minute;"""%(start_time,end_time))
     conn.commit()
     print(cur.fetchall())
 
@@ -163,8 +167,7 @@ if __name__ == "__main__":
     end_date += timedelta(days=1)
     end_time = end_date.strftime('%Y-%m-%d')
     # drop the data that was inserted
-    # sql_drop = "SELECT drop_chunks('%s', older_than => DATE '%s', newer_than => DATE '%s');"%(table_name, end_time, start_time[:10])
-    sql_drop = "delete from hardware_usage;"
+    sql_drop = "SELECT drop_chunks('%s', older_than => DATE '%s', newer_than => DATE '%s');"%(table_name, end_time, start_time[:10])
     cur.execute(sql_drop)
     conn.commit()
     #print(cur.fetchall())
