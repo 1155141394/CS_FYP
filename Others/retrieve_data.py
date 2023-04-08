@@ -180,7 +180,7 @@ if __name__ == "__main__":
         WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_1')) AND time >= '2023-04-06 23:00:44.894865 +0000' AND time < '2023-04-07 07:00:44.894865 +0000'
         GROUP BY hour ORDER BY hour'''
 
-    query_high_cpu_1 = '''SELECT * FROM cpu WHERE usage_user > 90.0 and time >= '2023-04-06 23:35:31.138978 +0000' AND time < '2023-04-07 11:35:31.138978 +0000' AND tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_75'))'''
+    query_high_cpu_1 = '''SELECT * FROM cpu WHERE usage_user > 90.0 and time >= '2023-04-06 23:35:31.138978 +0000' AND time < '2023-04-07 11:35:31.138978 +0000' AND tags_id = 76;'''
 
     cur.execute(query_high_cpu_1)
 
