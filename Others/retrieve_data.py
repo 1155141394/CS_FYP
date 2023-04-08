@@ -150,11 +150,19 @@ if __name__ == "__main__":
     conn.commit()
     os.system("rm -rf ./%s"%(s3))
 
-    cur.execute("""SELECT time_bucket('60 seconds', time) AS minute,
+    111_query = '''SELECT time_bucket('60 seconds', time) AS minute,
         max(usage_user) as max_usage_user
         FROM cpu
         WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_0')) AND time >= '%s' AND time < '%s'
-        GROUP BY minute ORDER BY minute;"""%(start_time,end_time))
+        GROUP BY minute ORDER BY minute;'''%(start_time,end_time)
+
+    181_query = '''SELECT time_bucket('60 seconds', time) AS minute,
+        max(usage_user) as max_usage_user
+        FROM cpu
+        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_9','host_43','host_75','host_19','host_39','host_35','host_15','host_41')) AND time >= '2023-04-07 12:26:46.646325 +0000' AND time < '2023-04-07 13:26:46.646325 +0000'
+        GROUP BY minute ORDER BY minute ASC'''
+
+    cur.execute(181_query)
 
     conn.commit()
     print(cur.fetchall())
