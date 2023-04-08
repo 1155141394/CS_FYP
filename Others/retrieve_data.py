@@ -177,7 +177,7 @@ if __name__ == "__main__":
     query_max_all_1 = '''SELECT time_bucket('3600 seconds', time) AS hour,
         max(usage_user) as max_usage_user, max(usage_system) as max_usage_system, max(usage_idle) as max_usage_idle, max(usage_nice) as max_usage_nice, max(usage_iowait) as max_usage_iowait, max(usage_irq) as max_usage_irq, max(usage_softirq) as max_usage_softirq, max(usage_steal) as max_usage_steal, max(usage_guest) as max_usage_guest, max(usage_guest_nice) as max_usage_guest_nice
         FROM cpu
-        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_75')) AND time >= '2023-04-06 23:00:44.894865 +0000' AND time < '2023-04-07 07:00:44.894865 +0000'
+        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_1')) AND time >= '2023-04-06 23:00:44.894865 +0000' AND time < '2023-04-07 07:00:44.894865 +0000'
         GROUP BY hour ORDER BY hour'''
     cur.execute(query_581)
 
