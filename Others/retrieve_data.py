@@ -115,9 +115,9 @@ if __name__ == "__main__":
 
     cur = conn.cursor()
 
-    cur.execute(sql_select)
-    conn.commit()
-    data = cur.fetchall()
+    # cur.execute(sql_select)
+    # conn.commit()
+    # data = cur.fetchall()
 
     # if data:
     #     # Data in database
@@ -162,7 +162,12 @@ if __name__ == "__main__":
         WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_9','host_43','host_75','host_19','host_39','host_35','host_15','host_41')) AND time >= '2023-04-07 12:26:46.646325 +0000' AND time < '2023-04-07 13:26:46.646325 +0000'
         GROUP BY minute ORDER BY minute ASC'''
 
-    cur.execute(query_181)
+    query_5112 = '''SELECT time_bucket('60 seconds', time) AS minute,
+        max(usage_user) as max_usage_user, max(usage_system) as max_usage_system, max(usage_idle) as max_usage_idle, max(usage_nice) as max_usage_nice, max(usage_iowait) as max_usage_iowait
+        FROM cpu
+        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_9')) AND time >= '2023-04-07 11:22:40.646325 +0000' AND time < '2023-04-08 23:22:40.646325 +0000'
+        GROUP BY minute ORDER BY minute ASC'''
+    cur.execute(query_5112)
 
     conn.commit()
     print(cur.fetchall())
