@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add attr type">
-      <change beforePath="$PROJECT_DIR$/Others/retrieve_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/retrieve_data.py" afterDir="false" />
-    </list>
+    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add attr type" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -91,34 +89,6 @@
       <workItem from="1680234883665" duration="4783000" />
       <workItem from="1680339287499" duration="12472000" />
       <workItem from="1680517081795" duration="619000" />
-    </task>
-    <task id="LOCAL-00201" summary="update">
-      <created>1680621054250</created>
-      <option name="number" value="00201" />
-      <option name="presentableId" value="LOCAL-00201" />
-      <option name="project" value="LOCAL" />
-      <updated>1680621054250</updated>
-    </task>
-    <task id="LOCAL-00202" summary="update">
-      <created>1680623150466</created>
-      <option name="number" value="00202" />
-      <option name="presentableId" value="LOCAL-00202" />
-      <option name="project" value="LOCAL" />
-      <updated>1680623150466</updated>
-    </task>
-    <task id="LOCAL-00203" summary="update">
-      <created>1680623189018</created>
-      <option name="number" value="00203" />
-      <option name="presentableId" value="LOCAL-00203" />
-      <option name="project" value="LOCAL" />
-      <updated>1680623189018</updated>
-    </task>
-    <task id="LOCAL-00204" summary="update">
-      <created>1680623283682</created>
-      <option name="number" value="00204" />
-      <option name="presentableId" value="LOCAL-00204" />
-      <option name="project" value="LOCAL" />
-      <updated>1680623283682</updated>
     </task>
     <task id="LOCAL-00205" summary="update">
       <created>1680623449685</created>
@@ -435,7 +405,35 @@
       <option name="project" value="LOCAL" />
       <updated>1680956620411</updated>
     </task>
-    <option name="localTasksCounter" value="250" />
+    <task id="LOCAL-00250" summary="add attr type">
+      <created>1680956964370</created>
+      <option name="number" value="00250" />
+      <option name="presentableId" value="LOCAL-00250" />
+      <option name="project" value="LOCAL" />
+      <updated>1680956964370</updated>
+    </task>
+    <task id="LOCAL-00251" summary="add attr type">
+      <created>1680957046767</created>
+      <option name="number" value="00251" />
+      <option name="presentableId" value="LOCAL-00251" />
+      <option name="project" value="LOCAL" />
+      <updated>1680957046767</updated>
+    </task>
+    <task id="LOCAL-00252" summary="add attr type">
+      <created>1680957184489</created>
+      <option name="number" value="00252" />
+      <option name="presentableId" value="LOCAL-00252" />
+      <option name="project" value="LOCAL" />
+      <updated>1680957184489</updated>
+    </task>
+    <task id="LOCAL-00253" summary="add attr type">
+      <created>1680957243588</created>
+      <option name="number" value="00253" />
+      <option name="presentableId" value="LOCAL-00253" />
+      <option name="project" value="LOCAL" />
+      <updated>1680957243588</updated>
+    </task>
+    <option name="localTasksCounter" value="254" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
