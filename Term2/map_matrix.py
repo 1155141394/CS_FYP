@@ -91,7 +91,7 @@ def run_tsbs(table_name, conn, begin_t, end_t):
 
     # 判断是否第一次跑
     if os.path.exists(META_FOLDER + 'map_matrix.txt'):
-        # print('Not first time to run')
+        print('Not first time to run')
         index_map = HashTable.read_hash(META_FOLDER + 'query_hash')
         compress_arr = txt_to_list(META_FOLDER + 'map_matrix.txt')
         map_matrix = decompress_array(compress_arr)

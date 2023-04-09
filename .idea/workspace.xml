@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add attr type">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Term2/map_matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/Term2/map_matrix.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,27 +92,6 @@
       <workItem from="1680234883665" duration="4783000" />
       <workItem from="1680339287499" duration="12472000" />
       <workItem from="1680517081795" duration="619000" />
-    </task>
-    <task id="LOCAL-00209" summary="update">
-      <created>1680670635571</created>
-      <option name="number" value="00209" />
-      <option name="presentableId" value="LOCAL-00209" />
-      <option name="project" value="LOCAL" />
-      <updated>1680670635571</updated>
-    </task>
-    <task id="LOCAL-00210" summary="update">
-      <created>1680765387516</created>
-      <option name="number" value="00210" />
-      <option name="presentableId" value="LOCAL-00210" />
-      <option name="project" value="LOCAL" />
-      <updated>1680765387516</updated>
-    </task>
-    <task id="LOCAL-00211" summary="update">
-      <created>1680765648775</created>
-      <option name="number" value="00211" />
-      <option name="presentableId" value="LOCAL-00211" />
-      <option name="project" value="LOCAL" />
-      <updated>1680765648776</updated>
     </task>
     <task id="LOCAL-00212" summary="update">
       <created>1680765899100</created>
@@ -435,7 +415,28 @@
       <option name="project" value="LOCAL" />
       <updated>1681040639845</updated>
     </task>
-    <option name="localTasksCounter" value="258" />
+    <task id="LOCAL-00258" summary="add attr type">
+      <created>1681041319350</created>
+      <option name="number" value="00258" />
+      <option name="presentableId" value="LOCAL-00258" />
+      <option name="project" value="LOCAL" />
+      <updated>1681041319350</updated>
+    </task>
+    <task id="LOCAL-00259" summary="add attr type">
+      <created>1681041380299</created>
+      <option name="number" value="00259" />
+      <option name="presentableId" value="LOCAL-00259" />
+      <option name="project" value="LOCAL" />
+      <updated>1681041380299</updated>
+    </task>
+    <task id="LOCAL-00260" summary="add attr type">
+      <created>1681041480085</created>
+      <option name="number" value="00260" />
+      <option name="presentableId" value="LOCAL-00260" />
+      <option name="project" value="LOCAL" />
+      <updated>1681041480085</updated>
+    </task>
+    <option name="localTasksCounter" value="261" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
