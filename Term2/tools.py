@@ -411,11 +411,11 @@ def parse_query(attr, table, where_input):
     # print(value_list)
 
     # put all the need things into a dictionary
-    res = {'where_clause': [], 'conn': [], 'tsid': [], 'attr': attrs_res, 'attr_type': attr_type}
+    res = {'where_clause': [], 'conn': [], 'tags': [], 'attr': attrs_res, 'attr_type': attr_type}
     flag = 0
     for i in range(where_len):
         if cpu_col[col_indx_list[i]] == 'tags_id' or cpu_col[col_indx_list[i]] == 'hostname':
-            res['tsid'].append(str(value_list[i]))
+            res['tags'].append(str(value_list[i]))
             flag = 1
             # res['conn'].pop()
         else:
@@ -432,7 +432,7 @@ def parse_query(attr, table, where_input):
 
     # print(res['where_clause'])
     # print(res['conn'])
-    # print(res['tsid'])
+    # print(res['tags'])
     # print(res['attr'])
     return res
 
