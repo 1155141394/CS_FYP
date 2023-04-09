@@ -118,35 +118,33 @@ def run_tsbs(table_name, conn, begin_t, end_t):
     multi_thread_save_s3(table_name, begin_dt, end_dt, csv_folder)
 
 def transfer_to_s3():
-    if os.path.exists("/var/lib/postgresql/log/first.txt"):
-        return
-    else:
-        file = open("/var/lib/postgresql/log/first.txt", 'w')
-        file.write("First run.\n")
-        file.close()
 
-        now = datetime.datetime.strptime("2023-04-09 02:00:00", '%Y-%m-%d %H:%M:%S')
-        for i in range(12):
-            # if now.hour % 2 == 0 and now.minute == 0:
-            conn = psycopg2.connect(
-                database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
-            )
-            with open('/var/lib/postgresql/log/output.txt','a') as f:
-                f.write("Connect the database\n")
-                start_time = now + datetime.timedelta(hours=-2)
-                end_time = now
-                table_names = get_table_name(conn)
-                f.write(datetime.datetime.strftime(start_time, "%Y-%m-%d %H:%M:%S"))
-                f.write("\n")
-                for table_name in table_names:
-                    if table_name == "cpu":
-                        f.write("Start transfer the data in table %s.\n" % table_name)
-                        run_tsbs(table_name, conn, datetime.datetime.strftime(start_time, "%Y-%m-%d %H:%M:%S"),
-                                 datetime.datetime.strftime(end_time, "%Y-%m-%d %H:%M:%S"))
-                        conn.commit()
-                f.write("Finish transferring data in all the table.\n")
-            conn.close()
-            now = now + datetime.timedelta(hours=2)
+    file = open("/var/lib/postgresql/log/first.txt", 'w')
+    file.write("First run.\n")
+    file.close()
+
+    now = datetime.datetime.strptime("2023-04-09 02:00:00", '%Y-%m-%d %H:%M:%S')
+    for i in range(12):
+        # if now.hour % 2 == 0 and now.minute == 0:
+        conn = psycopg2.connect(
+            database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
+        )
+        with open('/var/lib/postgresql/log/output.txt','a') as f:
+            f.write("Connect the database\n")
+            start_time = now + datetime.timedelta(hours=-2)
+            end_time = now
+            table_names = get_table_name(conn)
+            f.write(datetime.datetime.strftime(start_time, "%Y-%m-%d %H:%M:%S"))
+            f.write("\n")
+            for table_name in table_names:
+                if table_name == "cpu":
+                    f.write("Start transfer the data in table %s.\n" % table_name)
+                    run_tsbs(table_name, conn, datetime.datetime.strftime(start_time, "%Y-%m-%d %H:%M:%S"),
+                             datetime.datetime.strftime(end_time, "%Y-%m-%d %H:%M:%S"))
+                    conn.commit()
+            f.write("Finish transferring data in all the table.\n")
+        conn.close()
+        now = now + datetime.timedelta(hours=2)
 
 
 
