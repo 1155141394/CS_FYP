@@ -1,6 +1,7 @@
 import psycopg2
 from tools import *
 import time
+import os
 from hash import HashTable
 import json
 import datetime
@@ -90,7 +91,7 @@ def run_tsbs(table_name, conn, begin_t, end_t):
 
     # 判断是否第一次跑
     if os.path.exists(META_FOLDER + 'map_matrix.txt'):
-        print('Not first time to run')
+        # print('Not first time to run')
         index_map = HashTable.read_hash(META_FOLDER + 'query_hash')
         compress_arr = txt_to_list(META_FOLDER + 'map_matrix.txt')
         map_matrix = decompress_array(compress_arr)
@@ -116,43 +117,41 @@ def run_tsbs(table_name, conn, begin_t, end_t):
     gc.collect()
     multi_thread_save_s3(table_name, begin_dt, end_dt, csv_folder)
 
-
 def transfer_to_s3():
-    with open('/var/lib/postgresql/output.txt','w') as f:
-        f.write('hello')
-    while True:
-        now = datetime.datetime.now()
-        if now.hour & 1 == 0 and now.minute == 0:
+    if os.path.exists("/var/lib/postgresql/log/first.txt"):
+        return
+    else:
+        file = open("/var/lib/postgresql/log/first.txt", 'w')
+        file.write("First run.\n")
+        file.close()
+
+        now = datetime.strptime("2023-04-09 02:00:00", '%Y-%m-%d %H:%M:%S')
+        for i in range(12):
+            # if now.hour % 2 == 0 and now.minute == 0:
             conn = psycopg2.connect(
                 database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
             )
-
-            start_time = now + datetime.timedelta(hours=-2)
-            end_time = now
-            table_names = get_table_name(conn)
-            for table_name in table_names:
-                f.write("Start transfer the data in table %s." % table_name)
-                # print("Start transfer the data in table %s." % table_name)
-                run_tsbs(table_name, conn, datetime.datetime.strftime(start_time, "%Y-%m-%d %H:%M:%S"),
-                         datetime.datetime.strftime(end_time, "%Y-%m-%d %H:%M:%S"))
-
-            # 提交数据
-            conn.commit()
-            # 关闭连接
+            with open('/var/lib/postgresql/log/output.txt','a') as f:
+                f.write("Connect the database\n")
+                start_time = now + datetime.timedelta(hours=-2)
+                end_time = now
+                table_names = get_table_name(conn)
+                f.write(datetime.datetime.strftime(start_time, "%Y-%m-%d %H:%M:%S"))
+                f.write("\n")
+                for table_name in table_names:
+                    if table_name == "cpu":
+                        f.write("Start transfer the data in table %s.\n" % table_name)
+                        run_tsbs(table_name, conn, datetime.datetime.strftime(start_time, "%Y-%m-%d %H:%M:%S"),
+                                 datetime.datetime.strftime(end_time, "%Y-%m-%d %H:%M:%S"))
+                        conn.commit()
+                f.write("Finish transferring data in all the table.\n")
             conn.close()
+            now = now + datetime.timedelta(hours=2)
+
+
+
+
 
 
 if __name__ == "__main__":
-    inputs = sys.argv
-    conn = psycopg2.connect(
-        database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
-    )
-    table_names = get_table_name(conn)
-    # print(table_names)
-    for table_name in table_names:
-        # print("Start transfer the data in table %s." % table_name)
-        run_tsbs(table_name, conn, "2023-04-02 08:00:00", "2023-04-02 10:00:00")
-    # 提交数据
-    conn.commit()
-    # 关闭连接
-    conn.close()
+    transfer_to_s3()
