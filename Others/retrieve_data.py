@@ -184,10 +184,10 @@ if __name__ == "__main__":
 
     lastpoint = '''SELECT DISTINCT ON (t.hostname) * FROM tags t INNER JOIN LATERAL(SELECT * FROM cpu c WHERE c.tags_id = t.id ORDER BY time DESC LIMIT 1) AS b ON true ORDER BY t.hostname, b.time DESC'''
 
-    query_high_cpu_1 = '''SELECT usage_user FROM cpu WHERE usage_user > 80.0 and time >= '2023-04-06 11:35:31.138978 +0000' AND time < '2023-04-07 11:35:31.138978 +0000' AND tags_id = 76;'''
+    query_high_cpu_1 = '''SELECT usage_user FROM cpu WHERE usage_user > 90.0 and time >= '%s' AND time < '%s' AND tags_id = 76;'''%(start_time,end_time)
 
     # cur.execute(query_111)
-    cur.execute(query_max_all_1)
+    cur.execute(query_high_cpu_1)
 
     conn.commit()
     print(cur.fetchall())
