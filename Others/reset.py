@@ -29,7 +29,7 @@ import numpy as np
 conn = psycopg2.connect(host="localhost", port=5432, user="postgres", password="1234", database="benchmark")
 cur = conn.cursor()
 # today = date.today()
-beg_date = datetime.strptime("2023-04-05 00:00:00", '%Y-%m-%d %H:%M:%S')
+beg_date = datetime.strptime("2023-04-09 00:00:00", '%Y-%m-%d %H:%M:%S')
 for i in range(5):
     beg_time = time.time()
     end_date = beg_date + timedelta(days=1)
