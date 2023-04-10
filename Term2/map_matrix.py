@@ -124,7 +124,7 @@ def transfer_to_s3():
     file.close()
 
     now = datetime.datetime.strptime("2023-04-10 00:00:00", '%Y-%m-%d %H:%M:%S')
-    for i in range(12):
+    for i in range(6):
         # if now.hour % 2 == 0 and now.minute == 0:
         conn = psycopg2.connect(
             database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
