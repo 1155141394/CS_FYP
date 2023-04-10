@@ -162,7 +162,7 @@ if __name__ == "__main__":
         WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_9','host_43','host_75','host_19','host_39','host_35','host_15','host_41')) AND time >= '%s' AND time < '%s'
         GROUP BY minute ORDER BY minute ASC'''%(start_time,end_time)
 
-    query_5112 = '''SELECT time_bucket('300 seconds', time) AS minute,
+    query_5112 = '''SELECT time_bucket('60 seconds', time) AS minute,
         max(usage_user) as max_usage_user, max(usage_system) as max_usage_system, max(usage_idle) as max_usage_idle, max(usage_nice) as max_usage_nice, max(usage_iowait) as max_usage_iowait
         FROM cpu
         WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_9')) AND time >= '2023-04-09 11:22:40.646325' AND time < '2023-04-09 23:22:40.646325'
