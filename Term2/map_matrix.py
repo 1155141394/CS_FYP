@@ -123,7 +123,7 @@ def transfer_to_s3():
     file.write("First run.\n")
     file.close()
 
-    now = datetime.datetime.strptime("2023-04-10 22:00:00", '%Y-%m-%d %H:%M:%S')
+    now = datetime.datetime.strptime("2023-04-09 22:00:00", '%Y-%m-%d %H:%M:%S')
     print(now)
     for i in tqdm(range(6)):
         # if now.hour % 2 == 0 and now.minute == 0:
