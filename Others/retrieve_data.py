@@ -109,7 +109,7 @@ if __name__ == "__main__":
     # Let user input command
     table_name = 'cpu'
     start_time = '2023-04-09 11:22:40'
-    end_time = '2023-04-09 23:22:40'
+    end_time = '2023-04-09 12:22:40'
 
     sql_select = "select * from %s where time > '%s' and time < '%s';"%(table_name, start_time, end_time)
 
