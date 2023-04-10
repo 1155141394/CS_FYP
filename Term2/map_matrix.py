@@ -8,7 +8,7 @@ import datetime
 import sys
 import gc
 from multiprocessing import Pool
-
+from tqdm import tqdm
 
 def multi_thread_save_s3(table_name, begin_dt, end_dt, csv_folder):
     p = Pool()
@@ -124,7 +124,7 @@ def transfer_to_s3():
     file.close()
 
     now = datetime.datetime.strptime("2023-04-10 22:00:00", '%Y-%m-%d %H:%M:%S')
-    for i in range(6):
+    for i in tqdm(range(6)):
         # if now.hour % 2 == 0 and now.minute == 0:
         conn = psycopg2.connect(
             database="benchmark", user="postgres", password="1234", host="localhost", port="5432"
