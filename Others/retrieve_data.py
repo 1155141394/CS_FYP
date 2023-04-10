@@ -150,25 +150,25 @@ if __name__ == "__main__":
     conn.commit()
     os.system("rm -rf ./%s"%(s3))
 
-    query_111 = '''SELECT time_bucket('60 seconds', time) AS minute,
+    query_111 = '''SELECT time_bucket('300 seconds', time) AS minute,
         max(usage_user) as max_usage_user
         FROM cpu
         WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_0')) AND time >= '%s' AND time < '%s'
         GROUP BY minute ORDER BY minute;'''%(start_time,end_time)
 
-    query_181 = '''SELECT time_bucket('60 seconds', time) AS minute,
+    query_181 = '''SELECT time_bucket('300 seconds', time) AS minute,
         max(usage_user) as max_usage_user
         FROM cpu
-        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_9','host_43','host_75','host_19','host_39','host_35','host_15','host_41')) AND time >= '2023-04-07 12:26:46.646325 +0000' AND time < '2023-04-07 13:26:46.646325 +0000'
+        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_9','host_43','host_75','host_19','host_39','host_35','host_15','host_41')) AND time >= '2023-04-09 09:22:40.646325 +0000' AND time < '2023-04-09 10:22:40.646325 +0000'
         GROUP BY minute ORDER BY minute ASC'''
 
-    query_5112 = '''SELECT time_bucket('60 seconds', time) AS minute,
+    query_5112 = '''SELECT time_bucket('300 seconds', time) AS minute,
         max(usage_user) as max_usage_user, max(usage_system) as max_usage_system, max(usage_idle) as max_usage_idle, max(usage_nice) as max_usage_nice, max(usage_iowait) as max_usage_iowait
         FROM cpu
         WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_9')) AND time >= '2023-04-07 11:22:40.646325 +0000' AND time < '2023-04-08 23:22:40.646325 +0000'
         GROUP BY minute ORDER BY minute ASC'''
 
-    query_581 = '''SELECT time_bucket('60 seconds', time) AS minute,
+    query_581 = '''SELECT time_bucket('300 seconds', time) AS minute,
         max(usage_user) as max_usage_user, max(usage_system) as max_usage_system, max(usage_idle) as max_usage_idle, max(usage_nice) as max_usage_nice, max(usage_iowait) as max_usage_iowait
         FROM cpu
         WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_9','host_43','host_75','host_19','host_39','host_35','host_15','host_41')) AND time >= '2023-04-09 09:22:40.646325 +0000' AND time < '2023-04-09 10:22:40.646325 +0000'
@@ -186,7 +186,7 @@ if __name__ == "__main__":
 
     query_high_cpu_1 = '''SELECT usage_user FROM cpu WHERE usage_user > 80.0 and time >= '2023-04-06 11:35:31.138978 +0000' AND time < '2023-04-07 11:35:31.138978 +0000' AND tags_id = 76;'''
 
-    cur.execute(query_581)
+    cur.execute(query_181)
 
     conn.commit()
     print(cur.fetchall())
