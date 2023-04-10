@@ -123,7 +123,7 @@ def transfer_to_s3():
     file.write("First run.\n")
     file.close()
 
-    now = datetime.datetime.strptime("2023-04-10 00:00:00", '%Y-%m-%d %H:%M:%S')
+    now = datetime.datetime.strptime("2023-04-10 22:00:00", '%Y-%m-%d %H:%M:%S')
     for i in range(6):
         # if now.hour % 2 == 0 and now.minute == 0:
         conn = psycopg2.connect(
