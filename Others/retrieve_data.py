@@ -109,7 +109,7 @@ if __name__ == "__main__":
     # Let user input command
     table_name = 'cpu'
     start_time = '2023-04-09 11:22:40'
-    end_time = '2023-04-09 12:22:40'
+    end_time = '2023-04-09 23:22:40'
 
     sql_select = "select * from %s where time > '%s' and time < '%s';"%(table_name, start_time, end_time)
 
@@ -187,7 +187,7 @@ if __name__ == "__main__":
     query_high_cpu_1 = '''SELECT usage_user FROM cpu WHERE usage_user > 80.0 and time >= '2023-04-06 11:35:31.138978 +0000' AND time < '2023-04-07 11:35:31.138978 +0000' AND tags_id = 76;'''
 
     # cur.execute(query_111)
-    cur.execute(query_181)
+    cur.execute(query_5112)
 
     conn.commit()
     print(cur.fetchall())

@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add attr type" />
+    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add attr type">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -89,20 +91,6 @@
       <workItem from="1680234883665" duration="4783000" />
       <workItem from="1680339287499" duration="12472000" />
       <workItem from="1680517081795" duration="619000" />
-    </task>
-    <task id="LOCAL-00229" summary="add attr type">
-      <created>1680780837705</created>
-      <option name="number" value="00229" />
-      <option name="presentableId" value="LOCAL-00229" />
-      <option name="project" value="LOCAL" />
-      <updated>1680780837705</updated>
-    </task>
-    <task id="LOCAL-00230" summary="add attr type">
-      <created>1680784262422</created>
-      <option name="number" value="00230" />
-      <option name="presentableId" value="LOCAL-00230" />
-      <option name="project" value="LOCAL" />
-      <updated>1680784262422</updated>
     </task>
     <task id="LOCAL-00231" summary="update">
       <created>1680854814601</created>
@@ -433,7 +421,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681113998701</updated>
     </task>
-    <option name="localTasksCounter" value="278" />
+    <task id="LOCAL-00278" summary="add attr type">
+      <created>1681114115594</created>
+      <option name="number" value="00278" />
+      <option name="presentableId" value="LOCAL-00278" />
+      <option name="project" value="LOCAL" />
+      <updated>1681114115594</updated>
+    </task>
+    <task id="LOCAL-00279" summary="add attr type">
+      <created>1681114124008</created>
+      <option name="number" value="00279" />
+      <option name="presentableId" value="LOCAL-00279" />
+      <option name="project" value="LOCAL" />
+      <updated>1681114124008</updated>
+    </task>
+    <option name="localTasksCounter" value="280" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
