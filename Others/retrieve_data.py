@@ -109,7 +109,7 @@ if __name__ == "__main__":
     # Let user input command
     table_name = 'cpu'
     start_time = '2023-04-09 11:22:40'
-    end_time = '2023-04-09 23:22:40'
+    end_time = '2023-04-09 12:22:40'
 
     sql_select = "select * from %s where time > '%s' and time < '%s';"%(table_name, start_time, end_time)
 
@@ -171,8 +171,8 @@ if __name__ == "__main__":
     query_581 = '''SELECT time_bucket('300 seconds', time) AS minute,
         max(usage_user) as max_usage_user, max(usage_system) as max_usage_system, max(usage_idle) as max_usage_idle, max(usage_nice) as max_usage_nice, max(usage_iowait) as max_usage_iowait
         FROM cpu
-        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_9','host_43','host_75','host_19','host_39','host_35','host_15','host_41')) AND time >= '2023-04-09 09:22:40.646325 +0000' AND time < '2023-04-09 10:22:40.646325 +0000'
-        GROUP BY minute ORDER BY minute'''
+        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_9','host_43','host_75','host_19','host_39','host_35','host_15','host_41')) AND time >= '%s' AND time < '%s'
+        GROUP BY minute ORDER BY minute'''%(start_time,end_time)
 
     query_max_all_1 = '''SELECT time_bucket('3600 seconds', time) AS hour,
         max(usage_user) as max_usage_user, max(usage_system) as max_usage_system, max(usage_idle) as max_usage_idle, max(usage_nice) as max_usage_nice, max(usage_iowait) as max_usage_iowait, max(usage_irq) as max_usage_irq, max(usage_softirq) as max_usage_softirq, max(usage_steal) as max_usage_steal, max(usage_guest) as max_usage_guest, max(usage_guest_nice) as max_usage_guest_nice
@@ -187,7 +187,7 @@ if __name__ == "__main__":
     query_high_cpu_1 = '''SELECT usage_user FROM cpu WHERE usage_user > 80.0 and time >= '2023-04-06 11:35:31.138978 +0000' AND time < '2023-04-07 11:35:31.138978 +0000' AND tags_id = 76;'''
 
     # cur.execute(query_111)
-    cur.execute(query_5112)
+    cur.execute(query_581)
 
     conn.commit()
     print(cur.fetchall())
