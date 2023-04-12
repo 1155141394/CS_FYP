@@ -111,7 +111,7 @@ if __name__ == "__main__":
     start_time = '2023-04-09 11:22:40'
     end_time = '2023-04-09 23:22:40'
 
-    sql_select = "select * from %s where time > '%s' and time < '%s';"%(table_name, start_time, end_time)
+    sql_select = "select usage_user from %s where time > '%s' and time < '%s';"%(table_name, start_time, end_time)
 
     cur = conn.cursor()
 
@@ -150,10 +150,9 @@ if __name__ == "__main__":
     conn.commit()
     os.system("rm -rf ./%s"%(s3))
 
-    query_111 = '''SELECT time_bucket('300 seconds', time) AS minute,
-        max(usage_user) as max_usage_user
+    query_111 = '''SELECT max(usage_user) as max_usage_user, time_bucket('300 seconds', time) AS minute
         FROM cpu
-        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_0')) AND time >= '%s' AND time < '%s'
+        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_0')) AND time >= '2023-04-09 11:22:40' AND time < '2023-04-09 21:22:40'
         GROUP BY minute ORDER BY minute;'''%(start_time,end_time)
 
     query_181 = '''SELECT time_bucket('300 seconds', time) AS minute,
@@ -162,8 +161,7 @@ if __name__ == "__main__":
         WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_9','host_43','host_75','host_19','host_39','host_35','host_15','host_41')) AND time >= '%s' AND time < '%s'
         GROUP BY minute ORDER BY minute ASC'''%(start_time,end_time)
 
-    query_5112 = '''SELECT time_bucket('300 seconds', time) AS minute,
-        max(usage_user) as max_usage_user, max(usage_system) as max_usage_system, max(usage_idle) as max_usage_idle, max(usage_nice) as max_usage_nice, max(usage_iowait) as max_usage_iowait
+    query_5112 = '''SELECT max(usage_user) as max_usage_user, max(usage_system) as max_usage_system, max(usage_idle) as max_usage_idle, max(usage_nice) as max_usage_nice, max(usage_iowait) as max_usage_iowait, time_bucket('300 seconds', time) AS minute
         FROM cpu
         WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_9')) AND time >= '2023-04-09 11:22:40.646325' AND time < '2023-04-09 23:22:40.646325'
         GROUP BY minute ORDER BY minute ASC'''
@@ -187,7 +185,7 @@ if __name__ == "__main__":
     query_high_cpu_1 = '''SELECT usage_user FROM cpu WHERE usage_user > 90.0 and time >= '%s' AND time < '%s' AND tags_id = 76;'''%(start_time,end_time)
 
     # cur.execute(query_111)
-    cur.execute(query_high_cpu_1)
+    cur.execute(query_111)
 
     conn.commit()
     print(cur.fetchall())
