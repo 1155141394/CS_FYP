@@ -109,7 +109,7 @@ if __name__ == "__main__":
     # Let user input command
     table_name = 'cpu'
     start_time = '2023-04-09 09:22:40'
-    end_time = '2023-04-09 10:22:40'
+    end_time = '2023-04-09 11:22:40'
 
     sql_select = "select * from %s where time > '%s' and time < '%s';"%(table_name, start_time, end_time)
 
@@ -150,6 +150,14 @@ if __name__ == "__main__":
     conn.commit()
     os.system("rm -rf ./%s"%(s3))
 
+    query__111 = '''SELECT max(usage_user) AS max_usage_user FROM cpu WHERE hostname = 'host_0'
+        AND time > '2023-04-07 12:26:46.646325 +0000' AND time < '2023-04-07 13:26:46.646325 +0000'
+        ;'''
+    query__181 = '''SELECT max(usage_user) AS max_usage_user FROM cpu WHERE hostname = 'host_0'
+        'host_9' 'host_43','host_75','host_19','host_39','host_35','host_15','host_41'
+        AND time > '2023-04-07 12:26:46.646325 +0000' AND time < '2023-04-07 13:26:46.646325 +0000'
+        ;'''
+
     query_111 = '''SELECT time_bucket('60 seconds', time) AS minute,
         max(usage_user) as max_usage_user
         FROM cpu
@@ -186,7 +194,7 @@ if __name__ == "__main__":
 
     query_high_cpu_1 = '''SELECT usage_user FROM cpu WHERE usage_user > 80.0 and time >= '2023-04-06 11:35:31.138978 +0000' AND time < '2023-04-07 11:35:31.138978 +0000' AND tags_id = 76;'''
 
-    cur.execute(query_581)
+    cur.execute(query_111)
 
     conn.commit()
     print(cur.fetchall())
