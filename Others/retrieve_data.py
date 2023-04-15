@@ -32,7 +32,7 @@ def s3_files(table, start, end):
 
 def s3_select(table_name, beg_t, end_t):
     times = [] # record the date used to retrieve data
-    basic_exp = "SELECT s.usage_user FROM s3object s where s.\"time\" between " # Base expression
+    basic_exp = "SELECT * FROM s3object s where s.\"time\" between " # Base expression
     # table_name = input("Please input the table you want to search:") # Get table name from user
     # beg_t = input("Please input the start time:") # Get the start time
     # end_t = input("Please input the end time:") # Get the end time
@@ -94,8 +94,9 @@ def s3_select(table_name, beg_t, end_t):
                 print("Stats details bytesReturned: ")
                 print(statsDetails['BytesReturned'])
         for line in (com_rec.splitlines()):
-            #print(line)
+            # print(line)
             data.append(line.split(","))
+    # print(data)
     df = pd.DataFrame(data)
     file_name = 'tmp.csv'
     df.to_csv('/var/lib/postgresql/'+file_name, index=False, header=False)
@@ -109,9 +110,7 @@ if __name__ == "__main__":
     # Let user input command
     table_name = 'cpu'
     start_time = '2023-04-09 11:22:40'
-    end_time = '2023-04-09 23:22:40'
-
-    sql_select = "select usage_user from %s where time > '%s' and time < '%s';"%(table_name, start_time, end_time)
+    end_time = '2023-04-09 21:22:40'
 
     cur = conn.cursor()
 
@@ -152,8 +151,8 @@ if __name__ == "__main__":
 
     query_111 = '''SELECT max(usage_user) as max_usage_user, time_bucket('300 seconds', time) AS minute
         FROM cpu
-        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_0')) AND time >= '2023-04-09 11:22:40' AND time < '2023-04-09 23:22:40'
-        GROUP BY minute ORDER BY minute;'''
+        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_0')) AND time >= '%s' AND time < '%s'
+        GROUP BY minute ORDER BY minute;'''%(start_time,end_time)
 
     query_181 = '''SELECT time_bucket('300 seconds', time) AS minute,
         max(usage_user) as max_usage_user
