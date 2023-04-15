@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="add attr type">
+    <list default="true" id="972a55f1-0adf-443c-bc95-80587d819171" name="Changes" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Others/retrieve_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Others/retrieve_data.py" afterDir="false" />
     </list>
@@ -93,13 +93,6 @@
       <workItem from="1680339287499" duration="12472000" />
       <workItem from="1680517081795" duration="619000" />
       <workItem from="1681305894299" duration="316000" />
-    </task>
-    <task id="LOCAL-00239" summary="add attr type">
-      <created>1680936654282</created>
-      <option name="number" value="00239" />
-      <option name="presentableId" value="LOCAL-00239" />
-      <option name="project" value="LOCAL" />
-      <updated>1680936654282</updated>
     </task>
     <task id="LOCAL-00240" summary="add attr type">
       <created>1680937097718</created>
@@ -437,7 +430,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681305971392</updated>
     </task>
-    <option name="localTasksCounter" value="288" />
+    <task id="LOCAL-00288" summary="update">
+      <created>1681524737536</created>
+      <option name="number" value="00288" />
+      <option name="presentableId" value="LOCAL-00288" />
+      <option name="project" value="LOCAL" />
+      <updated>1681524737536</updated>
+    </task>
+    <option name="localTasksCounter" value="289" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
