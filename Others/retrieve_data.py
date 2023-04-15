@@ -151,7 +151,7 @@ if __name__ == "__main__":
 
     query_111 = '''SELECT max(usage_user) as max_usage_user, time_bucket('300 seconds', time) AS minute
         FROM cpu
-        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_1')) AND time >= '%s' AND time < '%s'
+        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_10')) AND time >= '%s' AND time < '%s'
         GROUP BY minute ORDER BY minute;'''%(start_time,end_time)
 
     query_181 = '''SELECT time_bucket('300 seconds', time) AS minute,
