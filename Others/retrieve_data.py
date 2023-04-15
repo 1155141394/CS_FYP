@@ -32,7 +32,7 @@ def s3_files(table, start, end):
 
 def s3_select(table_name, beg_t, end_t):
     times = [] # record the date used to retrieve data
-    basic_exp = "SELECT s.usage_user FROM s3object s where s.\"time\" between " # Base expression
+    basic_exp = "SELECT * FROM s3object s where s.\"time\" between " # Base expression
     # table_name = input("Please input the table you want to search:") # Get table name from user
     # beg_t = input("Please input the start time:") # Get the start time
     # end_t = input("Please input the end time:") # Get the end time
