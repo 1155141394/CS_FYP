@@ -109,7 +109,7 @@ if __name__ == "__main__":
 
     # Let user input command
     table_name = 'cpu'
-    start_time = '2023-04-10 15:22:40'
+    start_time = '2023-04-10 11:22:40'
     end_time = '2023-04-10 23:22:40'
 
     cur = conn.cursor()
@@ -184,7 +184,7 @@ if __name__ == "__main__":
     query_high_cpu_1 = '''SELECT usage_user FROM cpu WHERE usage_user > 90.0 and time >= '%s' AND time < '%s' AND tags_id = 76;'''%(start_time,end_time)
 
     # cur.execute(query_111)
-    cur.execute(query_max_all_1)
+    cur.execute(query_high_cpu_1)
 
     conn.commit()
     print(cur.fetchall())
