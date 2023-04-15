@@ -94,7 +94,7 @@ def s3_select(table_name, beg_t, end_t):
                 print("Stats details bytesReturned: ")
                 print(statsDetails['BytesReturned'])
         for line in (com_rec.splitlines()):
-            print(line)
+            # print(line)
             data.append(line.split(","))
     # print(data)
     df = pd.DataFrame(data)
