@@ -93,13 +93,6 @@
       <workItem from="1680517081795" duration="619000" />
       <workItem from="1681305894299" duration="316000" />
     </task>
-    <task id="LOCAL-00244" summary="add attr type">
-      <created>1680938458682</created>
-      <option name="number" value="00244" />
-      <option name="presentableId" value="LOCAL-00244" />
-      <option name="project" value="LOCAL" />
-      <updated>1680938458682</updated>
-    </task>
     <task id="LOCAL-00245" summary="add attr type">
       <created>1680939003008</created>
       <option name="number" value="00245" />
@@ -436,7 +429,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681526103965</updated>
     </task>
-    <option name="localTasksCounter" value="293" />
+    <task id="LOCAL-00293" summary="update">
+      <created>1681526136609</created>
+      <option name="number" value="00293" />
+      <option name="presentableId" value="LOCAL-00293" />
+      <option name="project" value="LOCAL" />
+      <updated>1681526136609</updated>
+    </task>
+    <option name="localTasksCounter" value="294" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
