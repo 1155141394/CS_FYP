@@ -162,7 +162,7 @@ if __name__ == "__main__":
 
     query_5112 = '''SELECT max(usage_user) as max_usage_user, max(usage_system) as max_usage_system, max(usage_idle) as max_usage_idle, max(usage_nice) as max_usage_nice, max(usage_iowait) as max_usage_iowait, time_bucket('300 seconds', time) AS minute
         FROM cpu
-        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_1')) AND time >= '2023-04-07 09:22:40.646325' AND time < '2023-04-07 21:22:40.646325'
+        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_1')) AND time >= '2023-04-09 09:22:40.646325' AND time < '2023-04-09 21:22:40.646325'
         GROUP BY minute ORDER BY minute ASC'''
 
     query_581 = '''SELECT time_bucket('300 seconds', time) AS minute,
