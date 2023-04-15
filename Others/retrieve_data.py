@@ -110,7 +110,7 @@ if __name__ == "__main__":
     # Let user input command
     table_name = 'cpu'
     start_time = '2023-04-09 11:22:40'
-    end_time = '2023-04-09 14:22:40'
+    end_time = '2023-04-09 16:22:40'
 
     cur = conn.cursor()
 
@@ -151,8 +151,8 @@ if __name__ == "__main__":
 
     query_111 = '''SELECT max(usage_user) as max_usage_user, time_bucket('300 seconds', time) AS minute
         FROM cpu
-        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_0')) AND time >= '2023-04-09 11:22:40' AND time < '2023-04-09 14:22:40'
-        GROUP BY minute ORDER BY minute;'''
+        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_0')) AND time >= '%s' AND time < '%s'
+        GROUP BY minute ORDER BY minute;'''%(start_time,end_time)
 
     query_181 = '''SELECT time_bucket('300 seconds', time) AS minute,
         max(usage_user) as max_usage_user
