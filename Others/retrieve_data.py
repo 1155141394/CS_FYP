@@ -96,6 +96,7 @@ def s3_select(table_name, beg_t, end_t):
         for line in (com_rec.splitlines()):
             #print(line)
             data.append(line.split(","))
+    print(data)
     df = pd.DataFrame(data)
     file_name = 'tmp.csv'
     df.to_csv('/var/lib/postgresql/'+file_name, index=False, header=False)
