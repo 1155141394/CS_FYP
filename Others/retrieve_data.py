@@ -109,8 +109,8 @@ if __name__ == "__main__":
 
     # Let user input command
     table_name = 'cpu'
-    start_time = '2023-04-09 13:22:40'
-    end_time = '2023-04-09 14:22:40'
+    start_time = '2023-04-09 10:22:40'
+    end_time = '2023-04-09 22:22:40'
 
     cur = conn.cursor()
 
@@ -162,8 +162,8 @@ if __name__ == "__main__":
 
     query_5112 = '''SELECT max(usage_user) as max_usage_user, max(usage_system) as max_usage_system, max(usage_idle) as max_usage_idle, max(usage_nice) as max_usage_nice, max(usage_iowait) as max_usage_iowait, time_bucket('300 seconds', time) AS minute
         FROM cpu
-        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_1')) AND time >= '2023-04-09 09:22:40.646325' AND time < '2023-04-09 21:22:40.646325'
-        GROUP BY minute ORDER BY minute ASC'''
+        WHERE tags_id IN (SELECT id FROM tags WHERE hostname IN ('host_1')) AND time >= '%s' AND time < '%s'
+        GROUP BY minute ORDER BY minute ASC'''%(start_time,end_time)
 
     query_581 = '''SELECT time_bucket('300 seconds', time) AS minute,
         max(usage_user) as max_usage_user, max(usage_system) as max_usage_system, max(usage_idle) as max_usage_idle, max(usage_nice) as max_usage_nice, max(usage_iowait) as max_usage_iowait
