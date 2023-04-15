@@ -109,8 +109,8 @@ if __name__ == "__main__":
 
     # Let user input command
     table_name = 'cpu'
-    start_time = '2023-04-09 14:22:40'
-    end_time = '2023-04-10 02:22:40'
+    start_time = '2023-04-09 20:22:40'
+    end_time = '2023-04-10 08:22:40'
 
     cur = conn.cursor()
 
