@@ -184,7 +184,7 @@ if __name__ == "__main__":
     query_high_cpu_1 = '''SELECT usage_user FROM cpu WHERE usage_user > 90.0 and time >= '%s' AND time < '%s' AND tags_id = 76;'''%(start_time,end_time)
 
     # cur.execute(query_111)
-    cur.execute(query_581)
+    cur.execute(query_max_all_1)
 
     conn.commit()
     print(cur.fetchall())
